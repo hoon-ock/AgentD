@@ -7,7 +7,7 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.docstore.in_memory import InMemoryDocstore
 from langchain.callbacks import get_openai_callback
-from .prompts import SYSTEM, FORMAT_INSTRUCTIONS, PROTOCOL
+from .prompts import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 import faiss
 import os
 from .secret_keys import serper_api_key, openai_api_key
@@ -34,8 +34,8 @@ class agentD:
     ):
         self.tools = tools
         # self.n_design_iterations = n_design_iterations
-        self.system = kwargs.get('system',
-                                 SYSTEM.format(tool_desc="{tool_desc}",
+        self.suffix = kwargs.get('suffix',
+                                 SUFFIX.format(tool_desc="{tool_desc}",
                                         input="{input}",
                                         agent_scratchpad="{agent_scratchpad}"))
                                         # n_design_iterations=self.n_design_iterations))

@@ -18,7 +18,7 @@ SAMPLING_SIZE = 5
 def search(query):
     '''
     This tool performs a search on Google using SerpAPI and returns relevant information for the query.
-    It is useful for retrieving information from the web or when you need to look up current data.
+    It is particularly used for identifying existing drug molecules associated with a specific target protein.
     '''
     search = GoogleSerperAPIWrapper(engine='google', serpapi_api_key=os.getenv("SERPER_API_KEY"))
     results = search.run(query)
@@ -26,6 +26,7 @@ def search(query):
 
 @tool
 def get_uniprot_ids(protein_name: str):
+# def get_uniprot_info(protein_name: str):
     """
     Searches for UniProt IDs based on a given protein name and returns the IDs.
     """
@@ -40,7 +41,7 @@ def get_uniprot_ids(protein_name: str):
         "size": NUM_IDS  # Number of results to retrieve
     }
 
-    #print(f"🔍 Sending API request: {base_url}?query={query}&format=json&size={size}")  # Debugging output
+    #print(f"Sending API request: {base_url}?query={query}&format=json&size={size}")  # Debugging output
 
     try:
         response = requests.get(base_url, params=params)
@@ -119,18 +120,99 @@ def get_seed_molecule(anchor_smiles: str):
     return non_similar_mols[:SAMPLING_SIZE]
     # return random.choice(non_similar_mols)
 
-@tool
-def write_file(input_str: str) -> str:
-    """
-    Write content to a file. Input should be a JSON string.
-    """
+# @tool
+# def write_file(input_str: str) -> str:
+#     """
+#     Write content to a file. Input should be a JSON string.
+#     """
     
-    try:
-        data = json.loads(input_str)
-        filename = data["name"]
+#     try:
+#         data = json.loads(input_str)
+#         filename = data["save_name"]
   
-        with open(filename, "w", encoding="utf-8") as f:
-            f.write(json.dumps(data, indent=4))
-        return f"Saved to {filename}"
-    except Exception as e:
-        return f"Failed to write file: {e}"
+#         with open(filename, "w", encoding="utf-8") as f:
+#             f.write(json.dumps(data, indent=4))
+#         return f"Saved to {filename}"
+#     except Exception as e:
+#         return f"Failed to write file: {e}"
+    
+
+# from https://mehradans92.github.io/dZiner/peptide-hemolytic.html
+# need to define Embedding_model, RetrievalQA_prompt
+# @tool
+# def domain_knowledge(path: str):
+#     '''
+#     This tool derives design guidelines for drug molecule with higher binding affinity by looking through research papers.
+#     This tool takes a path toward the directory where the papers are stored and searches for relevant papers.
+#     It also includes information on the paper citation or DOI.
+#     '''
+#     # check if the files exist in the directory
+#     if not os.path.exists(PAPER_DIR):
+#         return "No papers found in the directory. Use generic design guidelines instead."
+
+#     guide_lines = []
+#     # iterate over the downloaded papers
+#     for paper_file in os.listdir(PAPER_DIR):
+#         # check if the file is a PDF
+#         if not paper_file.endswith('.pdf'):
+#             continue
+#         # construct the full file path
+#         paper_file = os.path.join(PAPER_DIR, paper_file)
+#         text_splitter = CharacterTextSplitter(
+#             chunk_size=1000, chunk_overlap=50)
+#         pages = PyPDFLoader(paper_file).load_and_split()
+#         sliced_pages = text_splitter.split_documents(pages)
+#         faiss_vectorstore = FAISS.from_documents(sliced_pages, OpenAIEmbeddings(model=EMBEDDING_MODEL))
+        
+#         llm=ChatOpenAI(
+#                         model_name='gpt-4o',
+#                         temperature=0.3,
+#                         )
+#         g = RetrievalQABypassTokenLimit(faiss_vectorstore, RETRIEVAL_QA, llm)
+#         guide_lines.append(g)
+#     return " ".join(guide_lines)
+
+# @tool
+# def download_relevant_papers(query: str):
+#     """
+#     Searches for and downloads relevant academic papers related to a given research query.
+#     This function uses the Semantic Scholar API to search for papers and download them if they are open access.
+#     Query should be constructed in a way that it can be used to search for relevant papers.
+#     **Example Usage:**
+#         download_relevant_papers("drug molecule for <<target protein>>")
+#     """
+    
+#     print(f"Searching for papers on: {query}")
+
+#     papers_downloaded = []
+
+#     # Step 1: Search Semantic Scholar
+#     SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/search"
+#     headers = {"x-api-key": "P5pZs85BTC4MGCCNIQaDPaO2ktEIVZI08JKKBTox"}  # Replace with a valid API key
+
+#     params = {
+#         "query": query,
+#         "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
+#         "limit": MAX_PAPERS
+#     }
+
+#     response = requests.get(SEMANTIC_SCHOLAR_API, headers=headers, params=params)
+
+#     if response.status_code == 200:
+#         results = response.json().get("data", [])
+#         for paper in results:
+#             title = paper.get("title", "Untitled")  # Default to 'Untitled' if title is missing
+#             open_access_pdf = paper.get("openAccessPdf")  # Get the dictionary (could be None)
+  
+#             if isinstance(open_access_pdf, dict):  # Ensure it's a dictionary
+#                 pdf_url = open_access_pdf.get("url")
+#                 if pdf_url:
+#                     file_path = download_pdf(pdf_url, title, PAPER_DIR)
+#                     if file_path:
+#                         papers_downloaded.append(file_path)
+#                     time.sleep(2)
+#                 # papers_downloaded.append(file_path)
+#     else:
+#         print("Error fetching papers from Semantic Scholar.")
+
+#     return papers_downloaded
