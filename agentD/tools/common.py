@@ -8,7 +8,7 @@ def save_results(input_str: str) -> str:
     
     try:
         data = json.loads(input_str)
-        filename = data["save_name"]
+        filename = data["save_name"]+".json"
   
         with open(filename, "w", encoding="utf-8") as f:
             f.write(json.dumps(data, indent=4))

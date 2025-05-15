@@ -10,7 +10,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 NUM_IDS = 1
-SIMILARITY_THRESHOLD = 40
+SIMILARITY_THRESHOLD = 90
+DISSIMILARITY_THRESHOLD = 40
 SAMPLING_SIZE = 5
 
 
@@ -29,6 +30,7 @@ def get_uniprot_ids(protein_name: str):
 # def get_uniprot_info(protein_name: str):
     """
     Searches for UniProt IDs based on a given protein name and returns the IDs.
+    Strictly pass the protein name itself, like "TP53" or "EGFR".
     """
     import requests
 
@@ -49,7 +51,8 @@ def get_uniprot_ids(protein_name: str):
         data = response.json()
 
         if "results" in data and len(data["results"]) > 0:
-            return data['results'][0]['primaryAccession'] #[entry["primaryAccession"] for entry in data["results"]][0]  # Return the first UniProt ID
+            #return data['results'][0]['primaryAccession'] #[entry["primaryAccession"] for entry in data["results"]][0]  # Return the first UniProt ID
+            return [(d["primaryAccession"], d['proteinDescription']['recommendedName']['fullName']['value']) for d in data["results"] if "primaryAccession" in d]
         else:
             return f"No UniProt IDs found for '{protein_name}'."
 
@@ -69,7 +72,18 @@ def fetch_uniprot_fasta(uniprot_id):
     else:
         print(f"Failed to fetch FASTA for {uniprot_id}. Status Code: {response.status_code}")
         return None
-    
+
+# @tool
+# def dummy(input_str: str) -> str:
+#     """
+#     Dummy function to test the pipeline.
+#     """
+#     p1 from input_str
+#     p2 from input_str
+
+#     result = dummy(p1, p1)
+#     return result
+
 @tool
 def get_drug_smiles(drug_name: str):
     """
@@ -95,30 +109,75 @@ def get_drug_smiles(drug_name: str):
     return anchor_smiles
 
 @tool
-def get_seed_molecule(anchor_smiles: str):
+def get_dissimilar_molecules(anchor_smiles: str):
     """
-    Retrieve seed molecules from ChEMBL for further optimization based on the given SMILES.
-    
-    The returned molecule is structurally distinct from the input and selected from candidates 
-    with similarity below a defined threshold.
+    Retrieve structurally distinct seed molecules from ChEMBL based on the given SMILES string.
+
+    This function identifies candidate molecules with structural dissimilarity to the input molecule, 
+    selecting those with similarity scores below a defined threshold. The selected molecules are 
+    intended for further optimization tasks, providing structurally diverse starting points. 
+    The function returns a randomized subset of these dissimilar molecules up to the defined sampling size.
     """
     similarity = new_client.similarity
-    sim_mols = similarity.filter(smiles=anchor_smiles, similarity=SIMILARITY_THRESHOLD).only(
+    sim_mols = similarity.filter(smiles=anchor_smiles, similarity=DISSIMILARITY_THRESHOLD).only(
         ['molecule_chembl_id', 'similarity', 'molecule_structures']
     )
 
     non_similar_mols = []
     for mol in sim_mols:
-        if ('molecule_structures' in mol and float(mol['similarity']) < SIMILARITY_THRESHOLD+5):
+        if ('molecule_structures' in mol and float(mol['similarity']) < DISSIMILARITY_THRESHOLD+5):
             
             non_similar_mols.append(mol['molecule_structures']['canonical_smiles'])
 
     if not non_similar_mols:
         return None
     random.shuffle(non_similar_mols)
+    non_similar_mols = non_similar_mols[:SAMPLING_SIZE]
+    # save the dissimilar molecules to CSV file
+    output_path = os.path.join(os.getcwd(), "results", "dissimilar_molecules.csv")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("SMILES\n")
+        for smiles in non_similar_mols:
+            f.write(f"{smiles}\n")
+    print(f"Dissimilar molecules saved to {output_path}")
     
-    return non_similar_mols[:SAMPLING_SIZE]
+    return non_similar_mols
     # return random.choice(non_similar_mols)
+
+@tool
+def get_similar_molecules(anchor_smiles: str):
+    """
+    Retrieve structurally similar seed molecules from ChEMBL based on the given SMILES string.
+
+    This function identifies candidate molecules with structural similarity to the input molecule, 
+    selecting those with similarity scores above a defined threshold. The selected molecules are 
+    intended for further optimization tasks, providing structurally analogous starting points. 
+    The function returns a randomized subset of these similar molecules up to the defined sampling size.
+
+    """
+    similarity = new_client.similarity
+    sim_mols = similarity.filter(smiles=anchor_smiles, similarity=SIMILARITY_THRESHOLD).only(
+        ['molecule_chembl_id', 'similarity', 'molecule_structures']
+    )
+
+    similar_mols = []
+    for mol in sim_mols:
+        if ('molecule_structures' in mol and mol['molecule_structures']['canonical_smiles'] != anchor_smiles):
+            similar_mols.append(mol['molecule_structures']['canonical_smiles'])
+
+    if not similar_mols:
+        return None
+    
+    random.shuffle(similar_mols)
+    similar_mols = similar_mols[:SAMPLING_SIZE]
+    # save the similar molecules to CSV file
+    output_path = os.path.join(os.getcwd(), "results", "similar_molecules.csv")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("SMILES\n")
+        for smiles in similar_mols:
+            f.write(f"{smiles}\n")
+    print(f"Similar molecules saved to {output_path}")
+    return similar_mols
 
 # @tool
 # def write_file(input_str: str) -> str:

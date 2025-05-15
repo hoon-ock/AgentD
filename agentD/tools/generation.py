@@ -1,22 +1,77 @@
 from langchain.tools import tool
 import json, yaml, os, subprocess
-import subprocess
+from langchain.prompts import PromptTemplate
+from langchain_community.chat_models import ChatOpenAI  # or your preferred provider (e.g., Ollama, HuggingFaceHub)
+from langchain.chains import LLMChain
 os.environ["PATH"] += os.pathsep + "/home/hoon/dd-agent/alphafold/localcolabfold/colabfold-conda/bin"
 
 REINVENT_PATH = "/home/hoon/dd-agent/REINVENT4"
 
 
 @tool
-def generate_pool(prompt: str):
+def update_reinvent_config(model_type: str = "Reinvent"): # 
     """
-    Run the REINVENT command with specified log and config files.
+    Uses an LLM to update relative paths in a TOML config file. This returns the path to the updated config file.
 
     Args:
-        log_file (str): The log file name to save the output.
+        model_type (str): The model type to use for updating paths. Default is "Reinvent". This can be "Reinvent", "LibInvent", "LinkInvent", "Mol2Mol", or "Pepinvent".
+                       Currently, only "Reinvent" and "Mol2Mol" are supported in the agentD framework.
+    """
+    # Fixed input TOML path
+    prefix = REINVENT_PATH
+    #input_path = "/home/hoon/dd-agent/REINVENT4/configs/toml/staged_learning.toml" #"configs/staged_learning.toml"
+    input_path = os.path.join(prefix, "configs", "toml", "sampling.toml")
+    # Read original TOML content
+    with open(input_path, "r") as f:
+        toml_text = f.read()
+
+    # Create prompt template
+    prompt_template = PromptTemplate(
+    input_variables=["toml", "prefix", "model_type"],
+    template="""
+Your task is to update the provided TOML content as follows:
+
+1. Uncomment the paths in the specified {model_type} section.
+2. Comment out paths in all other model types, "Reinvent", "LibInvent", "LinkInvent", "Mol2Mol", and "Pepinvent".
+3. Prepend the path "{prefix}" to model file paths in the TOML file.
+4. Change the output_file path to "results/{model_type}_sampling.csv".
+5. If there is smiles_file, prepend the path "configs" to the smiles_file path.
+6. Do NOT modify any other commented lines or sections.
+7. Return ONLY the modified TOML content — no additional text, explanations, or formatting.
+
+Strictly output the updated TOML content only, without any ```toml``` prefix or any other surrounding text.
+
+TOML:
+{toml}
+"""
+)
+
+    # Initialize LLM (swap this if you're using Ollama, HuggingFace, etc.)
+    llm = ChatOpenAI(model_name='gpt-4o', temperature=0.0)
+    # llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.0)
+    chain = LLMChain(prompt=prompt_template, llm=llm)
+
+    # Get updated TOML content
+    updated_toml = chain.run(toml=toml_text, prefix=prefix, model_type=model_type)
+    
+    # Save to output file
+    output_path = f'configs/{model_type}.toml'#input_path.split("/")[-1]
+    with open(output_path, "w") as f:
+        f.write(updated_toml)
+
+    print(f"Updated TOML file saved to: {output_path}")
+    return output_path
+
+@tool
+def run_reinvent(config_file: str):
+    """
+    Run the REINVENT command with the specified log and configuration files to generate a pool of candidate molecules.
+    Args:
         config_file (str): The path to the configuration .toml file.
     """
-    log_file="staged_learning.log", 
-    config_file=os.path.join(REINVENT_PATH, "configs/toml/staged_learning.toml")
+    #log_file="staged_learning.log", 
+    #config_file=os.path.join(REINVENT_PATH, "configs/toml/staged_learning.toml")
+    log_file = config_file.replace(".toml", ".log")
     command = [
         "reinvent",
         "-l", log_file,
@@ -32,9 +87,6 @@ def generate_pool(prompt: str):
     except FileNotFoundError:
         return "Error: 'reinvent' command not found. Make sure REINVENT is installed and accessible in your PATH."
 
-@tool
-def run_NAMDagent():
-    pass
 
 @tool
 def generate_structure(data: str):
