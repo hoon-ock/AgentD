@@ -34,7 +34,7 @@ Your task is to update the provided TOML content as follows:
 1. Uncomment the paths in the specified {model_type} section.
 2. Comment out paths in all other model types, "Reinvent", "LibInvent", "LinkInvent", "Mol2Mol", and "Pepinvent".
 3. Prepend the path "{prefix}" to model file paths in the TOML file.
-4. Change the output_file path to "results/{model_type}_sampling.csv".
+4. Change the output_file path to "pool/{model_type}_sampling.csv".
 5. If there is smiles_file, prepend the path "configs" to the smiles_file path.
 6. Do NOT modify any other commented lines or sections.
 7. Return ONLY the modified TOML content — no additional text, explanations, or formatting.
@@ -61,6 +61,23 @@ TOML:
 
     print(f"Updated TOML file saved to: {output_path}")
     return output_path
+
+@tool
+def save_smi_for_mol2mol(smiles: str):
+    """
+    Save the given SMILES string to a file for Mol2Mol implementation. (only for Mol2Mol)
+    The file will be saved in the configs directory with the name "mol2mol.smi".
+
+    Args:
+        smiles (str): The SMILES string to save.
+    """
+
+    os.makedirs("configs", exist_ok=True)
+    
+    with open("configs/mol2mol.smi", "w") as f:
+        f.write(smiles)
+    print(f"SMILES saved to configs/mol2mol.smi")
+    return "smi file updated with the smiles at 'configs/mol2mol.smi'"
 
 @tool
 def run_reinvent(config_file: str):

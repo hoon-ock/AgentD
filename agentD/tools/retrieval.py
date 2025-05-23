@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 NUM_IDS = 1
 SIMILARITY_THRESHOLD = 90
 DISSIMILARITY_THRESHOLD = 40
-SAMPLING_SIZE = 5
+SAMPLING_SIZE = 20
 
 
 @tool
@@ -83,6 +83,22 @@ def fetch_uniprot_fasta(uniprot_id):
 
 #     result = dummy(p1, p1)
 #     return result
+@tool
+def save_results(input_str: str) -> str:
+    """
+    Save content to a file. Input should be a JSON string.
+    """
+    
+    try:
+        data = json.loads(input_str)
+        filename = "extraction.json" #data["save_name"]+".json"
+  
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(json.dumps(data, indent=4))
+        return f"Saved to {filename}"
+    except Exception as e:
+        return f"Failed to write file: {e}"
+
 
 @tool
 def get_drug_smiles(drug_name: str):
@@ -134,7 +150,7 @@ def get_dissimilar_molecules(anchor_smiles: str):
     random.shuffle(non_similar_mols)
     non_similar_mols = non_similar_mols[:SAMPLING_SIZE]
     # save the dissimilar molecules to CSV file
-    output_path = os.path.join(os.getcwd(), "results", "dissimilar_molecules.csv")
+    output_path = os.path.join(os.getcwd(), "pool", "dissimilar_molecules.csv")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("SMILES\n")
         for smiles in non_similar_mols:
@@ -171,7 +187,7 @@ def get_similar_molecules(anchor_smiles: str):
     random.shuffle(similar_mols)
     similar_mols = similar_mols[:SAMPLING_SIZE]
     # save the similar molecules to CSV file
-    output_path = os.path.join(os.getcwd(), "results", "similar_molecules.csv")
+    output_path = os.path.join(os.getcwd(), "pool", "similar_molecules.csv")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("SMILES\n")
         for smiles in similar_mols:

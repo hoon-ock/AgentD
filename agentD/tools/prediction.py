@@ -16,10 +16,53 @@ warnings.filterwarnings('ignore')
 
 CHECKPOINT_PATH = "agentD/tools/BAPULM_results_molformer_reproduce_json.pth"
 ADMET_WAIT_INTERVAL=30
-ADMET_MAX_WAIT_TIME=300
+ADMET_MAX_WAIT_TIME=500
 # set random seed
 random.seed(2102)
 
+# @tool
+# def combine_smiles_files(directory: str):
+#     """
+#     Combines SMILES from all CSV files in a directory into a single CSV file.
+#     Adds an index based on the first letter of the file name and row number.
+
+#     Args:
+#         directory (str): Path to the directory containing the CSV files.
+
+#     """
+#     combined_data = []
+
+#     # Iterate through all files in the directory
+#     for file_name in os.listdir(directory):
+#         if file_name.endswith(".csv"):
+#             file_path = os.path.join(directory, file_name)
+#             try:
+#                 # Read the CSV file
+#                 df = pd.read_csv(file_path)
+
+#                 # Normalize column names to uppercase
+#                 df.columns = df.columns.str.upper()
+#                 #print(df.columns)
+
+#                 # Ensure the 'SMILES' column exists
+#                 if "SMILES" not in df.columns:
+#                     print(f"Skipping {file_name}: No 'SMILES' column found.")
+#                     continue
+
+#                 combined_data.append(df[["SMILES"]])
+#             except Exception as e:
+#                 print(f"Error processing {file_name}: {e}")
+
+#     # Combine all dataframes and save to the output file
+#     if combined_data:
+#         combined_df = pd.concat(combined_data, ignore_index=True)
+#         output_file = os.path.join(directory, "combined_smiles.csv")
+#         combined_df.to_csv(output_file, index=False)
+#         print(f"Combined CSV saved to {output_file}")
+#         return output_file  
+#     else:
+#         print("No valid CSV files found in the directory.")
+#         return None
 
 # from https://github.com/mehradans92/dZiner/blob/main/dziner/tools.py
 @tool
@@ -112,12 +155,13 @@ def drug_chemical_feasibility(smiles: str):
 #     # Return binding affinity score
 #     return affinity.item()
 
-
+#       e.g. {"sequence": "YOUR_SEQUENCE_HERE", "smiles_path": "pool/combined_smiles.csv"}
 @tool
 def predict_affinity_batch(data: str):
     """
     Predicts binding affinities for multiple entries given a list of SMILES strings and their indices.
     To run this tool, you need to provide a JSON dictionary with "sequence" and "smiles_path" keys.
+    "smiles_path" should be a path to a CSV file containing a column named "SMILES".
     Args:
         data: valid JSON dictionary with "sequence" (str) and "smiles_path" (str).
 
@@ -191,8 +235,8 @@ def predict_affinity_batch(data: str):
             #results.append({"Index": idx, "SMILES": smiles, "Affinity": f"Error: {str(e)}"})
             results.append({"SMILES": smiles, "Affinity [pKa]": f"Error: {str(e)}"})
     # Convert results to DataFrame and save as CSV
-    # output_path = os.path.join("property", "affinity_"+smiles_file_path.split("/")[-1])
-    output_path = os.path.join("property", "affinity.csv")
+    output_path = os.path.join("property", "affinity_"+smiles_file_path.split("/")[-1])
+    #output_path = os.path.join("property", "affinity.csv")
     
     df = pd.DataFrame(results)
     df.to_csv(output_path, index=False)
@@ -207,11 +251,9 @@ def get_admet_predictions(csv_file_path):
     properties by interacting with the DeepPK web API. 
 
     Arguments:
-    - csv_file_path (str): Path to a CSV file containing SMILES strings with a header column named 'SMILES'.
+    - csv_file_path (str): Path to a CSV file. e.g. "pool/combined_smiles.csv"
 
-    Returns:
-    - dict: A dictionary containing ADMET predictions, or an error message if the job fails or times out.
-    """
+   """
     
     
     submit_url = "https://biosig.lab.uq.edu.au/deeppk/api/predict"
@@ -256,12 +298,14 @@ def get_admet_predictions(csv_file_path):
                 # with open('property/admet.json', 'w') as f:
                 #     json.dump(result_json, f)
                 df = pd.DataFrame(result_json).T
-                df.to_csv('property/admet.csv', index=False)
+                output_path = os.path.join("property", "admet_"+csv_file_path.split("/")[-1])
+                df.to_csv(output_path, index=False)
+                #df.to_csv('property/admet.csv', index=False)
                 # df = pd.DataFrame.from_dict(result_json['0'], orient='index')
                 # df = df.transpose()
                 # df.to_csv('property/admet.csv', index=False)
 
-            return "ADMET predictions saved to property/admet.csv"
+            return f"ADMET predictions saved to {output_path}"
         except Exception as e:
             return {"error": f"Polling failed: {e}"}
 
@@ -288,24 +332,24 @@ def get_admet_predictions(csv_file_path):
 #         print(f"Error reading the dataset columns: {str(e)}")
 #         return []
     
-# write a function to get this dictionary
-@tool
-def read_dataset(proerty_file_path: str):
-    """
-    Get the dictionary of the first row of the dataframe to understand the dataset.
-    Make sure the file path format is valid.
-    Args:
-        proerty_file_path: Path to the input CSV file.
 
-    Returns:
-        dict: Dictionary representation of the random row in the dataset.
-    """
-    try:
+# @tool
+# def read_dataset(proerty_file_path: str):
+#     """
+#     Get the dictionary of the first row of the dataframe to understand the dataset.
+#     Make sure the file path format is valid.
+#     Args:
+#         proerty_file_path: Path to the input CSV file.
+
+#     Returns:
+#         dict: Dictionary representation of the random row in the dataset.
+#     """
+#     try:
         
-        df = pd.read_csv(proerty_file_path)
-        idx = random.randint(0, len(df)-1)
-        ex_dict = df.iloc[idx].to_dict()
-        return ex_dict
-    except Exception as e:
-        print(f"Error getting the dictionary: {str(e)}")
-        return {}
+#         df = pd.read_csv(proerty_file_path)
+#         idx = random.randint(0, len(df)-1)
+#         ex_dict = df.iloc[idx].to_dict()
+#         return ex_dict
+#     except Exception as e:
+#         print(f"Error getting the dictionary: {str(e)}")
+#         return {}

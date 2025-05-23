@@ -9,7 +9,7 @@ import os, requests, time, sys
 cwd = os.getcwd()
 home_dir = os.path.dirname(os.path.dirname(cwd))
 sys.path.append(home_dir)
-from agentD.prompts import RETRIEVAL_QA
+# from agentD.prompts import RETRIEVAL_QA
 from agentD.utils import download_pdf, RetrievalQABypassTokenLimit
 
 MAX_PAPERS = 10 # Number of papers to download for molecule optimization guideline
@@ -17,41 +17,41 @@ PAPER_DIR = "papers" #"/home/hoon/dd-agent/llm_dd/agentD/papers"
 EMBEDDING_MODEL = 'text-embedding-3-large' 
 # from https://mehradans92.github.io/dZiner/peptide-hemolytic.html
 # with higher binding affinity
-@tool
-def design_guideline(query: str):
-    '''
-    This tool derives design guidelines for drug-like molecule with higher binding affinity by looking through research papers.
-    This tool takes a path toward the directory where the papers are stored and searches for relevant papers.
-    '''
-    # check if the files exist in the directory
-    if not os.path.exists(PAPER_DIR):
-        return "No papers found in the directory. Use generic design guidelines instead."
+# @tool
+# def design_guideline(query: str):
+#     '''
+#     This tool derives design guidelines for drug-like molecule with higher binding affinity by looking through research papers.
+#     This tool takes a path toward the directory where the papers are stored and searches for relevant papers.
+#     '''
+#     # check if the files exist in the directory
+#     if not os.path.exists(PAPER_DIR):
+#         return "No papers found in the directory. Use generic design guidelines instead."
 
-    guide_lines = []
-    # iterate over the downloaded papers
-    for paper_file in os.listdir(PAPER_DIR):
-        # check if the file is a PDF
-        if not paper_file.endswith('.pdf'):
-            continue
-        # construct the full file path
-        paper_file = os.path.join(PAPER_DIR, paper_file)
-        try:
-            text_splitter = CharacterTextSplitter(
-                chunk_size=1000, chunk_overlap=50)
-            pages = PyPDFLoader(paper_file).load_and_split()
-            sliced_pages = text_splitter.split_documents(pages)
-            faiss_vectorstore = FAISS.from_documents(sliced_pages, OpenAIEmbeddings(model=EMBEDDING_MODEL))
+#     guide_lines = []
+#     # iterate over the downloaded papers
+#     for paper_file in os.listdir(PAPER_DIR):
+#         # check if the file is a PDF
+#         if not paper_file.endswith('.pdf'):
+#             continue
+#         # construct the full file path
+#         paper_file = os.path.join(PAPER_DIR, paper_file)
+#         try:
+#             text_splitter = CharacterTextSplitter(
+#                 chunk_size=1000, chunk_overlap=50)
+#             pages = PyPDFLoader(paper_file).load_and_split()
+#             sliced_pages = text_splitter.split_documents(pages)
+#             faiss_vectorstore = FAISS.from_documents(sliced_pages, OpenAIEmbeddings(model=EMBEDDING_MODEL))
 
-            llm=ChatOpenAI(
-                            model_name='gpt-4o',
-                            temperature=0.3,
-                            )
-            g = RetrievalQABypassTokenLimit(faiss_vectorstore, RETRIEVAL_QA, llm)
-            guide_lines.append(g)
-        except Exception as e:
-            print(f"Error processing {paper_file}: {e}")
-            continue
-    return " ".join(guide_lines)
+#             llm=ChatOpenAI(
+#                             model_name='gpt-4o',
+#                             temperature=0.3,
+#                             )
+#             g = RetrievalQABypassTokenLimit(faiss_vectorstore, RETRIEVAL_QA, llm)
+#             guide_lines.append(g)
+#         except Exception as e:
+#             print(f"Error processing {paper_file}: {e}")
+#             continue
+#     return " ".join(guide_lines)
 
 
 
