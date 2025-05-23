@@ -1,0 +1,3 @@
+SMILES,LLM_Assessment,lipinski_rule_of_5,veber_rule,ghose_filter,rule_of_3,pfizer_rule_of_4,oprea_lead_like,fda_criteria,fda_approval_category
+O=C(NS(=O)(=O)c1ccc(N2CCN(CCO)CC2)cc1)c1ccc(N2CCOCC2)c([N+](=O)[O-])c1,"NO. The molecule is not a suitable drug candidate due to poor Caco-2 permeability, potential liver toxicity, and genotoxicity, which are critical issues for drug-likeness.",True,False,False,False,False,False,False,Low
+O=C(NS(=O)(=O)c1ccc(N2CCOCC2)c([N+](=O)[O-])c1)c1ccc(N2CCNCC2)c(Cl)c1,"YES, the molecule is a potential drug candidate for BCL-2, but low Caco-2 permeability and P-glycoprotein interactions are critical issues.",True,True,False,False,False,False,False,Low

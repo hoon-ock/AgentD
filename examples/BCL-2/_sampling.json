@@ -1,0 +1,27 @@
+{
+    "run_type": "sampling",
+    "device": "cuda:0",
+    "use_cuda": true,
+    "tb_logdir": null,
+    "json_out_config": "_sampling.json",
+    "seed": null,
+    "parameters": {
+        "model_file": "/home/hoon/dd-agent/REINVENT4/priors/reinvent.prior",
+        "num_smiles": 157,
+        "smiles_file": null,
+        "target_smiles_path": "",
+        "sample_strategy": "multinomial",
+        "output_file": "pool/Reinvent_sampling.csv",
+        "target_nll_file": "target_nll.csv",
+        "unique_molecules": true,
+        "randomize_smiles": true,
+        "temperature": 1.0
+    },
+    "scoring": null,
+    "scheduler": null,
+    "responder": null,
+    "stage": null,
+    "learning_strategy": null,
+    "diversity_filter": null,
+    "inception": null
+}
