@@ -1,4 +1,0 @@
-SMILES,LLM_Assessment,lipinski_rule_of_5,veber_rule,ghose_filter,rule_of_3,pfizer_rule_of_4,oprea_lead_like,fda_criteria,fda_approval_category
-O=C(NS(=O)(=O)c1ccc(N2CCN(CCO)CC2)cc1)c1ccc(N2CCOCC2)c([N+](=O)[O-])c1,"YES. The molecule shows potential as a drug candidate targeting BCL-2, with favorable oral bioavailability and intestinal absorption, despite some concerns with permeability and potential liver toxicity.",True,False,False,False,False,False,False,Low
-O=C(NS(=O)(=O)c1ccc(N2CCOCC2)c([N+](=O)[O-])c1)c1ccc(N2CCNCC2)c(Cl)c1,"YES, the molecule is a potential drug candidate for BCL-2 based on its good oral bioavailability and intestinal absorption, despite poor Caco-2 permeability and P-glycoprotein interactions.
-'''",True,True,False,False,False,False,False,Low
