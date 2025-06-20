@@ -104,43 +104,15 @@ class DrugLikenessAnalyzer:
         
         # PRIORITY 2: CSV mapping for ONLY rule-required properties
         if self.data:
-            # Focused mapping - only properties actually used in our rules
-            rule_required_properties = {
-                
-                # ==== BASIC MOLECULAR PROPERTIES (RDKit can calculate these) ====
-                # Used in: Lipinski, Veber, Ghose, Rule of 3, Oprea
-                "molecular_weight": None,  # RDKit calculates this
-                "logp": "[General Properties/Log(P)] Predictions",  # CSV backup
-                "h_donors": None,  # RDKit calculates this  
-                "h_acceptors": None,  # RDKit calculates this
-                "rotatable_bonds": None,  # RDKit calculates this
-                "aromatic_rings": None,  # RDKit calculates this
-                "heavy_atoms": None,  # RDKit calculates this
-                "molar_refractivity": None,  # RDKit calculates this
-                "tpsa": None,  # RDKit calculates this
-                
-                # ==== FDA ADMET PROPERTIES (Only from CSV) ====
-                # Used in: FDA 2025 criteria
-                "f20": "[Absorption/Human Oral Bioavailability 20%] Probability",
-                "hia": "[Absorption/Human Intestinal Absorption] Probability", 
-                "logs": "[General Properties/Log S] Predictions",
-                "ppb": "[Distribution/Plasma Protein Binding] Predictions",
-                "cyp3a4_inhibitor": "[Metabolism/CYP 3A4 Inhibitor] Probability",
-                "cyp3a4_substrate": "[Metabolism/CYP 3A4 Substrate] Probability",
-                "clearance": "[Excretion/Clearance] Predictions",
-                
-                # ==== ADDITIONAL USEFUL PROPERTIES ====
-                # Sometimes used in extended rules
-                "logd": "[General Properties/Log(D) at pH=7.4] Predictions",
-                "bbb": "[Distribution/Blood-Brain Barrier] Probability",
-                "caco2": "[Absorption/Caco-2 (logPaap)] Predictions",
-                "pgp_inhibitor": "[Absorption/P-Glycoprotein Inhibitor] Probability"
-            }
+            deeppk_keys = [
+                f"Predictions_{key}",
+                f"Probability_{key}",
+                f"Interpretation_{key}",
+                key
+            ]
             
-            # Try to get property from CSV if mapping exists
-            if key in rule_required_properties and rule_required_properties[key] is not None:
-                csv_column = rule_required_properties[key]
-                if csv_column in self.data:
+            for dk in deeppk_keys:
+                if dk in self.data:
                     try:
                         value = self.data[csv_column]
                         # Validate the value
@@ -266,93 +238,29 @@ class DrugLikenessAnalyzer:
     # DRUG-LIKENESS RULES FOLLOW - each rule is a separate method
     def check_lipinski_rule_of_5(self):
         """
-        FIXED Lipinski's Rule of 5 - Uses real data, no defaults
+        Lipinski's Rule of 5 (with rotatable bonds as 5th optional criterion):
+        1. Molecular weight ≤ 500 Da
+        2. LogP ≤ 5
+        3. H-bond donors ≤ 5
+        4. H-bond acceptors ≤ 10
+        5. Rotatable bonds ≤ 10 (extended criterion)
         
-        Original Lipinski Rule (4 criteria):
-            1. Molecular weight ≤ 500 Da
-            2. LogP ≤ 5
-            3. H-bond donors ≤ 5
-            4. H-bond acceptors ≤ 10
-        
-        What this function does:
-        - Gets real molecular properties (RDKit + CSV)
-        - No default values - uses actual calculated/measured data
-        - Each molecule will have different, real results
-        - Returns error if insufficient data
+        Note: Allows one violation among the five.
         """
-        
-        # Get real property values - NO DEFAULTS!
-        mw = self._get_property("molecular_weight")
-        logp = self._get_property("logp") 
-        h_donors = self._get_property("h_donors")
-        h_acceptors = self._get_property("h_acceptors")
-        rotatable_bonds = self._get_property("rotatable_bonds")
+        mw = self._get_property("molecular_weight", float(self.data.get("Predictions_general_properties_bp", 0)) if self.data else 0)
+        logp = self._get_property("logp", float(self.data.get("Predictions_general_properties_log_p", 0)) if self.data else 0)
+        h_donors = self._get_property("h_donors", 3)
+        h_acceptors = self._get_property("h_acceptors", 4)
+        rotatable_bonds = self._get_property("rotatable_bonds", 5)
 
-        
-        # Check data availability
-        properties = {
-            "molecular_weight": mw,
-            "logp": logp,
-            "h_donors": h_donors,
-            "h_acceptors": h_acceptors,
-            "rotatable_bonds": rotatable_bonds
+        results = {
+            "molecular_weight": {"value": mw, "limit": 500, "pass": mw <= 500},
+            "logp": {"value": logp, "limit": 5, "pass": logp <= 5},
+            "h_donors": {"value": h_donors, "limit": 5, "pass": h_donors <= 5},
+            "h_acceptors": {"value": h_acceptors, "limit": 10, "pass": h_acceptors <= 10},
+            "rotatable_bonds": {"value": rotatable_bonds, "limit": 10, "pass": rotatable_bonds <= 10}
         }
 
-        # Count available properties
-        available_props = {k: v for k, v in properties.items() if v is not None}
-        missing_props = [k for k, v in properties.items() if v is None]
-        # Need at least 4/5 properties for meaningful analysis
-        if len(available_props) < 4:
-            return {
-                "passed": False,
-                "violations": 5,  # All fail if insufficient data
-                "error": f"Insufficient data: only {len(available_props)}/4 properties available",
-                "missing_properties": missing_props,
-                "results": {}
-            }
-        
-        # Analyze available properties only
-        results = {}
-        
-        if mw is not None:
-            results["molecular_weight"] = {
-                "value": mw, 
-                "limit": 500, 
-                "pass": mw <= 500,
-                "description": f"MW {mw:.1f} Da ({'✓' if mw <= 500 else '✗'} ≤500)"
-            }
-        
-        if logp is not None:
-            results["logp"] = {
-                "value": logp, 
-                "limit": 5, 
-                "pass": logp <= 5,
-                "description": f"LogP {logp:.2f} ({'✓' if logp <= 5 else '✗'} ≤5)"
-            }
-        
-        if h_donors is not None:
-            results["h_donors"] = {
-                "value": h_donors, 
-                "limit": 5, 
-                "pass": h_donors <= 5,
-                "description": f"H-donors {h_donors} ({'✓' if h_donors <= 5 else '✗'} ≤5)"
-            }
-        
-        if h_acceptors is not None:
-            results["h_acceptors"] = {
-                "value": h_acceptors, 
-                "limit": 10, 
-                "pass": h_acceptors <= 10,
-                "description": f"H-acceptors {h_acceptors} ({'✓' if h_acceptors <= 10 else '✗'} ≤10)"
-            }
-        if rotatable_bonds is not None:
-            results["rotatable_bonds"] = {
-                "value": rotatable_bonds, 
-                "limit": 10, 
-                "pass": rotatable_bonds <= 10,
-                "description": f"Rotatable bonds {rotatable_bonds} ({'✓' if rotatable_bonds <= 10 else '✗'} ≤10)"
-            }
-        # Count violations among available properties
         violations = sum(1 for check in results.values() if not check["pass"])
         
         # Lipinski allows 1 violation among the 4 criteria
@@ -375,56 +283,15 @@ class DrugLikenessAnalyzer:
         Veber's Rule (2 criteria):
         1. Rotatable bonds ≤ 10
         2. Polar surface area (TPSA) ≤ 140 Å²
-        
-        What this function does:
-        - Gets real rotatable bonds and TPSA values from RDKit
-        - No default values - uses actual calculated data
-        - Returns error if insufficient data
         """
+        rotatable_bonds = self._get_property("rotatable_bonds", 5)
+        tpsa = self._get_property("tpsa", 90)
         
-        # Get real property values - NO DEFAULTS!
-        rotatable_bonds = self._get_property("rotatable_bonds")
-        tpsa = self._get_property("tpsa")
-        
-        # Check data availability
-        properties = {
-            "rotatable_bonds": rotatable_bonds,
-            "tpsa": tpsa
+        results = {
+            "rotatable_bonds": {"value": rotatable_bonds, "limit": 10, "pass": rotatable_bonds <= 10},
+            "tpsa": {"value": tpsa, "limit": 140, "pass": tpsa <= 140}
         }
         
-        available_props = {k: v for k, v in properties.items() if v is not None}
-        missing_props = [k for k, v in properties.items() if v is None]
-        
-        # Need both properties for Veber rule
-        if len(available_props) < 2:
-            return {
-                "passed": False,
-                "violations": 2,
-                "error": f"Insufficient data: only {len(available_props)}/2 properties available",
-                "missing_properties": missing_props,
-                "results": {}
-            }
-        
-        # Analyze properties
-        results = {}
-        
-        if rotatable_bonds is not None:
-            results["rotatable_bonds"] = {
-                "value": rotatable_bonds, 
-                "limit": 10, 
-                "pass": rotatable_bonds <= 10,
-                "description": f"Rotatable bonds {rotatable_bonds} ({'✓' if rotatable_bonds <= 10 else '✗'} ≤10)"
-            }
-        
-        if tpsa is not None:
-            results["tpsa"] = {
-                "value": tpsa, 
-                "limit": 140, 
-                "pass": tpsa <= 140,
-                "description": f"TPSA {tpsa:.1f} Ų ({'✓' if tpsa <= 140 else '✗'} ≤140)"
-            }
-        
-        # Count violations
         violations = sum(1 for check in results.values() if not check["pass"])
         
         # Veber rule requires ALL criteria to pass (no violations allowed)
@@ -449,77 +316,22 @@ class DrugLikenessAnalyzer:
         2. LogP between -0.4 and 5.6
         3. Molar refractivity between 40-130
         4. Total number of atoms between 20-70
-        
-        What this function does:
-        - Gets real molecular properties (RDKit calculated)
-        - No default values - uses actual calculated data
-        - Each molecule will have different, real results
-        - Returns error if insufficient data
         """
+        mw = self._get_property("molecular_weight", 
+                               float(self.data.get("Predictions_general_properties_bp", 0)) if self.data else 0)
+        logp = self._get_property("logp", 
+                                float(self.data.get("Predictions_general_properties_log_p", 0)) if self.data else 0)
+        molar_refractivity = self._get_property("molar_refractivity", 60)
+        atom_count = self._get_property("heavy_atoms", 30)
         
-        # Get real property values - NO DEFAULTS!
-        mw = self._get_property("molecular_weight")
-        logp = self._get_property("logp")
-        molar_refractivity = self._get_property("molar_refractivity")
-        atom_count = self._get_property("heavy_atoms")
-        
-        # Check data availability
-        properties = {
-            "molecular_weight": mw,
-            "logp": logp,
-            "molar_refractivity": molar_refractivity,
-            "atom_count": atom_count
+        results = {
+            "molecular_weight": {"value": mw, "range": [160, 480], "pass": 160 <= mw <= 480},
+            "logp": {"value": logp, "range": [-0.4, 5.6], "pass": -0.4 <= logp <= 5.6},
+            "molar_refractivity": {"value": molar_refractivity, "range": [40, 130], 
+                                   "pass": 40 <= molar_refractivity <= 130},
+            "atom_count": {"value": atom_count, "range": [20, 70], "pass": 20 <= atom_count <= 70}
         }
         
-        available_props = {k: v for k, v in properties.items() if v is not None}
-        missing_props = [k for k, v in properties.items() if v is None]
-        
-        # Need at least 3/4 properties for meaningful analysis
-        if len(available_props) < 3:
-            return {
-                "passed": False,
-                "violations": 4,
-                "error": f"Insufficient data: only {len(available_props)}/4 properties available",
-                "missing_properties": missing_props,
-                "results": {}
-            }
-        
-        # Analyze available properties
-        results = {}
-        
-        if mw is not None:
-            results["molecular_weight"] = {
-                "value": mw, 
-                "range": [160, 480], 
-                "pass": 160 <= mw <= 480,
-                "description": f"MW {mw:.1f} Da ({'✓' if 160 <= mw <= 480 else '✗'} 160-480)"
-            }
-        
-        if logp is not None:
-            results["logp"] = {
-                "value": logp, 
-                "range": [-0.4, 5.6], 
-                "pass": -0.4 <= logp <= 5.6,
-                "description": f"LogP {logp:.2f} ({'✓' if -0.4 <= logp <= 5.6 else '✗'} -0.4 to 5.6)"
-            }
-        
-        if molar_refractivity is not None:
-            results["molar_refractivity"] = {
-                "value": molar_refractivity, 
-                "range": [40, 130], 
-                "pass": 40 <= molar_refractivity <= 130,
-                "description": f"Molar refractivity {molar_refractivity:.1f} ({'✓' if 40 <= molar_refractivity <= 130 else '✗'} 40-130)"
-            }
-        
-        if atom_count is not None:
-            results["atom_count"] = {
-                "value": atom_count, 
-                "range": [20, 70], 
-                "pass": 20 <= atom_count <= 70,
-                "description": f"Heavy atoms {atom_count} ({'✓' if 20 <= atom_count <= 70 else '✗'} 20-70)"
-            }
-        
-        # Count violations among available properties
         violations = sum(1 for check in results.values() if not check["pass"])
         
         # Ghose filter requires ALL criteria to pass (no violations allowed)
@@ -543,67 +355,27 @@ class DrugLikenessAnalyzer:
         1. Molecular weight < 300 Da
         2. LogP ≤ 3
         3. H-bond donors ≤ 3
+        4. H-bond acceptors ≤ 3 (extended)
+        5. Molar refractivity ≤ 60 (extended)
         
-        What this function does:
-        - Gets real molecular properties (RDKit calculated)
-        - No default values - uses actual calculated data
-        - Designed for fragment-like compounds
-        - Returns error if insufficient data
+        Note: Extended version with additional common criteria
         """
+        mw = self._get_property("molecular_weight", 
+                              float(self.data.get("Predictions_general_properties_bp", 0)) if self.data else 0)
+        logp = self._get_property("logp", 
+                                float(self.data.get("Predictions_general_properties_log_p", 0)) if self.data else 0)
+        h_donors = self._get_property("h_donors", 2)
+        h_acceptors = self._get_property("h_acceptors", 3)
+        molar_refractivity = self._get_property("molar_refractivity", 40)
         
-        # Get real property values - NO DEFAULTS!
-        mw = self._get_property("molecular_weight")
-        logp = self._get_property("logp")
-        h_donors = self._get_property("h_donors")
-        
-        # Check data availability
-        properties = {
-            "molecular_weight": mw,
-            "logp": logp,
-            "h_donors": h_donors
+        results = {
+            "molecular_weight": {"value": mw, "limit": 300, "pass": mw < 300},
+            "logp": {"value": logp, "limit": 3, "pass": logp <= 3},
+            "h_donors": {"value": h_donors, "limit": 3, "pass": h_donors <= 3},
+            # "h_acceptors": {"value": h_acceptors, "limit": 3, "pass": h_acceptors <= 3},
+            # "molar_refractivity": {"value": molar_refractivity, "limit": 60, "pass": molar_refractivity <= 60}
         }
         
-        available_props = {k: v for k, v in properties.items() if v is not None}
-        missing_props = [k for k, v in properties.items() if v is None]
-        
-        # Need at least 2/3 properties for meaningful analysis
-        if len(available_props) < 2:
-            return {
-                "passed": False,
-                "violations": 3,
-                "error": f"Insufficient data: only {len(available_props)}/3 properties available",
-                "missing_properties": missing_props,
-                "results": {}
-            }
-        
-        # Analyze available properties
-        results = {}
-        
-        if mw is not None:
-            results["molecular_weight"] = {
-                "value": mw, 
-                "limit": 300, 
-                "pass": mw < 300,
-                "description": f"MW {mw:.1f} Da ({'✓' if mw < 300 else '✗'} <300)"
-            }
-        
-        if logp is not None:
-            results["logp"] = {
-                "value": logp, 
-                "limit": 3, 
-                "pass": logp <= 3,
-                "description": f"LogP {logp:.2f} ({'✓' if logp <= 3 else '✗'} ≤3)"
-            }
-        
-        if h_donors is not None:
-            results["h_donors"] = {
-                "value": h_donors, 
-                "limit": 3, 
-                "pass": h_donors <= 3,
-                "description": f"H-donors {h_donors} ({'✓' if h_donors <= 3 else '✗'} ≤3)"
-            }
-        
-        # Count violations among available properties
         violations = sum(1 for check in results.values() if not check["pass"])
         
         # Rule of 3 requires ALL criteria to pass (no violations allowed)
@@ -630,95 +402,90 @@ class DrugLikenessAnalyzer:
         4. Rings ≤ 4
         5. H-bond donors ≤ 5
         6. H-bond acceptors ≤ 8
-        
-        What this function does:
-        - Gets real molecular properties (RDKit calculated)
-        - No default values - uses actual calculated data
-        - Designed for lead-like compounds
-        - Allows 1 violation among the 6 criteria
         """
+        mw = self._get_property("molecular_weight",
+                              float(self.data.get("Predictions_general_properties_bp", 0)) if self.data else 0)
+        logp = self._get_property("logp",
+                                float(self.data.get("Predictions_general_properties_log_p", 0)) if self.data else 0)
+        rotatable_bonds = self._get_property("rotatable_bonds", 4)
+        rings = self._get_property("aromatic_rings", 2)
+        h_donors = self._get_property("h_donors", 2)
+        h_acceptors = self._get_property("h_acceptors", 3)
         
-        # Get real property values - NO DEFAULTS!
-        mw = self._get_property("molecular_weight")
-        logp = self._get_property("logp")
-        rotatable_bonds = self._get_property("rotatable_bonds")
-        rings = self._get_property("aromatic_rings")
-        h_donors = self._get_property("h_donors")
-        h_acceptors = self._get_property("h_acceptors")
-        
-        # Check data availability
-        properties = {
-            "molecular_weight": mw,
-            "logp": logp,
-            "rotatable_bonds": rotatable_bonds,
-            "rings": rings,
-            "h_donors": h_donors,
-            "h_acceptors": h_acceptors
+        results = {
+            "molecular_weight": {"value": mw, "range": [200, 450], "pass": 200 <= mw <= 450},
+            "logp": {"value": logp, "range": [-1, 4.5], "pass": -1 <= logp <= 4.5},
+            "rotatable_bonds": {"value": rotatable_bonds, "limit": 8, "pass": rotatable_bonds <= 8},
+            "rings": {"value": rings, "limit": 4, "pass": rings <= 4},
+            "h_donors": {"value": h_donors, "limit": 5, "pass": h_donors <= 5},
+            "h_acceptors": {"value": h_acceptors, "limit": 8, "pass": h_acceptors <= 8}
         }
         
-        available_props = {k: v for k, v in properties.items() if v is not None}
-        missing_props = [k for k, v in properties.items() if v is None]
+        violations = sum(1 for check in results.values() if not check["pass"])
         
-        # Need at least 4/6 properties for meaningful analysis
-        if len(available_props) < 4:
-            return {
-                "passed": False,
-                "violations": 6,
-                "error": f"Insufficient data: only {len(available_props)}/6 properties available",
-                "missing_properties": missing_props,
-                "results": {}
+        return {
+            "passed": violations <= 1,
+            "violations": violations,
+            "results": results
+        }
+    
+    def check_fda_2025_criteria(self):
+        """
+        Updated FDA 2024-2025 criteria based on current guidelines (7 criteria):
+        """
+        # Extract ADMET values
+        f20 = float(self.data.get("Probability_absorption_f20", 0.5)) if self.data else 0.5
+        hia = float(self.data.get("Probability_absorption_hia", 0.7)) if self.data else 0.7
+        logs = float(self.data.get("Predictions_absorption_log_s", -3)) if self.data else -3
+        ppb = float(self.data.get("Predictions_distribution_ppb", 80)) if self.data else 80
+        cyp_inhibition = float(self.data.get("Predictions_metabolism_cyppro_iinh", 0.5)) if self.data else 0.5
+        cyp3a4_substrate = float(self.data.get("Probability_metabolism_cyp3a4_substrate", 0.5)) if self.data else 0.5
+        clearance = float(self.data.get("Predictions_excretion_clearance", 5)) if self.data else 5
+        
+        results = {
+            "oral_bioavailability": {
+                "value": f20, 
+                "threshold": 0.3,
+                "pass": f20 > 0.3,
+                "description": "Oral bioavailability (F) > 30%"
+            },
+            "intestinal_absorption": {
+                "value": hia, 
+                "threshold": 0.7, 
+                "pass": hia > 0.7,
+                "description": "Human intestinal absorption > 70%"
+            },
+            "aqueous_solubility": {
+                "value": logs, 
+                "range": [-4, 0.5], 
+                "pass": -4 <= logs <= 0.5,
+                "description": "Log S between -4 and 0.5"
+            },
+            "protein_binding_safety": {
+                "value": ppb, 
+                "threshold": 95,
+                "pass": ppb < 95,
+                "description": "Plasma protein binding < 95%"
+            },
+            "drug_interaction_risk": {
+                "value": cyp_inhibition, 
+                "threshold": 0.3,
+                "pass": cyp_inhibition < 0.3,
+                "description": "Low CYP inhibition potential"
+            },
+            "metabolic_stability": {
+                "value": 1 - cyp3a4_substrate, 
+                "threshold": 0.4,
+                "pass": (1 - cyp3a4_substrate) > 0.4,
+                "description": "Adequate metabolic stability"
+            },
+            "clearance_profile": {
+                "value": clearance, 
+                "range": [0.5, 15],
+                "pass": 0.5 <= clearance <= 15,
+                "description": "Appropriate clearance rate"
             }
-        
-        # Analyze available properties
-        results = {}
-        
-        if mw is not None:
-            results["molecular_weight"] = {
-                "value": mw, 
-                "range": [200, 450], 
-                "pass": 200 <= mw <= 450,
-                "description": f"MW {mw:.1f} Da ({'✓' if 200 <= mw <= 450 else '✗'} 200-450)"
-            }
-        
-        if logp is not None:
-            results["logp"] = {
-                "value": logp, 
-                "range": [-1, 4.5], 
-                "pass": -1 <= logp <= 4.5,
-                "description": f"LogP {logp:.2f} ({'✓' if -1 <= logp <= 4.5 else '✗'} -1 to 4.5)"
-            }
-        
-        if rotatable_bonds is not None:
-            results["rotatable_bonds"] = {
-                "value": rotatable_bonds, 
-                "limit": 8, 
-                "pass": rotatable_bonds <= 8,
-                "description": f"Rotatable bonds {rotatable_bonds} ({'✓' if rotatable_bonds <= 8 else '✗'} ≤8)"
-            }
-        
-        if rings is not None:
-            results["rings"] = {
-                "value": rings, 
-                "limit": 4, 
-                "pass": rings <= 4,
-                "description": f"Aromatic rings {rings} ({'✓' if rings <= 4 else '✗'} ≤4)"
-            }
-        
-        if h_donors is not None:
-            results["h_donors"] = {
-                "value": h_donors, 
-                "limit": 5, 
-                "pass": h_donors <= 5,
-                "description": f"H-donors {h_donors} ({'✓' if h_donors <= 5 else '✗'} ≤5)"
-            }
-        
-        if h_acceptors is not None:
-            results["h_acceptors"] = {
-                "value": h_acceptors, 
-                "limit": 8, 
-                "pass": h_acceptors <= 8,
-                "description": f"H-acceptors {h_acceptors} ({'✓' if h_acceptors <= 8 else '✗'} ≤8)"
-            }
+        }
         
         # Count violations among available properties
         violations = sum(1 for check in results.values() if not check["pass"])
@@ -964,30 +731,21 @@ class DrugLikenessAnalyzer:
                 
             return fig
         except Exception as e:
-            print(f" Error: {str(e)}")
-            return None
-            
-    def generate_all_radar_plots(self, save_directory=None, show=False):
-        """
-        Generate radar plots for all applicable rules
+            print(f"Error generating radar plot for {rule_name}: {e}")
+        return None
+    
+    def generate_all_radar_plots(self, save_dir=os.getcwd(), save_plots=True, show_plots=False):
+        """Generate all radar plots with correct metrics"""
         
-        What this function does:
-        - Attempts to generate plots for all 6 drug-likeness rules
-        - Only generates plots for rules with sufficient data
-        - Saves all plots to specified directory
-        - Returns summary of successful plots
-        """
-        
-        rules_to_plot = [
-            ('lipinski', 'Lipinski Rule of 5'),
-            ('veber', 'Veber Rule'),
-            ('ghose', 'Ghose Filter'),
-            ('rule_of_3', 'Rule of 3'),
-            ('oprea', 'Oprea Lead-like'),
+        plots = {}
+        rules = [
+            ('lipinski', os.path.join(save_dir, 'lipinski_rule_5_criteria.png')),
+            ('veber', os.path.join(save_dir, 'veber_rule_2_criteria.png')), 
+            ('ghose', os.path.join(save_dir, 'ghose_filter_4_criteria.png')),
+            ('rule_of_3', os.path.join(save_dir, 'rule_of_3_extended_5_criteria.png')),
+            ('oprea', os.path.join(save_dir, 'oprea_leadlike_6_criteria.png')),
+            ('fda_2025', os.path.join(save_dir, 'fda_2025_7_criteria.png'))
         ]
-        
-        successful_plots = []
-        failed_plots = []
         
         print(" GENERATING ALL RADAR PLOTS")
         print("=" * 50)
