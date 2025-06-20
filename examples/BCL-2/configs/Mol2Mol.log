@@ -1,19 +1,19 @@
-14:59:05 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-05-22
-14:59:05 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Mol2Mol.log configs/Mol2Mol.toml
-14:59:05 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/BCL-2/configs/Mol2Mol.toml using format toml
-14:59:05 <INFO> User hoon on host hoon-Alienware-Aurora-R13
-14:59:05 <INFO> Python version 3.10.17
-14:59:05 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
-14:59:05 <INFO> PyTorch compiled with CUDA version 12.4
-14:59:05 <INFO> RDKit version 2024.09.6
-14:59:05 <INFO> Platform Linux-6.8.0-59-generic-x86_64-with-glibc2.35
-14:59:05 <INFO> CUDA driver version 560.35.03
-14:59:05 <INFO> Number of PyTorch CUDA devices 1
-14:59:05 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
-14:59:05 <INFO> GPU memory: 11744 MiB free, 11931 MiB total
-14:59:05 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/BCL-2/_sampling.json
-14:59:05 <INFO> Starting Sampling
-14:59:06 <ERRO> /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior has invalid hash:
+15:45:39 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-05-29
+15:45:39 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Mol2Mol.log configs/Mol2Mol.toml
+15:45:39 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/BCL-2/configs/Mol2Mol.toml using format toml
+15:45:39 <INFO> User hoon on host hoon-Alienware-Aurora-R13
+15:45:39 <INFO> Python version 3.10.17
+15:45:39 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
+15:45:39 <INFO> PyTorch compiled with CUDA version 12.4
+15:45:39 <INFO> RDKit version 2024.09.6
+15:45:39 <INFO> Platform Linux-6.8.0-59-generic-x86_64-with-glibc2.35
+15:45:39 <INFO> CUDA driver version 560.35.03
+15:45:39 <INFO> Number of PyTorch CUDA devices 1
+15:45:39 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
+15:45:39 <INFO> GPU memory: 11524 MiB free, 11931 MiB total
+15:45:39 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/BCL-2/_sampling.json
+15:45:39 <INFO> Starting Sampling
+15:45:40 <ERRO> /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior has invalid hash:
 { 'comments': [],
   'creation_date': 0,
   'date_format': 'UNIX epoch',
@@ -23,8 +23,8 @@
   'model_id_format': 'uuid.uuid4 3.10.12',
   'origina_data_source': 'ChEMBL 28',
   'updates': []}
-14:59:06 <INFO> Number of network parameters: 17,462,400
-14:59:06 <INFO> Network architecture:
+15:45:40 <INFO> Number of network parameters: 17,462,400
+15:45:40 <INFO> Network architecture:
 EncoderDecoder(
   (encoder): Encoder(
     (layers): ModuleList(
@@ -100,9 +100,9 @@ EncoderDecoder(
     (proj): Linear(in_features=256, out_features=128, bias=True)
   )
 )
-14:59:06 <INFO> Using generator Mol2Mol
-14:59:06 <INFO> Writing sampled SMILES to CSV file pool/Mol2Mol_sampling.csv
-14:59:06 <WARN> randomize_smiles was set to True but the model was not trained with randomized SMILES.  Setting randomize_smiles to False.
-14:59:06 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior
-14:59:10 <INFO> Peak main memory usage: 1365.781 MiB
-14:59:10 <INFO> Finished REINVENT on 2025-05-22
+15:45:40 <INFO> Using generator Mol2Mol
+15:45:40 <INFO> Writing sampled SMILES to CSV file pool/Mol2Mol_sampling.csv
+15:45:40 <WARN> randomize_smiles was set to True but the model was not trained with randomized SMILES.  Setting randomize_smiles to False.
+15:45:40 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior
+15:45:45 <INFO> Peak main memory usage: 1283.266 MiB
+15:45:45 <INFO> Finished REINVENT on 2025-05-29

@@ -4,7 +4,9 @@ from openai import OpenAIError
 from rdkit import Chem
 import requests
 import os
+import yaml
 
+# BOLTZ_YAML_PATH = "configs/boltz.yaml"
 
 # current directory
 # DIR_NAME = 'papers'
@@ -87,3 +89,6 @@ def download_pdf(url: str, title: str, paper_dir: str):
     except Exception as e:
         print(f"Error downloading {title}: {str(e)}")
         return None #f"Error downloading {title}: {str(e)}"
+    
+
+

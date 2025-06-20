@@ -86,16 +86,30 @@ def fetch_uniprot_fasta(uniprot_id):
 @tool
 def save_results(input_str: str) -> str:
     """
-    Save content to a file. Input should be a JSON string.
+    Save content to a file. Input should be a valid JSON string.
     """
     
     try:
+        input_str = input_str.strip()
+        if '\n' in input_str:  # Check if the input string contains newlines
+            input_str - input_str.replace('\n', '')
         data = json.loads(input_str)
         filename = "extraction.json" #data["save_name"]+".json"
   
         with open(filename, "w", encoding="utf-8") as f:
             f.write(json.dumps(data, indent=4))
         return f"Saved to {filename}"
+    # except json.JSONDecodeError:
+    #     return "Invalid JSON string provided."
+    # except Exception as e:
+    #     return f"Failed to write file: {e}"
+    except json.JSONDecodeError:
+        # Fallback: save raw input as text
+        fallback_filename = "extraction.txt"
+        with open(fallback_filename, "w", encoding="utf-8") as f:
+            f.write(input_str)
+        return f"Saved raw input to {fallback_filename}"
+    
     except Exception as e:
         return f"Failed to write file: {e}"
 
@@ -194,6 +208,7 @@ def get_similar_molecules(anchor_smiles: str):
             f.write(f"{smiles}\n")
     print(f"Similar molecules saved to {output_path}")
     return similar_mols
+
 
 # @tool
 # def write_file(input_str: str) -> str:

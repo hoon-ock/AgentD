@@ -1,21 +1,20 @@
 {
   "input": "Create a pool of drug-like molecules based on the existing drug molecule, CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1.",
   "tools": [
-    "name='update_reinvent_config' description='Uses an LLM to update relative paths in a TOML config file. This returns the path to the updated config file.\\n\\nArgs:\\n    model_type (str): The model type to use for updating paths. Default is \"Reinvent\". This can be \"Reinvent\", \"LibInvent\", \"LinkInvent\", \"Mol2Mol\", or \"Pepinvent\".\\n                   Currently, only \"Reinvent\" and \"Mol2Mol\" are supported in the agentD framework.' args_schema=<class 'langchain_core.utils.pydantic.update_reinvent_config'> func=<function update_reinvent_config at 0x74b2e831dfc0>",
-    "name='save_smi_for_mol2mol' description='Save the given SMILES string to a file for Mol2Mol implementation. (only for Mol2Mol)\\nThe file will be saved in the configs directory with the name \"mol2mol.smi\".\\n\\nArgs:\\n    smiles (str): The SMILES string to save.' args_schema=<class 'langchain_core.utils.pydantic.save_smi_for_mol2mol'> func=<function save_smi_for_mol2mol at 0x74b2e831fa30>",
-    "name='run_reinvent' description='Run the REINVENT command with the specified log and configuration files to generate a pool of candidate molecules.\\nArgs:\\n    config_file (str): The path to the configuration .toml file.' args_schema=<class 'langchain_core.utils.pydantic.run_reinvent'> func=<function run_reinvent at 0x74b2e831f9a0>",
-    "name='generate_structure' description='Create a protein-ligand complex structure using Boltz from a given protein sequence and ligand SMILES.\\nThis function first creates a YAML config file for Boltz and then runs the structure prediction.\\nTo run this tool, you need to provide a dictionary with \"sequence\" and \"smiles\" keys.\\nThe sequence should be a string representing the protein sequence, and smiles should be a string\\nrepresenting the ligand SMILES string.\\n\\nArgs:\\n    data: valid JSON Dictionary with \"sequence\" (str) and \"smiles\" (str).' args_schema=<class 'langchain_core.utils.pydantic.generate_structure'> func=<function generate_structure at 0x74b2e831fc70>",
-    "name='search' description='This tool performs a search on Google using SerpAPI and returns relevant information for the query.\\nIt is particularly used for identifying existing drug molecules associated with a specific target protein.' args_schema=<class 'langchain_core.utils.pydantic.search'> func=<function search at 0x74b3fdf20b80>",
-    "name='get_uniprot_ids' description='Searches for UniProt IDs based on a given protein name and returns the IDs.\\nStrictly pass the protein name itself, like \"TP53\" or \"EGFR\".' args_schema=<class 'langchain_core.utils.pydantic.get_uniprot_ids'> func=<function get_uniprot_ids at 0x74b3adf17910>",
-    "name='fetch_uniprot_fasta' description='Fetch the FASTA sequence using the UniProt ID.' args_schema=<class 'langchain_core.utils.pydantic.fetch_uniprot_fasta'> func=<function fetch_uniprot_fasta at 0x74b3adf17be0>",
-    "name='save_results' description='Save content to a file. Input should be a JSON string.' args_schema=<class 'langchain_core.utils.pydantic.save_results'> func=<function save_results at 0x74b3adf17d00>",
-    "name='get_drug_smiles' description='Fetch the drug molecule SMILES of a given drug name from ChEMBL.' args_schema=<class 'langchain_core.utils.pydantic.get_drug_smiles'> func=<function get_drug_smiles at 0x74b3adf17eb0>",
-    "name='get_dissimilar_molecules' description='Retrieve structurally distinct seed molecules from ChEMBL based on the given SMILES string.\\n\\nThis function identifies candidate molecules with structural dissimilarity to the input molecule, \\nselecting those with similarity scores below a defined threshold. The selected molecules are \\nintended for further optimization tasks, providing structurally diverse starting points. \\nThe function returns a randomized subset of these dissimilar molecules up to the defined sampling size.' args_schema=<class 'langchain_core.utils.pydantic.get_dissimilar_molecules'> func=<function get_dissimilar_molecules at 0x74b3adf17e20>",
-    "name='get_similar_molecules' description='Retrieve structurally similar seed molecules from ChEMBL based on the given SMILES string.\\n\\nThis function identifies candidate molecules with structural similarity to the input molecule, \\nselecting those with similarity scores above a defined threshold. The selected molecules are \\nintended for further optimization tasks, providing structurally analogous starting points. \\nThe function returns a randomized subset of these similar molecules up to the defined sampling size.' args_schema=<class 'langchain_core.utils.pydantic.get_similar_molecules'> func=<function get_similar_molecules at 0x74b3adf17d90>",
-    "name='combine_smiles_files' description='Combines SMILES from all CSV files in a directory into a single CSV file.\\nAdds an index based on the first letter of the file name and row number.\\n\\nArgs:\\n    directory (str): Path to the directory containing the CSV files.' args_schema=<class 'langchain_core.utils.pydantic.combine_smiles_files'> func=<function combine_smiles_files at 0x74b3aa100af0>",
-    "name='drug_chemical_feasibility' description='This tool inputs a SMILES of a drug candidate and outputs chemical feasibility, Synthetic Accessibility (SA),\\n  and Quantitative drug-likeness(QED) scores. SA the ease of synthesis of compounds\\n    according to their synthetic complexity which combines starting materials information and structural complexity. \\n    Lower SA, means better synthesiability. QED combines eight physicochemical properties(molecular weight, LogP, \\n    H-bond donors, H-bond acceptors, charge, aromaticity, stereochemistry and solubility), generating a score between 0 and 1.' args_schema=<class 'langchain_core.utils.pydantic.drug_chemical_feasibility'> func=<function drug_chemical_feasibility at 0x74b2e831dd80>",
-    "name='predict_affinity_batch' description='Predicts binding affinities for multiple entries given a list of SMILES strings and their indices.\\nTo run this tool, you need to provide a JSON dictionary with \"sequence\" and \"smiles_path\" keys.\\n\"smiles_path\" should be a path to a CSV file containing a column named \"SMILES\".\\nArgs:\\n    data: valid JSON dictionary with \"sequence\" (str) and \"smiles_path\" (str).' args_schema=<class 'langchain_core.utils.pydantic.predict_affinity_batch'> func=<function predict_affinity_batch at 0x74b2e831de10>",
-    "name='get_admet_predictions' description='This tool predicts ADMET (Absorption, Distribution, Metabolism, Excretion, and Toxicity) \\nproperties by interacting with the DeepPK web API. \\n\\nArguments:\\n- csv_file_path (str): Path to a CSV file containing SMILES strings with a header column named \\'SMILES\\'.\\ne.g. \"pool/combined_smiles.csv\"' args_schema=<class 'langchain_core.utils.pydantic.get_admet_predictions'> func=<function get_admet_predictions at 0x74b2e831df30>"
+    "name='update_reinvent_config' description='Uses an LLM to update relative paths in a TOML config file. This returns the path to the updated config file.\\n\\nArgs:\\n    model_type (str): The model type to use for updating paths. Default is \"Reinvent\". This can be \"Reinvent\", \"LibInvent\", \"LinkInvent\", \"Mol2Mol\", or \"Pepinvent\".\\n                   Currently, only \"Reinvent\" and \"Mol2Mol\" are supported in the agentD framework.' args_schema=<class 'langchain_core.utils.pydantic.update_reinvent_config'> func=<function update_reinvent_config at 0x7bbfe3f08dc0>",
+    "name='save_smi_for_mol2mol' description='Save the given SMILES string to a file for Mol2Mol implementation. (only for Mol2Mol)\\nThe file will be saved in the configs directory with the name \"mol2mol.smi\".\\n\\nArgs:\\n    smiles (str): The SMILES string to save.' args_schema=<class 'langchain_core.utils.pydantic.save_smi_for_mol2mol'> func=<function save_smi_for_mol2mol at 0x7bbfe3f0aef0>",
+    "name='run_reinvent' description='Run the REINVENT command with the specified log and configuration files to generate a pool of candidate molecules.\\nArgs:\\n    config_file (str): The path to the configuration .toml file.' args_schema=<class 'langchain_core.utils.pydantic.run_reinvent'> func=<function run_reinvent at 0x7bbfe3f0ae60>",
+    "name='generate_structure' description='Create a protein-ligand complex structure using Boltz from a given protein sequence and ligand SMILES.\\nThis function first creates a YAML config file for Boltz and then runs the structure prediction.\\nTo run this tool, you need to provide a dictionary with \"sequence\" and \"smiles\" keys.\\nThe sequence should be a string representing the protein sequence, and smiles should be a string\\nrepresenting the ligand SMILES string.\\n\\nArgs:\\n    data: valid JSON Dictionary with \"sequence\" (str) and \"smiles\" (str).' args_schema=<class 'langchain_core.utils.pydantic.generate_structure'> func=<function generate_structure at 0x7bbfe3f0b130>",
+    "name='search' description='This tool performs a search on Google using SerpAPI and returns relevant information for the query.\\nIt is particularly used for identifying existing drug molecules associated with a specific target protein.' args_schema=<class 'langchain_core.utils.pydantic.search'> func=<function search at 0x7bc12b9df0a0>",
+    "name='get_uniprot_ids' description='Searches for UniProt IDs based on a given protein name and returns the IDs.\\nStrictly pass the protein name itself, like \"TP53\" or \"EGFR\".' args_schema=<class 'langchain_core.utils.pydantic.get_uniprot_ids'> func=<function get_uniprot_ids at 0x7bc0d61ea9e0>",
+    "name='fetch_uniprot_fasta' description='Fetch the FASTA sequence using the UniProt ID.' args_schema=<class 'langchain_core.utils.pydantic.fetch_uniprot_fasta'> func=<function fetch_uniprot_fasta at 0x7bc0d61eaa70>",
+    "name='save_results' description='Save content to a file. Input should be a JSON string.' args_schema=<class 'langchain_core.utils.pydantic.save_results'> func=<function save_results at 0x7bc0d61eab90>",
+    "name='get_drug_smiles' description='Fetch the drug molecule SMILES of a given drug name from ChEMBL.' args_schema=<class 'langchain_core.utils.pydantic.get_drug_smiles'> func=<function get_drug_smiles at 0x7bc0d61eac20>",
+    "name='get_dissimilar_molecules' description='Retrieve structurally distinct seed molecules from ChEMBL based on the given SMILES string.\\n\\nThis function identifies candidate molecules with structural dissimilarity to the input molecule, \\nselecting those with similarity scores below a defined threshold. The selected molecules are \\nintended for further optimization tasks, providing structurally diverse starting points. \\nThe function returns a randomized subset of these dissimilar molecules up to the defined sampling size.' args_schema=<class 'langchain_core.utils.pydantic.get_dissimilar_molecules'> func=<function get_dissimilar_molecules at 0x7bc0d61eaf80>",
+    "name='get_similar_molecules' description='Retrieve structurally similar seed molecules from ChEMBL based on the given SMILES string.\\n\\nThis function identifies candidate molecules with structural similarity to the input molecule, \\nselecting those with similarity scores above a defined threshold. The selected molecules are \\nintended for further optimization tasks, providing structurally analogous starting points. \\nThe function returns a randomized subset of these similar molecules up to the defined sampling size.' args_schema=<class 'langchain_core.utils.pydantic.get_similar_molecules'> func=<function get_similar_molecules at 0x7bc0d61eb250>",
+    "name='check_smiles_validity' description='Checks if the provided SMILES string is valid.' args_schema=<class 'langchain_core.utils.pydantic.check_smiles_validity'> func=<function check_smiles_validity at 0x7bc0d59a1cf0>",
+    "name='predict_affinity_batch' description='Predicts binding affinities for multiple entries given a list of SMILES strings and their indices.\\nTo run this tool, you need to provide a JSON dictionary with \"sequence\" and \"smiles_path\" keys.\\n\"smiles_path\" should be a path to a CSV file containing a column named \"SMILES\".\\nArgs:\\n    data: valid JSON dictionary with \"sequence\" (str) and \"smiles_path\" (str).' args_schema=<class 'langchain_core.utils.pydantic.predict_affinity_batch'> func=<function predict_affinity_batch at 0x7bbfe3f08c10>",
+    "name='get_admet_predictions' description='This tool predicts ADMET (Absorption, Distribution, Metabolism, Excretion, and Toxicity) \\nproperties by interacting with the DeepPK web API. \\n\\nArguments:\\n- csv_file_path (str): Path to a CSV file. e.g. \"pool/combined_smiles.csv\"' args_schema=<class 'langchain_core.utils.pydantic.get_admet_predictions'> func=<function get_admet_predictions at 0x7bbfe3f08ca0>"
   ],
   "tool_names": [
     "update_reinvent_config",
@@ -29,8 +28,7 @@
     "get_drug_smiles",
     "get_dissimilar_molecules",
     "get_similar_molecules",
-    "combine_smiles_files",
-    "drug_chemical_feasibility",
+    "check_smiles_validity",
     "predict_affinity_batch",
     "get_admet_predictions"
   ],
@@ -46,76 +44,35 @@
     "Fetch the drug molecule SMILES of a given drug name from ChEMBL.",
     "Retrieve structurally distinct seed molecules from ChEMBL based on the given SMILES string.\n\nThis function identifies candidate molecules with structural dissimilarity to the input molecule, \nselecting those with similarity scores below a defined threshold. The selected molecules are \nintended for further optimization tasks, providing structurally diverse starting points. \nThe function returns a randomized subset of these dissimilar molecules up to the defined sampling size.",
     "Retrieve structurally similar seed molecules from ChEMBL based on the given SMILES string.\n\nThis function identifies candidate molecules with structural similarity to the input molecule, \nselecting those with similarity scores above a defined threshold. The selected molecules are \nintended for further optimization tasks, providing structurally analogous starting points. \nThe function returns a randomized subset of these similar molecules up to the defined sampling size.",
-    "Combines SMILES from all CSV files in a directory into a single CSV file.\nAdds an index based on the first letter of the file name and row number.\n\nArgs:\n    directory (str): Path to the directory containing the CSV files.",
-    "This tool inputs a SMILES of a drug candidate and outputs chemical feasibility, Synthetic Accessibility (SA),\n  and Quantitative drug-likeness(QED) scores. SA the ease of synthesis of compounds\n    according to their synthetic complexity which combines starting materials information and structural complexity. \n    Lower SA, means better synthesiability. QED combines eight physicochemical properties(molecular weight, LogP, \n    H-bond donors, H-bond acceptors, charge, aromaticity, stereochemistry and solubility), generating a score between 0 and 1.",
+    "Checks if the provided SMILES string is valid.",
     "Predicts binding affinities for multiple entries given a list of SMILES strings and their indices.\nTo run this tool, you need to provide a JSON dictionary with \"sequence\" and \"smiles_path\" keys.\n\"smiles_path\" should be a path to a CSV file containing a column named \"SMILES\".\nArgs:\n    data: valid JSON dictionary with \"sequence\" (str) and \"smiles_path\" (str).",
-    "This tool predicts ADMET (Absorption, Distribution, Metabolism, Excretion, and Toxicity) \nproperties by interacting with the DeepPK web API. \n\nArguments:\n- csv_file_path (str): Path to a CSV file containing SMILES strings with a header column named 'SMILES'.\ne.g. \"pool/combined_smiles.csv\""
+    "This tool predicts ADMET (Absorption, Distribution, Metabolism, Excretion, and Toxicity) \nproperties by interacting with the DeepPK web API. \n\nArguments:\n- csv_file_path (str): Path to a CSV file. e.g. \"pool/combined_smiles.csv\""
   ],
   "chat_history": "",
-  "output": "The pool of drug-like molecules has been successfully generated using the REINVENT framework, based on the provided drug molecule.",
+  "output": "The pool of drug-like molecules has been successfully generated using both the Mol2Mol and Reinvent models based on the provided SMILES string.",
   "intermediate_steps": [
     [
-      "tool='get_dissimilar_molecules' tool_input='CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1' log='I will generate a pool of drug-like molecules based on the given SMILES string by following these steps:\\n\\n1. Retrieve structurally distinct molecules in SMILES format from ChEMBL based on the given drug.\\n2. Retrieve structurally similar molecules in SMILES format from ChEMBL based on the given drug.\\n3. Prepare two REINVENT configuration files:\\n   - One for the \"Mol2Mol\" model type.\\n   - One for the \"Reinvent\" model type.\\n4. Execute REINVENT using both configuration files.\\n\\nLet\\'s start by retrieving structurally distinct molecules.\\n\\nAction: get_dissimilar_molecules\\nAction Input: CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1'",
-      [
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc4c(NS(=O)(=O)c5ccc(N[C@H](CCN6CCOCC6)CSc6ccccc6)c([N+](=O)[O-])c5)ncnc4c3)CC2)C1",
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(N[C@@H](CC5CC5)C(=O)N5CCOCC5)c(S(=O)(=O)C(F)(F)F)c4)cc3)CC2)C1",
-        "CC1(C)CC(c2ccc(Cl)cc2)=C2CN3CCN(c4ccc(C(=O)NS(=O)(=O)c5ccc(NC[C@H]6CC[C@](C)(O)CC6)c(Cl)c5)c(N5CCCOc6nc7[nH]ccc7cc65)c4)C[C@H]3COCCCO[C@@H]2C1",
-        "CN(C)CC[C@H](CSc1ccccc1)Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC4=C(c5ccc(Cl)cc5)CCC4)CC3)cc2)cc1[N+](=O)[O-]",
-        "CC(c1ccccc1-c1ccc(Cl)cc1)N1CCN(c2ccc(C(=O)NS(=O)(=O)c3ccc(NN4CCN(C)CC4)c([N+](=O)[O-])c3)c(Oc3cccc4[nH]ccc34)c2)CC1",
-        "CN(C)CC[C@H](Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccccc2)cc1[N+](=O)[O-])c1cccs1",
-        "CN(C)CCCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccc3[nH]ccc3c2)cc1S(=O)(=O)C(F)(F)F",
-        "CN(C)CC[C@H](CSc1ccccc1)Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC4=C(c5ccc(Cl)cc5)CCCC4)CC3)cc2)cc1[N+](=O)[O-]",
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(N[C@H](CCN5CCOCC5)CSc5ccccc5)c(S(=O)(=O)C(F)(F)F)c4)cc3)CC2)C1.Cl.Cl",
-        "Cc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccccc2)cc1",
-        "CN(C)CC[C@H](CSc1ccccc1)Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C/C4=C(\\c5ccc(Cl)cc5)CCCCCC4)CC3)cc2)cc1[N+](=O)[O-]",
-        "O=C(NS(=O)(=O)c1ccc(NCCCN2CCOCC2)c(S(=O)(=O)C(F)(F)F)c1)c1ccc(N2CCN(Cc3ccccc3-c3ccc(Cl)cc3)CC2)cc1Oc1cccc2[nH]ccc12",
-        "CN(C)CCOc1ccc(-c2ccc(Cl)cc2)c(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NN5CCN(C)CC5)c([N+](=O)[O-])c4)c(Oc4cccc5[nH]ccc45)c3)CC2)c1",
-        "CC1(C)CN(c2ccc(S(=O)(=O)NC(=O)c3ccc(N4CCN(Cc5ccccc5-c5ccc(Cl)cc5)CC4)cc3Oc3ccccc3)cc2)C1=O",
-        "CC(c1ccccc1-c1ccc(Cl)cc1)N1CCN(c2ccc(C(=O)NS(=O)(=O)c3ccc(NC4CCN(C)CC4)c([N+](=O)[O-])c3)c(Oc3ccccc3Cl)c2)CC1",
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(OCC5(CN6CCOCC6)COC5)c(S(=O)(=O)C(F)(F)F)c4)cc3)CC2)C1",
-        "COc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccccc2)cc1",
-        "CN(C)CCCOc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccccc2)cc1[N+](=O)[O-]",
-        "CN(C)CCCN(C)c1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccccc4-c4ccc(Cl)cc4)CC3)cc2Oc2ccccc2)cc1[N+](=O)[O-]",
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(N[C@H](CCN5CCOCC5)CSc5ccccc5)c(S(=O)(=O)C(F)(F)F)c4)cc3)CC2)C1"
-      ]
+      "tool='check_smiles_validity' tool_input='CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1' log='Action: check_smiles_validity\\nAction Input: CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1'",
+      "Valid SMILES"
     ],
     [
-      "tool='get_similar_molecules' tool_input='CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1' log='I have successfully retrieved structurally distinct molecules in SMILES format based on the given drug. Now, I will proceed to retrieve structurally similar molecules.\\n\\nAction: get_similar_molecules\\nAction Input: CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1'",
-      [
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCN(C6CC6)CC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCC(C)(O)CC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCC(F)(F)CC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "O=C(NS(=O)(=O)c1ccc(NCC2CCOCC2)c([N+](=O)[O-])c1)c1ccc(N2CCN(CC3=C(c4ccc(Cl)cc4)CC4(CC3)CC4)CC2)cc1Oc1cnc2[nH]ccc2c1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCN(C6COC6)CC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CN1CCC(CNc2ccc(S(=O)(=O)NC(=O)c3ccc(N4CCN(CC5=C(c6ccc(Cl)cc6)CC(C)(C)CC5)CC4)cc3Oc3cnc4[nH]ccc4c3)cc2[N+](=O)[O-])CC1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NC[C@H]5CCCOC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NC[C@@H]5CCCOC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCC6(CC5)COC6)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NC[C@@H]5CCN(C6CCOCC6)C5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NC[C@H]5CCN(C6CCOCC6)C5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1",
-        "CC1(C)CCC(c2ccc(Cl)cc2)=C(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)C1",
-        "COc1ccc(C2=C(CN3CCN(c4ccc(C(=O)NS(=O)(=O)c5ccc(NCC6CCOCC6)c([N+](=O)[O-])c5)c(Oc5cnc6[nH]ccc6c5)c4)CC3)CCC(C)(C)C2)cc1",
-        "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1"
-      ]
-    ],
-    [
-      "tool='save_smi_for_mol2mol' tool_input='CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1' log='I have successfully retrieved both structurally distinct and similar molecules in SMILES format based on the given drug. Now, I will proceed to prepare two REINVENT configuration files:\\n\\n1. One for the \"Mol2Mol\" model type.\\n2. One for the \"Reinvent\" model type.\\n\\nLet\\'s start by preparing the configuration file for the \"Mol2Mol\" model type by saving the SMILES string.\\n\\nAction: save_smi_for_mol2mol\\nAction Input: CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1'",
+      "tool='save_smi_for_mol2mol' tool_input='CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1' log='Action: save_smi_for_mol2mol\\nAction Input: CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1'",
       "smi file updated with the smiles at 'configs/mol2mol.smi'"
     ],
     [
-      "tool='update_reinvent_config' tool_input='Mol2Mol' log='I have successfully saved the SMILES string for the \"Mol2Mol\" model type. Now, I will update the REINVENT configuration file for the \"Mol2Mol\" model type.\\n\\nAction: update_reinvent_config\\nAction Input: Mol2Mol'",
+      "tool='update_reinvent_config' tool_input='Mol2Mol' log='Action: update_reinvent_config\\nAction Input: Mol2Mol'",
       "configs/Mol2Mol.toml"
     ],
     [
-      "tool='update_reinvent_config' tool_input='Reinvent' log='I have successfully updated the REINVENT configuration file for the \"Mol2Mol\" model type. Now, I will proceed to update the REINVENT configuration file for the \"Reinvent\" model type.\\n\\nAction: update_reinvent_config\\nAction Input: Reinvent'",
+      "tool='update_reinvent_config' tool_input='Reinvent' log='Action: update_reinvent_config\\nAction Input: Reinvent'",
       "configs/Reinvent.toml"
     ],
     [
-      "tool='run_reinvent' tool_input='configs/Mol2Mol.toml' log='I have successfully updated the REINVENT configuration file for the \"Reinvent\" model type. Now, I will proceed to execute REINVENT using both configuration files.\\n\\nFirst, I will run REINVENT with the \"Mol2Mol\" configuration file.\\n\\nAction: run_reinvent\\nAction Input: configs/Mol2Mol.toml'",
+      "tool='run_reinvent' tool_input='configs/Mol2Mol.toml' log='Action: run_reinvent\\nAction Input: configs/Mol2Mol.toml'",
       "REINVENT execution completed successfully."
     ],
     [
-      "tool='run_reinvent' tool_input='configs/Reinvent.toml' log='I have successfully executed REINVENT using the \"Mol2Mol\" configuration file. Now, I will proceed to execute REINVENT using the \"Reinvent\" configuration file.\\n\\nAction: run_reinvent\\nAction Input: configs/Reinvent.toml'",
+      "tool='run_reinvent' tool_input='configs/Reinvent.toml' log='Action: run_reinvent\\nAction Input: configs/Reinvent.toml'",
       "REINVENT execution completed successfully."
     ]
   ]

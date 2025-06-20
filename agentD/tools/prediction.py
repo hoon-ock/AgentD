@@ -66,26 +66,26 @@ random.seed(2102)
 
 # from https://github.com/mehradans92/dZiner/blob/main/dziner/tools.py
 @tool
-def drug_chemical_feasibility(smiles: str):
+def check_smiles_validity(smiles: str):
     '''
-    This tool inputs a SMILES of a drug candidate and outputs chemical feasibility, Synthetic Accessibility (SA),
-      and Quantitative drug-likeness(QED) scores. SA the ease of synthesis of compounds
-        according to their synthetic complexity which combines starting materials information and structural complexity. 
-        Lower SA, means better synthesiability. QED combines eight physicochemical properties(molecular weight, LogP, 
-        H-bond donors, H-bond acceptors, charge, aromaticity, stereochemistry and solubility), generating a score between 0 and 1.
+    Checks if the provided SMILES string is valid.
     '''
-    smiles = smiles.replace("\n", "")
-    mol = Chem.MolFromSmiles(smiles)
-    if mol is None:
-        return "Invalid SMILES", 0 ,0
+    try:
+        smiles = smiles.strip()
+        smiles = smiles.replace("\n", "")
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return "Invalid SMILES" #, 0 ,0
 
-    # Calculate SA score
-    sa_score = sascorer.calculateScore(mol)
+        # # Calculate SA score
+        # sa_score = sascorer.calculateScore(mol)
 
-    # Optionally calculate QED score
-    # molecular_weight = Descriptors.MolWt(mol)
-    qed_score = QED.qed(mol)
-    return "Valid SMILES", sa_score, qed_score
+        # # Optionally calculate QED score
+        # # molecular_weight = Descriptors.MolWt(mol)
+        # qed_score = QED.qed(mol)
+        return "Valid SMILES" #, sa_score, qed_score
+    except Exception as e:
+        return f"Error checking SMILES validity: {str(e)}"
 
 # @tool
 # def predict_affinity(data: str):
@@ -229,11 +229,11 @@ def predict_affinity_batch(data: str):
 
             # Collect results
             # results.append({"Index": idx, "SMILES": smiles, "Affinity": affinity.item()})
-            results.append({"SMILES": smiles, "Affinity [pKa]": affinity.item()})
+            results.append({"SMILES": smiles, "Affinity [pKd]": affinity.item()})
         except Exception as e:
             # Handle any exception and log as an error entry
             #results.append({"Index": idx, "SMILES": smiles, "Affinity": f"Error: {str(e)}"})
-            results.append({"SMILES": smiles, "Affinity [pKa]": f"Error: {str(e)}"})
+            results.append({"SMILES": smiles, "Affinity [pKd]": f"Error: {str(e)}"})
     # Convert results to DataFrame and save as CSV
     output_path = os.path.join("property", "affinity_"+smiles_file_path.split("/")[-1])
     #output_path = os.path.join("property", "affinity.csv")

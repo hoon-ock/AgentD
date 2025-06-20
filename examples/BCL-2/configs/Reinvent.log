@@ -1,19 +1,19 @@
-14:59:13 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-05-22
-14:59:13 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Reinvent.log configs/Reinvent.toml
-14:59:13 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/BCL-2/configs/Reinvent.toml using format toml
-14:59:13 <INFO> User hoon on host hoon-Alienware-Aurora-R13
-14:59:13 <INFO> Python version 3.10.17
-14:59:13 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
-14:59:13 <INFO> PyTorch compiled with CUDA version 12.4
-14:59:13 <INFO> RDKit version 2024.09.6
-14:59:13 <INFO> Platform Linux-6.8.0-59-generic-x86_64-with-glibc2.35
-14:59:13 <INFO> CUDA driver version 560.35.03
-14:59:13 <INFO> Number of PyTorch CUDA devices 1
-14:59:13 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
-14:59:14 <INFO> GPU memory: 11744 MiB free, 11931 MiB total
-14:59:14 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/BCL-2/_sampling.json
-14:59:14 <INFO> Starting Sampling
-14:59:14 <INFO> /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior has valid hash:
+15:45:48 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-05-29
+15:45:48 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Reinvent.log configs/Reinvent.toml
+15:45:48 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/BCL-2/configs/Reinvent.toml using format toml
+15:45:48 <INFO> User hoon on host hoon-Alienware-Aurora-R13
+15:45:48 <INFO> Python version 3.10.17
+15:45:48 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
+15:45:48 <INFO> PyTorch compiled with CUDA version 12.4
+15:45:48 <INFO> RDKit version 2024.09.6
+15:45:48 <INFO> Platform Linux-6.8.0-59-generic-x86_64-with-glibc2.35
+15:45:48 <INFO> CUDA driver version 560.35.03
+15:45:48 <INFO> Number of PyTorch CUDA devices 1
+15:45:48 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
+15:45:48 <INFO> GPU memory: 11524 MiB free, 11931 MiB total
+15:45:48 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/BCL-2/_sampling.json
+15:45:48 <INFO> Starting Sampling
+15:45:48 <INFO> /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior has valid hash:
 { 'comments': [],
   'creation_date': 0,
   'date_format': 'UNIX epoch',
@@ -23,15 +23,15 @@
   'model_id_format': 'uuid.uuid4 3.10.12',
   'origina_data_source': 'ChEMBL 25',
   'updates': []}
-14:59:14 <INFO> Number of network parameters: 5,805,602
-14:59:14 <INFO> Network architecture:
+15:45:48 <INFO> Number of network parameters: 5,805,602
+15:45:48 <INFO> Network architecture:
 RNN(
   (_embedding): Embedding(34, 256)
   (_rnn): LSTM(256, 512, num_layers=3, batch_first=True)
   (_linear): Linear(in_features=512, out_features=34, bias=True)
 )
-14:59:14 <INFO> Using generator Reinvent
-14:59:14 <INFO> Writing sampled SMILES to CSV file pool/Reinvent_sampling.csv
-14:59:14 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior
-14:59:14 <INFO> Peak main memory usage: 1179.141 MiB
-14:59:14 <INFO> Finished REINVENT on 2025-05-22
+15:45:48 <INFO> Using generator Reinvent
+15:45:48 <INFO> Writing sampled SMILES to CSV file pool/Reinvent_sampling.csv
+15:45:48 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior
+15:45:48 <INFO> Peak main memory usage: 1175.871 MiB
+15:45:48 <INFO> Finished REINVENT on 2025-05-29

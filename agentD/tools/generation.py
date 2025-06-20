@@ -3,10 +3,11 @@ import json, yaml, os, subprocess
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI  # or your preferred provider (e.g., Ollama, HuggingFaceHub)
 from langchain.chains import LLMChain
+import torch
 os.environ["PATH"] += os.pathsep + "/home/hoon/dd-agent/alphafold/localcolabfold/colabfold-conda/bin"
 
 REINVENT_PATH = "/home/hoon/dd-agent/REINVENT4"
-
+BOLTZ_YAML_PATH = "configs/boltz.yaml"
 
 @tool
 def update_reinvent_config(model_type: str = "Reinvent"): # 
@@ -104,9 +105,18 @@ def run_reinvent(config_file: str):
     except FileNotFoundError:
         return "Error: 'reinvent' command not found. Make sure REINVENT is installed and accessible in your PATH."
 
+# @tool
+# def save_boltz_config(config_content: str):
+#     """
+#     Save the provided Boltz configuration content to a YAML file.
+#     Args:
+#         config_content (str): The YAML configuration content to save.
+#     """
+
+#     return
 
 @tool
-def generate_structure(data: str):
+def generate_complex_structure(data: str):
     """
     Create a protein-ligand complex structure using Boltz from a given protein sequence and ligand SMILES.
     This function first creates a YAML config file for Boltz and then runs the structure prediction.
@@ -134,7 +144,14 @@ def generate_structure(data: str):
             {"ligand": {"id": "[B]", "smiles": ligand_smiles}},
         ],
     }
-    yaml_filename = "config.yaml" # os.path.join(GEN_PATH, "config.yaml") #
+    yaml_filename = f"configs/{protein_seq[:5]}_{ligand_smiles[:5]}.yaml" #"configs/boltz.yaml"#{protein_seq[:5]}_{ligand_smiles[:5]}.yaml" #"config.yaml" # os.path.join(GEN_PATH, "config.yaml") #
+    # if the file name already exists, append a number to the filename
+    if os.path.exists(yaml_filename):
+        base, ext = os.path.splitext(yaml_filename)
+        counter = 1
+        while os.path.exists(yaml_filename):
+            yaml_filename = f"{base}_{counter}{ext}"
+            counter += 1
     with open(yaml_filename, "w") as file:
         yaml.dump(config_data, file, default_flow_style=False)
 
@@ -143,13 +160,14 @@ def generate_structure(data: str):
     # Step 3: Run Boltz to predict the protein-ligand complex
     boltz_command = f"boltz predict {yaml_filename} --use_msa_server --accelerator gpu --num_workers 20 "
     return "Config file created. Now the user can run Boltz with the command: " + boltz_command
+
     # try:
-    #     torch.cuda.empty_cache() # Clear GPU cache before running Boltzf
+    #     torch.cuda.empty_cache() # Clear GPU cache before running Boltz
     #     subprocess.run(boltz_command, shell=True, check=True)
     #     print("Boltz structure prediction completed.")
-    #     torch.cuda.empty_cache()  # Clear GPU cache after running Boltz
+        
     # except subprocess.CalledProcessError as e:
     #     print(f"Error running Boltz: {e}")
     #     return None
     
-    #return "predicted_structure.pdb"  # Change this based on Boltz output
+    # return "predicted_structure.pdb"  # Change this based on Boltz output

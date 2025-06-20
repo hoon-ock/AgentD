@@ -893,7 +893,7 @@ class DrugLikenessAnalyzer:
             # 4. ACTUAL PROPERTIES (dotted line with markers)
             overall_passed = rule_results['passed']
             molecule_color = '#2E8B57' if overall_passed else '#DC143C'
-            
+            #exact_value_color = 'purple'
             ax.plot(angles, actual_vals, 'o:', linewidth=4, color=molecule_color,
                     alpha=0.9, markersize=12, markerfacecolor=molecule_color,
                     markeredgecolor='white', markeredgewidth=3,
@@ -939,15 +939,15 @@ class DrugLikenessAnalyzer:
             # Legend with clear descriptions
             legend_elements = [
                 plt.Line2D([0], [0], color='lightgreen', lw=8, alpha=0.4, label='Ideal Zone'),
-                plt.Line2D([0], [0], color='darkgreen', lw=3, label='Lower Limit'),
-                plt.Line2D([0], [0], color='green', lw=3, label='Upper Limit'),
-                plt.Line2D([0], [0], color=molecule_color, lw=4, linestyle=':', 
+                # plt.Line2D([0], [0], color='darkgreen', lw=3, label='Lower Limit'),
+                # plt.Line2D([0], [0], color='green', lw=3, label='Upper Limit'),
+                plt.Line2D([0], [0], color='black', lw=4, linestyle=':', 
                         marker='o', markersize=8, label='Actual Properties')
             ]
             
-            plt.legend(handles=legend_elements, loc='upper right', 
-                    bbox_to_anchor=(1.3, 1.0), fontsize=11, 
-                    frameon=True, fancybox=True, shadow=True)
+            # plt.legend(handles=legend_elements, loc='upper right', 
+            #         bbox_to_anchor=(1.3, 1.0), fontsize=14, 
+            #         frameon=True, fancybox=True, shadow=True)
             
             # Layout
             plt.tight_layout()
