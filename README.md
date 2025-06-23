@@ -3,10 +3,9 @@
 ![Test Status](https://img.shields.io/github/actions/workflow/status/hoon-ock/llm-dd/python-app.yml?branch=release)
 ![License](https://img.shields.io/github/license/hoon-ock/llm-dd)
 
-**agentD** is an open-source Python package designed to accelerate drug discovery workflows using Large Language Models (LLMs) and AI-driven tools.  
-It provides modular agents and utilities for tasks such as literature extraction, molecular property prediction, molecule generation, and more.  
-agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics libraries, enabling both automated and interactive research pipelines.
+**agentD** is an open-source Python package designed to accelerate drug discovery workflows using Large Language Models (LLMs) and AI-driven tools. It provides modular agents and utilities for tasks such as literature extraction, molecular property prediction, molecule generation, and more. agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics libraries, enabling both automated and interactive research pipelines.
 
+![agentD Overview](./docs/agentd_overview.png)
 
 ---
 
@@ -56,12 +55,12 @@ agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics 
 
 Example Jupyter notebooks demonstrating the main workflows are provided in the [test_case](http://_vscodecontentref_/2) directory:
 
-1. `1. extraction.ipynb` – Data extraction workflow
-2. `2. qna.ipynb` – Question answering with LLM agent
-3. `3. pooling.ipynb` – Pooling and data aggregation
-4. `4. prediction.ipynb` – Affinity prediction
-5. `5. refinement.ipynb` – Molecule refinement
-6. `6. generation.ipynb` – Molecule generation
+- `1. extraction.ipynb` – Data extraction workflow
+- `2. qna.ipynb` – Question answering with LLM agent
+- `3. pooling.ipynb` – Pooling and data aggregation
+- `4. prediction.ipynb` – Affinity prediction
+- `5. refinement.ipynb` – Molecule refinement
+- `6. generation.ipynb` – Molecule generation
 
 You can run these notebooks step-by-step to see how to use the package for various drug discovery tasks.
 
