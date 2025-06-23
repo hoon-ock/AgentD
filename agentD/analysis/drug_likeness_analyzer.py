@@ -1052,11 +1052,11 @@ class DrugLikenessAnalyzer:
         
         return {
             "smiles": self.smiles,
-            "lipinski_rule_of_5": lipinski,
-            "veber_rule": veber,
-            "ghose_filter": ghose,
-            "rule_of_3": ro3,
-            "oprea_lead_like": oprea,
+            "lipinski_rule_of_5": lipinski['passed'],
+            "veber_rule": veber['passed'],
+            "ghose_filter": ghose['passed'],
+            "rule_of_3": ro3['passed'],
+            "oprea_lead_like": oprea['passed'],
             "summary": {
                 "valid_analyses": len(valid_analyses),
                 "total_rules": len(all_rules),

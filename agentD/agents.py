@@ -10,7 +10,6 @@ from langchain.callbacks import get_openai_callback
 from agentD.prompts.base_template import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 import faiss
 import os
-#from .secret_keys import serper_api_key, openai_api_key
 from configs.secret_keys import serper_api_key, openai_api_key
 import warnings
 warnings.filterwarnings('ignore')
