@@ -10,4 +10,4 @@ _dummy
 examples/*
 _si/*
 agentD/drug_likeness_analyzer copy.py
-*/secret_keys.py
+*/_secret_keys.py
