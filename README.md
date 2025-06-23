@@ -1,7 +1,7 @@
 # agentD
 
-![Test Status](https://img.shields.io/github/actions/workflow/status/yourusername/llm-dd/python-app.yml?label=tests)
-![License](https://img.shields.io/github/license/yourusername/llm-dd)
+![Test Status](https://img.shields.io/github/actions/workflow/status/hoon-ock/llm-dd/python-app.yml?label=tests)
+![License](https://img.shields.io/github/license/hoon-ock/llm-dd)
 
 A package for drug discovery AI agents and tools.
 
@@ -81,5 +81,4 @@ This project is licensed under the MIT License.
 ## Contact
 
 For questions, suggestions, or support, please contact:  
-**Hoon Ock**  
 Email: [jock@andrew.cmu.edu](mailto:jock@andrew.cmu.edu)
