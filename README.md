@@ -20,7 +20,13 @@
     cd llm_dd
     ```
 
-2. **Install dependencies in editable mode:**
+2. **Create and activate a conda environment (recommended):**
+    ```sh
+    conda create -n agentd python=3.10 -y
+    conda activate agentd
+    ```
+
+3. **Install dependencies in editable mode:**
     ```sh
     pip install -e .
     ```
@@ -29,7 +35,7 @@
     pip install -r requirements.txt
     ```
 
-3. **Install REINVENT4 (required for some tools):**
+4. **Install REINVENT4 (required for some tools):**
     ```sh
     git clone https://github.com/MolecularAI/REINVENT4.git
     cd REINVENT4
