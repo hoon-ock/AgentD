@@ -21,6 +21,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Install REINVENT4 extras
+      run: |
+        if [ -d "REINVENT4" ]; then
+          cd REINVENT4
+        elif [ -d "src/REINVENT4" ]; then
+          cd src/REINVENT4
+        else
+          git clone https://github.com/MolecularAI/REINVENT4.git
+          cd REINVENT4
+        fi
+        python install.py cpu
     - name: Run tests
       run: |
         python -m unittest discover tests

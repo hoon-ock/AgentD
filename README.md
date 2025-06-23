@@ -31,8 +31,8 @@
 
 3. **Install REINVENT4 (required for some tools):**
     ```sh
-    git clone https://github.com/MolecularAI/Reinvent.git
-    cd Reinvent
+    git clone https://github.com/MolecularAI/REINVENT4.git
+    cd REINVENT4
     python install.py --help
     python install.py cu124  # or rocm6.2.4, cpu, mac, etc.
     ```
