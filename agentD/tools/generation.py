@@ -5,12 +5,7 @@ from langchain_community.chat_models import ChatOpenAI  # or your preferred prov
 from langchain.chains import LLMChain
 import torch
 from configs.tool_globals import POOL_PATH, REINVENT_PATH
-os.environ["PATH"] += os.pathsep + "/home/hoon/dd-agent/alphafold/localcolabfold/colabfold-conda/bin"
-# file_dir = os.path.dirname(__file__)
-# project_root = os.path.abspath(os.path.join(file_dir, "..", "..", ".."))  # Adjust this path as needed
-
-# REINVENT_PATH = os.path.join(project_root, "REINVENT4")  #"/home/hoon/dd-agent/reinvent" #"/home/hoon/dd-agent/REINVENT4" #"/home/hoon/dd-agent/reinvent" #"/home/hoon/dd-agent/reinvent"
-#"/home/hoon/dd-agent/REINVENT4"
+# os.environ["PATH"] += os.pathsep + "/home/hoon/dd-agent/alphafold/localcolabfold/colabfold-conda/bin"
 
 
 @tool
