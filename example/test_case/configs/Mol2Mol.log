@@ -1,0 +1,108 @@
+00:54:42 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-06-21
+00:54:42 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Mol2Mol.log configs/Mol2Mol.toml
+00:54:42 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/testrun/configs/Mol2Mol.toml using format toml
+00:54:42 <INFO> User hoon on host hoon-Alienware-Aurora-R13
+00:54:42 <INFO> Python version 3.10.18
+00:54:42 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
+00:54:42 <INFO> PyTorch compiled with CUDA version 12.4
+00:54:42 <INFO> RDKit version 2024.09.6
+00:54:42 <INFO> Platform Linux-6.8.0-60-generic-x86_64-with-glibc2.35
+00:54:42 <INFO> CUDA driver version 560.35.03
+00:54:42 <INFO> Number of PyTorch CUDA devices 1
+00:54:42 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
+00:54:43 <INFO> GPU memory: 11671 MiB free, 11931 MiB total
+00:54:43 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/testrun/_sampling.json
+00:54:43 <INFO> Starting Sampling
+00:54:43 <ERRO> /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior has invalid hash:
+{ 'comments': [],
+  'creation_date': 0,
+  'date_format': 'UNIX epoch',
+  'hash_id': 'b67da12a3b4abf1ea4f6d24c0ac58d50',
+  'hash_id_format': 'xxhash.xxh3_128_hex 3.4.1',
+  'model_id': '0c2799f6b12342b3a31b97c755f8f13a',
+  'model_id_format': 'uuid.uuid4 3.10.12',
+  'origina_data_source': 'ChEMBL 28',
+  'updates': []}
+00:54:43 <INFO> Number of network parameters: 17,462,400
+00:54:43 <INFO> Network architecture:
+EncoderDecoder(
+  (encoder): Encoder(
+    (layers): ModuleList(
+      (0-5): 6 x EncoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linears): ModuleList(
+            (0-3): 4 x Linear(in_features=256, out_features=256, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=256, out_features=2048, bias=True)
+          (w_2): Linear(in_features=2048, out_features=256, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (sublayer): ModuleList(
+          (0-1): 2 x SublayerConnection(
+            (norm): LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (norm): LayerNorm()
+  )
+  (decoder): Decoder(
+    (layers): ModuleList(
+      (0-5): 6 x DecoderLayer(
+        (self_attn): MultiHeadedAttention(
+          (linears): ModuleList(
+            (0-3): 4 x Linear(in_features=256, out_features=256, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (src_attn): MultiHeadedAttention(
+          (linears): ModuleList(
+            (0-3): 4 x Linear(in_features=256, out_features=256, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (feed_forward): PositionwiseFeedForward(
+          (w_1): Linear(in_features=256, out_features=2048, bias=True)
+          (w_2): Linear(in_features=2048, out_features=256, bias=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (sublayer): ModuleList(
+          (0-2): 3 x SublayerConnection(
+            (norm): LayerNorm()
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (norm): LayerNorm()
+  )
+  (src_embed): Sequential(
+    (0): Embeddings(
+      (lut): Embedding(128, 256)
+    )
+    (1): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (tgt_embed): Sequential(
+    (0): Embeddings(
+      (lut): Embedding(128, 256)
+    )
+    (1): PositionalEncoding(
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+  )
+  (generator): Generator(
+    (proj): Linear(in_features=256, out_features=128, bias=True)
+  )
+)
+00:54:43 <INFO> Using generator Mol2Mol
+00:54:43 <INFO> Writing sampled SMILES to CSV file pool/Mol2Mol_sampling.csv
+00:54:43 <WARN> randomize_smiles was set to True but the model was not trained with randomized SMILES.  Setting randomize_smiles to False.
+00:54:43 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior
+00:54:46 <INFO> Peak main memory usage: 1359.672 MiB
+00:54:46 <INFO> Finished REINVENT on 2025-06-21

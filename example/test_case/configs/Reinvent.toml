@@ -1,0 +1,40 @@
+
+run_type = "sampling"
+device = "cuda:0"  # set torch device e.g. "cpu"
+json_out_config = "_sampling.json"  # write this TOML to JSON
+
+[parameters]
+
+# Uncomment one of the comment blocks below.  Each generator needs a model
+# file and possibly a SMILES file with seed structures.
+
+## Reinvent: de novo sampling
+model_file = "/home/hoon/dd-agent/REINVENT4/priors/reinvent.prior"
+
+## LibInvent: find R-groups for the given scaffolds
+#model_file = "/home/hoon/dd-agent/REINVENT4/priors/libinvent.prior"
+#smiles_file = "configs/scaffolds.smi"  # 1 scaffold per line with attachment points
+
+## LinkInvent: find a linker/scaffold to link two fragments
+#model_file = "/home/hoon/dd-agent/REINVENT4/priors/linkinvent.prior"
+#smiles_file = "configs/warheads.smi"  # 2 warheads per line separated with '|'
+
+## Mol2Mol: find molecules similar to the provided molecules
+#model_file = "/home/hoon/dd-agent/REINVENT4/priors/mol2mol_medium_similarity.prior"
+#smiles_file = "configs/mol2mol.smi"  # 1 compound per line
+#sample_strategy = "beamsearch"  # multinomial or beamsearch (deterministic)
+#temperature = 1.0 # temperature in multinomial sampling
+
+
+## Pepinvent
+#model_file = "/home/hoon/dd-agent/REINVENT4/priors/pepinvent.prior"
+#smiles_file = "configs/pepinvent.smi"
+#sample_strategy = "beamsearch"  # multinomial or beamsearch (deterministic)
+#temperature = 1.0 # temperature in multinomial sampling
+#tb_logdir = "tb_logs"  # name of the TensorBoard logging directory
+
+output_file = 'pool/Reinvent_sampling.csv'  # sampled SMILES and NLL in CSV format
+
+num_smiles = 157  # number of SMILES to be sampled, 1 per input SMILES
+unique_molecules = true  # if true remove all duplicatesd canonicalize smiles
+randomize_smiles = true # if true shuffle atoms in SMILES randomly

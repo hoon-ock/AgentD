@@ -1,19 +1,27 @@
-from langchain.tools import tool
-from langchain_community.utilities import GoogleSerperAPIWrapper
-from chembl_webresource_client.new_client import new_client
-import requests
-import json
-import random
+# Built-in and standard library
 import os
+import time
+import json
+import requests
 from collections import defaultdict
-import warnings
-warnings.filterwarnings('ignore')
 
-NUM_IDS = 1
-SIMILARITY_THRESHOLD = 90
-DISSIMILARITY_THRESHOLD = 40
-SAMPLING_SIZE = 20
-
+# Third-party libraries (LangChain, ChEMBL)
+from langchain.tools import tool
+from langchain.text_splitter import CharacterTextSplitter
+from langchain_community.chat_models import ChatOpenAI
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_community.utilities import GoogleSerperAPIWrapper
+from langchain_community.vectorstores import FAISS
+from chembl_webresource_client.new_client import new_client
+# Local utilities
+from agentD.utils import download_pdf, RetrievalQABypassTokenLimit
+from configs.tool_globals import UNIPROT_NUM_IDS, MAX_PAPERS, EMBEDDING_MODEL, PAPER_DIR
+# breakpoint()
+# UNIPROT_NUM_IDS = 1
+# MAX_PAPERS = 10 # Number of papers to download for molecule optimization guideline
+# PAPER_DIR = "papers"  # Directory to store downloaded papers
+# EMBEDDING_MODEL = 'text-embedding-3-large' 
 
 @tool
 def search(query):
@@ -40,7 +48,7 @@ def get_uniprot_ids(protein_name: str):
     params = {
         "query": query,
         "format": "json",
-        "size": NUM_IDS  # Number of results to retrieve
+        "size": UNIPROT_NUM_IDS  # Number of results to retrieve
     }
 
     #print(f"Sending API request: {base_url}?query={query}&format=json&size={size}")  # Debugging output
@@ -73,16 +81,7 @@ def fetch_uniprot_fasta(uniprot_id):
         print(f"Failed to fetch FASTA for {uniprot_id}. Status Code: {response.status_code}")
         return None
 
-# @tool
-# def dummy(input_str: str) -> str:
-#     """
-#     Dummy function to test the pipeline.
-#     """
-#     p1 from input_str
-#     p2 from input_str
 
-#     result = dummy(p1, p1)
-#     return result
 @tool
 def save_results(input_str: str) -> str:
     """
@@ -99,10 +98,7 @@ def save_results(input_str: str) -> str:
         with open(filename, "w", encoding="utf-8") as f:
             f.write(json.dumps(data, indent=4))
         return f"Saved to {filename}"
-    # except json.JSONDecodeError:
-    #     return "Invalid JSON string provided."
-    # except Exception as e:
-    #     return f"Failed to write file: {e}"
+
     except json.JSONDecodeError:
         # Fallback: save raw input as text
         fallback_filename = "extraction.txt"
@@ -138,171 +134,93 @@ def get_drug_smiles(drug_name: str):
     
     return anchor_smiles
 
-@tool
-def get_dissimilar_molecules(anchor_smiles: str):
-    """
-    Retrieve structurally distinct seed molecules from ChEMBL based on the given SMILES string.
 
-    This function identifies candidate molecules with structural dissimilarity to the input molecule, 
-    selecting those with similarity scores below a defined threshold. The selected molecules are 
-    intended for further optimization tasks, providing structurally diverse starting points. 
-    The function returns a randomized subset of these dissimilar molecules up to the defined sampling size.
-    """
-    similarity = new_client.similarity
-    sim_mols = similarity.filter(smiles=anchor_smiles, similarity=DISSIMILARITY_THRESHOLD).only(
-        ['molecule_chembl_id', 'similarity', 'molecule_structures']
-    )
 
-    non_similar_mols = []
-    for mol in sim_mols:
-        if ('molecule_structures' in mol and float(mol['similarity']) < DISSIMILARITY_THRESHOLD+5):
-            
-            non_similar_mols.append(mol['molecule_structures']['canonical_smiles'])
-
-    if not non_similar_mols:
-        return None
-    random.shuffle(non_similar_mols)
-    non_similar_mols = non_similar_mols[:SAMPLING_SIZE]
-    # save the dissimilar molecules to CSV file
-    output_path = os.path.join(os.getcwd(), "pool", "dissimilar_molecules.csv")
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write("SMILES\n")
-        for smiles in non_similar_mols:
-            f.write(f"{smiles}\n")
-    print(f"Dissimilar molecules saved to {output_path}")
-    
-    return non_similar_mols
-    # return random.choice(non_similar_mols)
 
 @tool
-def get_similar_molecules(anchor_smiles: str):
+def question_answering(query: str):
+    '''
+    This tool performs question and answering using the downloaded research papers through a Retrieval-Augmented Generation (RAG) approach.
+    It constructs a vector storage of all document embeddings and then performs retrieval and response generation using the provided query.
+    '''
+    # check if the files exist in the directory
+    if not os.path.exists(PAPER_DIR):
+        return "No papers found in the directory. Use generic design guidelines instead."
+
+    documents = []
+    # Iterate over the downloaded papers
+    for paper_file in os.listdir(PAPER_DIR):
+        # Check if the file is a PDF
+        if not paper_file.endswith('.pdf'):
+            continue
+
+        # Construct the full file path
+        paper_file_path = os.path.join(PAPER_DIR, paper_file)
+        try:
+            text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
+            pages = PyPDFLoader(paper_file_path).load_and_split()
+            sliced_pages = text_splitter.split_documents(pages)
+            documents.extend(sliced_pages)
+        except Exception as e:
+            print(f"Error processing {paper_file_path}: {e}")
+            continue
+
+    # Construct VectorStore only once
+    try:
+        if documents:
+            faiss_vectorstore = FAISS.from_documents(documents, OpenAIEmbeddings(model=EMBEDDING_MODEL))
+            llm = ChatOpenAI(model_name='gpt-4o', temperature=0.3)
+            response = RetrievalQABypassTokenLimit(faiss_vectorstore, query, llm)
+            # Perform RAG for the query
+            #response = retriever(query)
+            return response
+        else:
+            return "No valid documents found to construct vector storage."
+    except Exception as e:
+        print(f"Error constructing vector store or during retrieval: {e}")
+        return "Error in retrieval process."
+
+@tool
+def download_relevant_papers(query: str):
     """
-    Retrieve structurally similar seed molecules from ChEMBL based on the given SMILES string.
-
-    This function identifies candidate molecules with structural similarity to the input molecule, 
-    selecting those with similarity scores above a defined threshold. The selected molecules are 
-    intended for further optimization tasks, providing structurally analogous starting points. 
-    The function returns a randomized subset of these similar molecules up to the defined sampling size.
-
+    Searches for and downloads relevant academic papers related to a given research query.
+    This function uses the Semantic Scholar API to search for papers and download them if they are open access.
+    Query should be constructed in a way that it can be used to search for relevant papers.
+    **Example Usage:**
+        download_relevant_papers("drug molecule for <<target protein>>")
     """
-    similarity = new_client.similarity
-    sim_mols = similarity.filter(smiles=anchor_smiles, similarity=SIMILARITY_THRESHOLD).only(
-        ['molecule_chembl_id', 'similarity', 'molecule_structures']
-    )
-
-    similar_mols = []
-    for mol in sim_mols:
-        if ('molecule_structures' in mol and mol['molecule_structures']['canonical_smiles'] != anchor_smiles):
-            similar_mols.append(mol['molecule_structures']['canonical_smiles'])
-
-    if not similar_mols:
-        return None
     
-    random.shuffle(similar_mols)
-    similar_mols = similar_mols[:SAMPLING_SIZE]
-    # save the similar molecules to CSV file
-    output_path = os.path.join(os.getcwd(), "pool", "similar_molecules.csv")
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write("SMILES\n")
-        for smiles in similar_mols:
-            f.write(f"{smiles}\n")
-    print(f"Similar molecules saved to {output_path}")
-    return similar_mols
+    print(f"Searching for papers on: {query}")
 
+    papers_downloaded = []
 
-# @tool
-# def write_file(input_str: str) -> str:
-#     """
-#     Write content to a file. Input should be a JSON string.
-#     """
-    
-#     try:
-#         data = json.loads(input_str)
-#         filename = data["save_name"]
+    # Step 1: Search Semantic Scholar
+    SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/search"
+    headers = {"x-api-key": "P5pZs85BTC4MGCCNIQaDPaO2ktEIVZI08JKKBTox"}  # Replace with a valid API key
+
+    params = {
+        "query": query,
+        "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
+        "limit": MAX_PAPERS
+    }
+
+    response = requests.get(SEMANTIC_SCHOLAR_API, headers=headers, params=params)
+
+    if response.status_code == 200:
+        results = response.json().get("data", [])
+        for paper in results:
+            title = paper.get("title", "Untitled")  # Default to 'Untitled' if title is missing
+            open_access_pdf = paper.get("openAccessPdf")  # Get the dictionary (could be None)
   
-#         with open(filename, "w", encoding="utf-8") as f:
-#             f.write(json.dumps(data, indent=4))
-#         return f"Saved to {filename}"
-#     except Exception as e:
-#         return f"Failed to write file: {e}"
-    
+            if isinstance(open_access_pdf, dict):  # Ensure it's a dictionary
+                pdf_url = open_access_pdf.get("url")
+                if pdf_url:
+                    file_path = download_pdf(pdf_url, title, PAPER_DIR)
+                    if file_path:
+                        papers_downloaded.append(file_path)
+                    time.sleep(2)
+                # papers_downloaded.append(file_path)
+    else:
+        print("Error fetching papers from Semantic Scholar.")
 
-# from https://mehradans92.github.io/dZiner/peptide-hemolytic.html
-# need to define Embedding_model, RetrievalQA_prompt
-# @tool
-# def domain_knowledge(path: str):
-#     '''
-#     This tool derives design guidelines for drug molecule with higher binding affinity by looking through research papers.
-#     This tool takes a path toward the directory where the papers are stored and searches for relevant papers.
-#     It also includes information on the paper citation or DOI.
-#     '''
-#     # check if the files exist in the directory
-#     if not os.path.exists(PAPER_DIR):
-#         return "No papers found in the directory. Use generic design guidelines instead."
-
-#     guide_lines = []
-#     # iterate over the downloaded papers
-#     for paper_file in os.listdir(PAPER_DIR):
-#         # check if the file is a PDF
-#         if not paper_file.endswith('.pdf'):
-#             continue
-#         # construct the full file path
-#         paper_file = os.path.join(PAPER_DIR, paper_file)
-#         text_splitter = CharacterTextSplitter(
-#             chunk_size=1000, chunk_overlap=50)
-#         pages = PyPDFLoader(paper_file).load_and_split()
-#         sliced_pages = text_splitter.split_documents(pages)
-#         faiss_vectorstore = FAISS.from_documents(sliced_pages, OpenAIEmbeddings(model=EMBEDDING_MODEL))
-        
-#         llm=ChatOpenAI(
-#                         model_name='gpt-4o',
-#                         temperature=0.3,
-#                         )
-#         g = RetrievalQABypassTokenLimit(faiss_vectorstore, RETRIEVAL_QA, llm)
-#         guide_lines.append(g)
-#     return " ".join(guide_lines)
-
-# @tool
-# def download_relevant_papers(query: str):
-#     """
-#     Searches for and downloads relevant academic papers related to a given research query.
-#     This function uses the Semantic Scholar API to search for papers and download them if they are open access.
-#     Query should be constructed in a way that it can be used to search for relevant papers.
-#     **Example Usage:**
-#         download_relevant_papers("drug molecule for <<target protein>>")
-#     """
-    
-#     print(f"Searching for papers on: {query}")
-
-#     papers_downloaded = []
-
-#     # Step 1: Search Semantic Scholar
-#     SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/search"
-#     headers = {"x-api-key": "P5pZs85BTC4MGCCNIQaDPaO2ktEIVZI08JKKBTox"}  # Replace with a valid API key
-
-#     params = {
-#         "query": query,
-#         "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
-#         "limit": MAX_PAPERS
-#     }
-
-#     response = requests.get(SEMANTIC_SCHOLAR_API, headers=headers, params=params)
-
-#     if response.status_code == 200:
-#         results = response.json().get("data", [])
-#         for paper in results:
-#             title = paper.get("title", "Untitled")  # Default to 'Untitled' if title is missing
-#             open_access_pdf = paper.get("openAccessPdf")  # Get the dictionary (could be None)
-  
-#             if isinstance(open_access_pdf, dict):  # Ensure it's a dictionary
-#                 pdf_url = open_access_pdf.get("url")
-#                 if pdf_url:
-#                     file_path = download_pdf(pdf_url, title, PAPER_DIR)
-#                     if file_path:
-#                         papers_downloaded.append(file_path)
-#                     time.sleep(2)
-#                 # papers_downloaded.append(file_path)
-#     else:
-#         print("Error fetching papers from Semantic Scholar.")
-
-#     return papers_downloaded
+    return papers_downloaded

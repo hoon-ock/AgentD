@@ -1,0 +1,79 @@
+{
+  "input": "Generate the ligand-protein complex structure for potential drug molecules in the given list ['O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(O)c1)c1ccc(N2CCOCC2)c(Cl)c1', 'O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1', 'O=C(NS(=O)(=O)c1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1'], targeting the BCL-2 protein associated with Lymphocytic leukemia.",
+  "tools": [
+    "name='search' description='This tool performs a search on Google using SerpAPI and returns relevant information for the query.\\nIt is particularly used for identifying existing drug molecules associated with a specific target protein.' args_schema=<class 'langchain_core.utils.pydantic.search'> func=<function search at 0x7542a23136d0>",
+    "name='get_uniprot_ids' description='Searches for UniProt IDs based on a given protein name and returns the IDs.\\nStrictly pass the protein name itself, like \"TP53\" or \"EGFR\".' args_schema=<class 'langchain_core.utils.pydantic.get_uniprot_ids'> func=<function get_uniprot_ids at 0x75424bfb5fc0>",
+    "name='fetch_uniprot_fasta' description='Fetch the FASTA sequence using the UniProt ID.' args_schema=<class 'langchain_core.utils.pydantic.fetch_uniprot_fasta'> func=<function fetch_uniprot_fasta at 0x75424bfb6050>",
+    "name='save_results' description='Save content to a file. Input should be a valid JSON string.' args_schema=<class 'langchain_core.utils.pydantic.save_results'> func=<function save_results at 0x75424bfb6170>",
+    "name='get_drug_smiles' description='Fetch the drug molecule SMILES of a given drug name from ChEMBL.' args_schema=<class 'langchain_core.utils.pydantic.get_drug_smiles'> func=<function get_drug_smiles at 0x75424bfb6200>",
+    "name='question_answering' description='This tool performs question and answering using the downloaded research papers through a Retrieval-Augmented Generation (RAG) approach.\\nIt constructs a vector storage of all document embeddings and then performs retrieval and response generation using the provided query.' args_schema=<class 'langchain_core.utils.pydantic.question_answering'> func=<function question_answering at 0x75424bfb6560>",
+    "name='download_relevant_papers' description='Searches for and downloads relevant academic papers related to a given research query.\\nThis function uses the Semantic Scholar API to search for papers and download them if they are open access.\\nQuery should be constructed in a way that it can be used to search for relevant papers.\\n**Example Usage:**\\n    download_relevant_papers(\"drug molecule for <<target protein>>\")' args_schema=<class 'langchain_core.utils.pydantic.download_relevant_papers'> func=<function download_relevant_papers at 0x75424bfb6830>",
+    "name='update_reinvent_config' description='Uses an LLM to update relative paths in a TOML config file. This returns the path to the updated config file.\\n\\nArgs:\\n    model_type (str): The model type to use for updating paths. Default is \"Reinvent\". This can be \"Reinvent\", \"LibInvent\", \"LinkInvent\", \"Mol2Mol\", or \"Pepinvent\".\\n    Currently, only \"Reinvent\" and \"Mol2Mol\" are supported in the agentD framework.' args_schema=<class 'langchain_core.utils.pydantic.update_reinvent_config'> func=<function update_reinvent_config at 0x75424bfb6b00>",
+    "name='save_smi_for_mol2mol' description='Save the given SMILES string to a file for Mol2Mol implementation. (only for Mol2Mol)\\nThe file will be saved in the configs directory with the name \"mol2mol.smi\".\\n\\nArgs:\\n    smiles (str): The SMILES string to save.' args_schema=<class 'langchain_core.utils.pydantic.save_smi_for_mol2mol'> func=<function save_smi_for_mol2mol at 0x75424b700dc0>",
+    "name='run_reinvent' description='Run the REINVENT command with the specified log and configuration files to generate a pool of candidate molecules.\\nArgs:\\n    config_file (str): The path to the configuration .toml file.' args_schema=<class 'langchain_core.utils.pydantic.run_reinvent'> func=<function run_reinvent at 0x7541895c01f0>",
+    "name='generate_complex_structure' description='Create a protein-ligand complex structure using Boltz from a given protein sequence and ligand SMILES.\\nThis function first creates a YAML config file for Boltz and then runs the structure prediction.\\nTo run this tool, you need to provide a dictionary with \"sequence\" and \"smiles\" keys.\\nThe sequence should be a string representing the protein sequence, and smiles should be a string\\nrepresenting the ligand SMILES string.\\n\\nArgs:\\n    data: valid JSON Dictionary with \"sequence\" (str) and \"smiles\" (str).' args_schema=<class 'langchain_core.utils.pydantic.generate_complex_structure'> func=<function generate_complex_structure at 0x7541895c0310>"
+  ],
+  "tool_names": [
+    "search",
+    "get_uniprot_ids",
+    "fetch_uniprot_fasta",
+    "save_results",
+    "get_drug_smiles",
+    "question_answering",
+    "download_relevant_papers",
+    "update_reinvent_config",
+    "save_smi_for_mol2mol",
+    "run_reinvent",
+    "generate_complex_structure"
+  ],
+  "tool_desc": [
+    "This tool performs a search on Google using SerpAPI and returns relevant information for the query.\nIt is particularly used for identifying existing drug molecules associated with a specific target protein.",
+    "Searches for UniProt IDs based on a given protein name and returns the IDs.\nStrictly pass the protein name itself, like \"TP53\" or \"EGFR\".",
+    "Fetch the FASTA sequence using the UniProt ID.",
+    "Save content to a file. Input should be a valid JSON string.",
+    "Fetch the drug molecule SMILES of a given drug name from ChEMBL.",
+    "This tool performs question and answering using the downloaded research papers through a Retrieval-Augmented Generation (RAG) approach.\nIt constructs a vector storage of all document embeddings and then performs retrieval and response generation using the provided query.",
+    "Searches for and downloads relevant academic papers related to a given research query.\nThis function uses the Semantic Scholar API to search for papers and download them if they are open access.\nQuery should be constructed in a way that it can be used to search for relevant papers.\n**Example Usage:**\n    download_relevant_papers(\"drug molecule for <<target protein>>\")",
+    "Uses an LLM to update relative paths in a TOML config file. This returns the path to the updated config file.\n\nArgs:\n    model_type (str): The model type to use for updating paths. Default is \"Reinvent\". This can be \"Reinvent\", \"LibInvent\", \"LinkInvent\", \"Mol2Mol\", or \"Pepinvent\".\n    Currently, only \"Reinvent\" and \"Mol2Mol\" are supported in the agentD framework.",
+    "Save the given SMILES string to a file for Mol2Mol implementation. (only for Mol2Mol)\nThe file will be saved in the configs directory with the name \"mol2mol.smi\".\n\nArgs:\n    smiles (str): The SMILES string to save.",
+    "Run the REINVENT command with the specified log and configuration files to generate a pool of candidate molecules.\nArgs:\n    config_file (str): The path to the configuration .toml file.",
+    "Create a protein-ligand complex structure using Boltz from a given protein sequence and ligand SMILES.\nThis function first creates a YAML config file for Boltz and then runs the structure prediction.\nTo run this tool, you need to provide a dictionary with \"sequence\" and \"smiles\" keys.\nThe sequence should be a string representing the protein sequence, and smiles should be a string\nrepresenting the ligand SMILES string.\n\nArgs:\n    data: valid JSON Dictionary with \"sequence\" (str) and \"smiles\" (str)."
+  ],
+  "chat_history": "",
+  "output": "The protein-ligand complex structures for the BCL-2 protein with the given list of SMILES have been successfully configured. You can run Boltz with the following commands to generate the structures:\n\n1. For SMILES \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(O)c1)c1ccc(N2CCOCC2)c(Cl)c1\":\n   ```\n   boltz predict configs/MAHAG_O=C(N.yaml --use_msa_server --accelerator gpu --num_workers 20\n   ```\n\n2. For SMILES \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1\":\n   ```\n   boltz predict configs/MAHAG_O=C(N_1.yaml --use_msa_server --accelerator gpu --num_workers 20\n   ```\n\n3. For SMILES \"O=C(NS(=O)(=O)c1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1\":\n   ```\n   boltz predict configs/MAHAG_O=C(N_2.yaml --use_msa_server --accelerator gpu --num_workers 20\n   ```\n\nThese commands will generate the complex structures using the Boltz tool.",
+  "intermediate_steps": [
+    [
+      "tool='get_uniprot_ids' tool_input='BCL-2' log='The task is to generate the protein-ligand complex structure for potential drug molecules targeting the BCL-2 protein, which is associated with Lymphocytic leukemia. I will follow the protocol to achieve this:\\n\\n1. Retrieve the UniProt IDs for the BCL-2 protein.\\n2. Decide the most relevant protein for our target.\\n3. Retrieve the FASTA sequence of the BCL-2 protein.\\n4. Search for an existing drug molecule for the BCL-2 protein.\\n5. Retrieve the SMILES from the given list of SMILES.\\n6. Generate the protein-ligand complex structure for the final optimized molecule and protein.\\n\\nLet\\'s begin with the first step.\\n\\nAction: get_uniprot_ids\\nAction Input: \"BCL-2\"'",
+      [
+        [
+          "P10415",
+          "Apoptosis regulator Bcl-2"
+        ]
+      ]
+    ],
+    [
+      "tool='fetch_uniprot_fasta' tool_input='P10415' log='The UniProt ID for the BCL-2 protein is P10415, which corresponds to the Apoptosis regulator Bcl-2. This is the relevant protein for our target. Now, I will proceed to retrieve the FASTA sequence for this protein.\\n\\nAction: fetch_uniprot_fasta\\nAction Input: \"P10415\"'",
+      ">sp|P10415|BCL2_HUMAN Apoptosis regulator Bcl-2 OS=Homo sapiens OX=9606 GN=BCL2 PE=1 SV=2\nMAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPA\nASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLH\nLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEY\nLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\n"
+    ],
+    [
+      "tool='search' tool_input='existing drug molecule for BCL-2 protein' log='The FASTA sequence for the BCL-2 protein has been successfully retrieved. Now, I will search for an existing drug molecule associated with the BCL-2 protein to understand potential interactions and binding affinities.\\n\\nAction: search\\nAction Input: \"existing drug molecule for BCL-2 protein\"'",
+      "Venetoclax, the first FDA-approved BH3 mimetic, specifically targets BCL-2 and has shown efficacy in treating chronic lymphocytic leukemia and other hematological malignancies [74]."
+    ],
+    [
+      "tool='get_drug_smiles' tool_input='Venetoclax' log='Venetoclax is an existing drug molecule that specifically targets the BCL-2 protein and is used in treating chronic lymphocytic leukemia. Now, I will retrieve the SMILES for Venetoclax to compare with the given list of SMILES.\\n\\nAction: get_drug_smiles\\nAction Input: \"Venetoclax\"'",
+      "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1"
+    ],
+    [
+      "tool='generate_complex_structure' tool_input='{\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(O)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}' log='The SMILES for Venetoclax has been retrieved. Now, I will proceed to generate the protein-ligand complex structure for each SMILES in the given list using the BCL-2 protein sequence.\\n\\nI will iterate through each SMILES in the list and generate the complex structure.\\n\\nAction: generate_complex_structure\\nAction Input: {\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(O)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}'",
+      "Config file created. Now the user can run Boltz with the command: boltz predict configs/MAHAG_O=C(N.yaml --use_msa_server --accelerator gpu --num_workers 20 "
+    ],
+    [
+      "tool='generate_complex_structure' tool_input='{\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}' log='Action: generate_complex_structure\\nAction Input: {\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}'",
+      "Config file created. Now the user can run Boltz with the command: boltz predict configs/MAHAG_O=C(N_1.yaml --use_msa_server --accelerator gpu --num_workers 20 "
+    ],
+    [
+      "tool='generate_complex_structure' tool_input='{\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}' log='Action: generate_complex_structure\\nAction Input: {\"sequence\": \"MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK\", \"smiles\": \"O=C(NS(=O)(=O)c1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1\"}'",
+      "Config file created. Now the user can run Boltz with the command: boltz predict configs/MAHAG_O=C(N_2.yaml --use_msa_server --accelerator gpu --num_workers 20 "
+    ]
+  ]
+}

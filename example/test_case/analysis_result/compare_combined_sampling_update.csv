@@ -1,0 +1,87 @@
+Property,Original_SMILES,Updated_SMILES,Original_Value,Updated_Value,Direction
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(Cc3ccccc3Cl)CC2=O)cc1Cl)c1ccc(NCC2CC2)cc1C#N,O=C(NS(=O)(=O)c1ccc(N2CCN(Cc3ccccc3Cl)CC2=O)cc1Cl)c1ccc(NCC2CC2)cc1,-5.79,-5.83,down
+[Absorption/Caco-2 (logPaap)] Predictions,CC(C)CNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C)C(=O)C3)c(Oc3cnc(Cl)s3)c2)cc1C#N,CC(C)CNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C)C(=O)C3)c(Oc3cnc(Cl)s3)c2)cc1C#N,-5.74,-5.74,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(Nc1ccc(N2CCN(CC3CCC3)CC2=O)cc1)c1ccc(Cl)nc1Cl,O=C(Nc1ccc(N2CCN(CC3CCC3)CC2C)cc1)c1ccc(Cl)nc1Cl,-4.54,-4.59,down
+[Absorption/Caco-2 (logPaap)] Predictions,CN(C)CCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C/C=C/c4ccccc4)CC3)c(c2)C#N)cc1F,CN(C)CCNc1ccc(C(=O)c2ccc(N3CCN(C/C=C/c4ccccc4)CC3)c(c2)C#N)cc1F,-5.56,-5.34,up
+[Absorption/Caco-2 (logPaap)] Predictions,COc1ccccc1S(=O)(=O)NC(=O)c1ccc(N2CCN(C)C(=O)C2)c(Oc2cnc(Cl)c(Cl)c2)c1,COc1ccccc1S(=O)(=O)NC(=O)c1ccc(N2CCN(C)C2)c(Oc2cncc(Cl)c2)c1,-5.21,-5.09,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(NC(=O)C2CC2)cc1)c1ccc(N2CCN(CCO)CC2)c(Cl)c1,O=C(NS(=O)(=O)c1ccc(NC(=O)C2CC2)cc1)c1ccc(N2CCN(CC)CC2)c(Cl)c1,-5.88,-5.34,up
+[Toxicity/AMES Mutagenesis] Predictions,O=C(Nc1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)cc1,O=C(Nc1ccc(N2CCOCC2=O)cc1)c1ccc(N2CCOCC2)cc1,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NC)c1ccc(N2CCN(CC3CC3)CC2=O)cc1Oc1cncc(Cl)c1,O=C(NC)c1ccc(N2CCN(CC3CC3)CC2=O)cc1Oc1cnccn1,-4.56,-4.58,down
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(Oc1ccc(N2CCN(Cc3cccs3)CC2=O)cc1)c1ccc(NCC2CC2)c(Cl)c1,Oc1ccc(N2CCN(Cc3cccs3)CC2=O)cc1c1ccc(NCC2CC2)c(Cl)c1,-5.23,-5.37,down
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(C/C=C/c3ccccc3)CC2=O)cc1)c1ccc(NCC2CC2)c([N+](=O)[O-])c1,O=C(NS(=O)(=O)c1ccc(N2CCN(C/C=C/c3ccccc3)CC2=O)cc1)c1ccc(NCC2CC2)cc1,-5.68,-5.58,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(CC(F)(F)F)CC2)cc1)c1ccc(NCC2CC2)cc1C#N,O=C(Nc1ccc(N2CCN(CC(F)(F)F)CC2)cc1)c1ccc(NCC2CC2)cc1C#N,-5.8,-5.07,up
+[Absorption/Caco-2 (logPaap)] Predictions,N#Cc1cc(C(=O)NC(=O)c2ccc(N3CCN(CC4CC4)CC3)cc2Oc2cnccc2Cl)ccc1F,Cc1cc(C(=O)NC(=O)c2ccc(N3CCN(CC4CC4)CC3)cc2Oc2cnccc2Cl)ccc1F,-5.12,-5.12,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCCc1ccccc1NC(=O)c1ccc(N2CCN(CC3CCCC3)[C@@H](C)Oc3cnc(N)c(Cl)c32)cc1[N+](=O)[O-],CCCc1ccccc1NC(=O)c1ccc(N2CCN(CC3CCCC3)[C@@H](C)Oc3cnc(N)c(Cl)c32)cc1O,-5.15,-5.14,up
+[Toxicity/AMES Mutagenesis] Predictions,O=C(Nc1ccc(-c2noc(=O)[nH]2)cc1)c1ccc(N2CCN(CC(F)F)CC2)c(F)c1,O=C(Nc1ccc(-c2occc2)cc1)c1ccc(N2CCN(CC(F)F)CC2)c(F)c1,Toxic,Safe,safe
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCOCC2)cc1)c1ccc(N2CCN(C(=O)OC3CCCC3)CC2)c(F)c1,O=C(Nc1ccc(N2CCOCC2)cc1)c1ccc(N2CCN(C(=O)OC3CCCC3)CC2)c(F)c1,-4.95,-4.94,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(Cc3ccccn3)CC2)cc1Cl)c1ccc(NCC2CC2)c([H])c1,O=C(Nc1ccc(N2CCN(Cc3ccccn3)CC2)cc1)c1ccc(NCC2CC2)c([H])c1,-5.73,-5.1,up
+[Absorption/Caco-2 (logPaap)] Predictions,CC(C)(C)OC(=O)Nc1ccc(S(=O)(=O)Nc2ccc(N3CCN(CCO)CC3)c(F)c2)cc1,CC(C)(C)OC(=O)Nc1ccc(S(=O)(=O)Nc2ccc(N3CCN(CC)CC3)c(F)c2)cc1,-5.4,-5.02,up
+[Absorption/Caco-2 (logPaap)] Predictions,CCC(C)N1CCN(c2ccc(C(=O)NS(=O)(=O)c3ccc(Cl)s3)cc2)C(Oc2cnc(Cl)s2)C1,CCC(C)N1CCN(c2ccc(C(=O)Nc3ccc(Cl)s3)cc2)C(Oc2cnc(Cl)s2)C1,-5.75,-5.28,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(OCCOC)cc1)c1ccc(N2CCN(CC(F)F)CC2)c([N+](=O)[O-])c1,O=C(NS(=O)(=O)c1ccc(OCCOC)cc1)c1ccc(N2CCN(CC(F)F)CC2)c([N+](=O)[O-])c1,-5.48,-5.48,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCOCC2)cc1C#N)c1ccc(C(F)(F)F)nc1O,O=C(NS(=O)(=O)c1ccc(N2CCOCC2)cc1C#N)c1ccc(C(F)(F)F)nc1,-5.71,-5.44,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(c3ccc(Cl)s3)CC2=O)cc1)c1ccc(NC2CCCCC2)cc1,O=C(NS(=O)(=O)c1ccc(N2CCN(c3ccc(Cl)s3)CC2=O)cc1)c1ccc(NC2CCCCC2)cc1,-5.9,-5.9,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCOCC2)c(Cl)c1)c1ccc(N2CCOCC2=O)cc1,O=C(NS(=O)(=O)c1ccc(N2CCOCC2)c(Cl)c1)c1ccc(N2CCOCC2=O)cc1,-5.23,-5.23,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCC(=O)Nc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C)CC3)c(Oc3cncn3C)c2)cc1C,CCC(=O)Nc1ccc(OCC(=O)c2ccc(N3CCN(C)CC3)c(Oc3cncn3C)c2)cc1C,-5.09,-4.89,up
+[Absorption/Caco-2 (logPaap)] Predictions,COc1cccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(C[C@@H]4CC[C@H](C)O4)C3)c3[nH]c(C#N)cc23)c1,COc1cccc(NC(=O)c2ccc(N3CCN(C[C@@H]4CC[C@H](C)O4)C3)c3[nH]c(C#N)cc23)c1,-5.83,-5.28,up
+[Absorption/Caco-2 (logPaap)] Predictions,CC(C)NC(=O)c1ccc(N2CCN(CC3CC3)[C@@H](Oc3cnc(Cl)s3)C2=O)cc1C#N,CC(C)NC(=O)c1ccc(N2CCN(CC3CC3)[C@@H](Oc3cnc(Cl)s3)C2=O)cc1C#N,-4.95,-4.95,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(C3CCCCC3)CC2=O)cc1)c1ccc(NCC2CC2)c(Cl)c1,O=C(NS(=O)(=O)c1ccc(N2CCN(C3CCCCC3)CC2=O)cc1)c1ccc(NCC2CC2)c(Cl)c1,-5.35,-5.35,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(CC3CCCO3)CC2)cc1C#N)c1ccc(N2CCOCC2)c(F)c1,O=C(Nc1ccc(N2CCN(CC3CCCO3)CC2)cc1C#N)c1ccc(N2CCOCC2)c(F)c1,-5.73,-4.97,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1,O=C(Nc1ccc(N2CCNCC2)c(C)c1)c1ccc(N2CCOCC2)c(Cl)c1,-5.41,-5.0,up
+[Absorption/Caco-2 (logPaap)] Predictions,COc1cc(N2CCOCC2)ccc1S(=O)(=O)NC(=O)c1ccc(N2CCN(C)CC2)c(C#N)c1,COc1cc(N2CCOCC2)ccc1OC(=O)c1ccc(N2CCN(C)CC2)c(C#N)c1,-5.88,-4.97,up
+[Absorption/Caco-2 (logPaap)] Predictions,Nc1ccc(Oc2ccc(N3CCN(CC4CC4)CC3)cc2Oc2cncc(Cl)c2)cc1,Nc1ccc(Oc2ccc(N3CCN(CC4CC4)CC3)cc2Oc2cncc(Cl)c2)cc1,-4.99,-4.99,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCC1CN(c2ccc(C(=O)NC(=O)c3ccc(NCC(=O)O)c(Cl)c3)c(O)c2)CCN1,CCC1CN(c2ccc(C(=O)NC(=O)c3ccc(NCC(=O)O)c(Cl)c3)c(O)c2)CCN1,-6.49,-6.49,-
+[Toxicity/AMES Mutagenesis] Predictions,CCCOC(=O)NC(=O)c1ccc(N2CCN(C)CC2=O)c(Oc2cnc(Cl)c(Cl)c2)c1,CCCOC(=O)NC(=O)c1ccc(N2CCN(C)CC2=O)c(Oc2cnc(Cl)cc2)c1,Toxic,Safe,safe
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1cc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC(=O)O)CC3C)c(Oc3cnc(Cl)c(Cl)c3)c2)co1,Cc1cc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC(=O)OC)CC3C)c(Oc3cnc(Cl)c(Cl)c3)c2)co1,-6.21,-5.26,up
+[Absorption/Caco-2 (logPaap)] Predictions,COc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccc(Br)cc4)CC3)c([N+](=O)[O-])c2)cc1O,COc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(Cc4ccc(Br)cc4)CC3)c([N+](=O)[O-])c2)cc1O,-5.38,-5.38,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCCCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC)CC3)c(Oc3cncnc3C)c2)cc1C,CCCCNc1ccc(OCC(=O)c2ccc(N3CCN(CC)CC3)c(Oc3cncnc3C)c2)cc1C,-5.24,-5.09,up
+[Absorption/Caco-2 (logPaap)] Predictions,COc1ccc(NC(=O)c2ccc(N3CCN(CC4CCC(C)(C)O4)CC3)cc2Oc2ccc(F)nc2)cc1,COc1ccc(NC(=O)c2ccc(N3CCN(CC4CC(C)(C)O4)CC3)cc2Oc2ccc(F)nc2)cc1,-4.92,-4.91,up
+[Absorption/Caco-2 (logPaap)] Predictions,C=CCN1CCN(c2ccc(C(=O)Nc3ccc(OC)c(SC)c3)c(Oc3cnc(Cl)[nH]3)c2)CC1,C=CCN1CCN(c2ccc(C(=O)Nc3ccc(OC)c(C)c3)c(Oc3cnc(Cl)[nH]3)c2)CC1,-4.99,-4.98,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(c3ccccn3)CC2=O)cc1NCC1CC1)c1ccc(Cl)s1,O=C(Nc1ccc(N2CCN(c3ccccn3)CC2=O)cc1NCC1CC1)c1ccc(Cl)s1,-6.01,-5.23,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1,O=C(Nc1ccc(N2CCOCC2=O)c(Cl)c1)c1ccc(N2CCOCC2)c(Cl)c1,-5.18,-4.97,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(F)c(Cl)c1)NS(=O)(=O)c1ccc(Oc2cncnc2)c(F)c1,O=C(NS(=O)(=O)c1ccc(F)c(Cl)c1)Nc1ccc(Oc2cncnc2)c(F)c1,-5.74,-5.03,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(N2CCN(Cc3cccs3)CC2)cc1)c1ccc(NC2CCCCC2)c([N+](=O)[O-])c1,O=C(NS(=O)(=O)c1ccc(N2CCN(Cc3cccs3)CC2)cc1)c1ccc(NC2CCCCC2)c([H])c1,-5.5,-5.52,down
+[Absorption/Caco-2 (logPaap)] Predictions,CN(C)c1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC(=O)O)CC3)c(Oc3cnccc3Cl)c2)cc1,CN(C)c1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CC(=O)OC)CC3)c(Oc3cnccc3Cl)c2)cc1,-6.15,-5.13,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(NS(=O)(=O)c1ccc(F)cc1)c1ccc(N2CCN(Cc3ccncc3)CC2)c(C#N)c1,O=C(NS(=O)(=O)c1ccc(F)cc1)c1ccc(N2CCN(Cc3ccncc3)CC2)c(C#N)c1,-5.7,-5.7,-
+[Absorption/Caco-2 (logPaap)] Predictions,C(Cc1cccs1)Nc1ccc2oc(N3Cc4ccccc4C3)nc2c1,C(Cc1ccccc1)Nc1ccc2oc(N3Cc4ccccc4C3)nc2c1,-5.25,-5.14,up
+[Toxicity/Liver Injury I (DILI)] Predictions,Oc1ccc(C=Cc2cc(O)c(O)cc2)cc1,Oc1ccc(C=Cc2ccc(O)cc2)cc1,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1ccc(-c2cc(C(=O)OC3CCCCCC3)nn2-c2ccc(-n3cncn3)nn2)cc1,Cc1ccc(-c2cc(C(=O)OC)nn2-c2ccc(-n3cncn3)nn2)cc1,-4.45,-4.38,up
+[Toxicity/AMES Mutagenesis] Predictions,c1ccc(CCn2c(-c3ccccc3)nc3cc(OC)ccc32)cc1,c1ccc(CCn2c(-c3ccccc3)nc3cc(OCC)ccc32)cc1,Toxic,Safe,safe
+[Absorption/Caco-2 (logPaap)] Predictions,Oc1ccc(CNC23CC4CC(CC(C4)C2)C3)cc1O,Oc1ccc(CNC23CC4CC(CC(C4)C2)C3)cc1O,-4.91,-4.91,-
+[Absorption/Caco-2 (logPaap)] Predictions,CC(C)c1cc(C)ccc1C,CC(C)c1cc(C)ccc1C,-4.14,-4.14,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCN(CC)Cc1c(OC)ccc2c(C=O)cccc12,CCN(CC)Cc1c(OC)ccc2c(C=O)cccc12,-4.5,-4.5,-
+[Absorption/Caco-2 (logPaap)] Predictions,COC(=O)c1ccc(NS(=O)(=O)c2ccc3c(c2)C(=O)c2ccccc2C3=O)cc1C,COC(=O)c1ccc(NS(=O)(=O)c2ccc3c(c2)C(=O)c2ccccc2C3=O)cc1C,-4.57,-4.57,-
+[Absorption/Caco-2 (logPaap)] Predictions,NS(=O)(=O)C1CC(C(=O)NC(Cc2ccc(-c3cccc(O)c3)cc2)C(=O)O)N(C1)C(=O)C2=CC=CC=C2,NS(=O)(=O)C1CC(C(=O)NC(Cc2ccc(-c3cccc(O)c3)cc2)C(=O)O)N(C1)C(=O)C2=CC=CC=C2,-6.2,-6.2,-
+[Toxicity/AMES Mutagenesis] Predictions,Cc1ncc(C#N)n1CC(O)C1OCC(O)C1O,Cc1ncc(C)n1CC(O)C1OCC(O)C1O,Toxic,Toxic,-
+[Toxicity/Liver Injury I (DILI)] Predictions,Cc1ccc(C(=O)N=c2[nH]nc(-c3ccncc3)s2)s1,Cc1ccc(C(=O)N=C2N(C)nc(-c3ccncc3)s2)s1,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,COc1cccc(C=Cc2cc3ccc(C(=O)OC)cc3[nH]2)c1,CCc1cccc(C=Cc2cc3ccc(C(=O)OC)cc3[nH]2)c1,-4.87,-5.17,down
+[Toxicity/AMES Mutagenesis] Predictions,COc1ccc2c3c([nH]c2c(=O)c1OC)CC(=O)CC3,COc1ccc2c3c([nH]c2c(=O)c1OC)CC(=O)CC3,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCc1ccccc1Oc1ccc(=O)n(CCSc2nncn2-c2ccccc2)c1,CCc1ccccc1Oc1ccc(=O)n(CCc2nncn2-c2ccccc2)c1,-4.91,-4.87,up
+[Absorption/Caco-2 (logPaap)] Predictions,COC1NC2=C(C(c3ccccc3)C3C(=O)CCCC3=N2)N1C,CC1NC2=C(C(c3ccccc3)C3C(=O)CCCC3=N2)N1C,-4.65,-4.63,up
+[Toxicity/AMES Mutagenesis] Predictions,Nc1cc(-c2cccs2)cc(-c2ccncc2)c1N,Nc1cc(-c2cccs2)cc(-c2ccncc2O)c1N,Toxic,Toxic,-
+[Absorption/Human Oral Bioavailability 20%] Predictions,CCCOc1cc(CCC)c2c(c1C(=O)OCC)OC(=O)CC2c1ccccc1,CCCOc1cc(CCC)c2c(c1C(=O)OCC)OC(=O)CC2c1cc(O)ccc1,Non-Bioavailable,Non-Bioavailable,-
+[General Properties/Log(P)] Predictions,CCC1C(CC(C)C)C2=C(CCCC2)N(c2ccc(F)cc2)C1OCO,CCC1C(CC(C)C)C2=C(CCCC2)N(c2ccc(F)cc2)C1(O)OCO,6.51,5.14,down
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1cc(F)cc(OC(C)C(=O)NNC(=O)c2cccc(C)c2)c1,Cc1cc(F)cc(OC(C)C(=O)OCc2cccc(C)c2)c1,-4.64,-4.92,down
+[Absorption/Human Oral Bioavailability 20%] Predictions,CC=CC(=O)OC(c1cc2c(c(OS(=O)(=O)c3ccc(OC)cc3)c1)OC(c1ccc(OC)c(OC)c1)C(COCCC(=O)OCC)O2)C(O)c1ccccc1,CC=CC(=O)OC(c1cc2c(c(OS(=O)(=O)c3ccc(OC)cc3)c1)OC(c1ccc(OC)c(O)c1)C(COCCC(=O)OCC)O2)C(O)c1ccccc1,Non-Bioavailable,Non-Bioavailable,-
+[Absorption/Caco-2 (logPaap)] Predictions,O=C1Cc2ccccc2-c2nc3ccccc3cc21,O=C1Cc2cc(O)ccc2-c2nc3ccccc3cc21,-4.73,-4.85,down
+[Toxicity/Liver Injury I (DILI)] Predictions,Cc1ccc(C=CS(=O)(=O)Nc2ccccc2C(=O)N)cc1,Cc1ccc(C=CS(=O)(=O)Nc2ccccc2C(=O)N)cc1,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1ccc(-n2nnnc2SCCCn2cnc3ccccc32)c(C)c1,Cc1ccc(-n2nnnc2CCCn2cnc3ccccc32)c(C)c1,-4.69,-4.65,up
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1cccc(C)c1-c1ccc2[nH]c(=NC3CCC(C(C)(C)O)CC3)sc2c1O,Cc1cccc(C)c1-c1ccc2[nH]c(=NC3CCC(C)CC3)sc2c1O,-4.98,-5.09,down
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1c(C(O)N2CCCCCC2)cc(CC(=O)NCCCN2CCOCC2)c(=O)n1Cc1ccccc1,Cc1c(COC2CCCCCC2)cc(CC(=O)NCCCN2CCOCC2)c(=O)n1Cc1ccccc1,-5.84,-5.01,up
+[Absorption/Caco-2 (logPaap)] Predictions,O=C(CN1CCCO1)N1CC(c2ccc3ccccc3c2)c2ccccc21,O=C(CN1CCCO1)N1CC(c2ccc3ccccc3c2)c2ccccc21,-4.68,-4.68,-
+[Absorption/Caco-2 (logPaap)] Predictions,COc1ccccc1CN(C)CCCNC(=O)c1ccc2nc(C)c(=O)[nH]c2c1,COc1ccccc1CN(C)CCCNC(=O)c1ccc2nc(C)c(=O)[nH]c2c1,-5.43,-5.43,-
+[Absorption/Caco-2 (logPaap)] Predictions,CC(C)CNCc1cc(C(=O)NC(CCCN=C(N)N)C(=O)N2CCN(C)CC2)ccc1Cl,CC(C)CNCc1cc(C(=O)N(CCCN=C(N)N)C(=O)N2CCN(C)CC2)ccc1Cl,-6.6,-6.49,up
+[General Properties/Log(P)] Predictions,Cc1c(C)n(Cc2ccc(-c3ccccc3C(=O)O)cc2)c2ccc(C(=O)NCc3cc(F)cc(F)c3)cc1O2,Cc1c(C)n(Cc2ccc(-c3cc(O)ccc3C(=O)O)cc2)c2ccc(C(=O)NCc3cc(F)cc(F)c3)cc1O2,5.27,5.12,down
+[Absorption/Caco-2 (logPaap)] Predictions,CN(C)S(=O)(=O)N1CCOC(c2nc(-c3c(C(O)O)c(C(N)=O)nc4ccccc34)cs2)C1,CN(C)S(=O)(=O)N1CCOC(c2nc(-c3c(C(O)O)c(C(N)=O)nc4ccccc34)cs2)C1,-5.58,-5.58,-
+[Toxicity/Liver Injury I (DILI)] Predictions,Cc1ccc(C(=O)c2c[nH]c3cc(F)ccc3c2=O)cc1,Cc1ccc(C(=O)c2c[nH]c3cc(F)ccc3c2=O)cc1O,Toxic,Toxic,-
+[General Properties/Log(P)] Predictions,O=Cc1[nH]c(=NC(=O)CCCCCC)sc1Cc1ccc(Br)cc1,O=Cc1[nH]c(=NC(=O)CCCCCC)sc1Cc1ccc(O)cc1,6.08,4.47,down
+[Absorption/Caco-2 (logPaap)] Predictions,CC1CC(n2cnc3[nH]c(=O)n(C)c(=O)c32)C(O)C1OC,CC1CC(n2cnc3[nH]c(=O)n(C)c(=O)c32)C(OC)C1OC,-5.09,-4.85,up
+[Toxicity/AMES Mutagenesis] Predictions,O=C(C=Cc1ccc(N)cc1)NCCCCCN1CCCCN1,O=C(C=Cc1ccc(N)cc1)NCCCCCN1CCCCN1,Toxic,Toxic,-
+[Toxicity/hERG Blockers] Predictions,CCCNC(=O)c1occc1NC(=O)OCc1ccccc1,CCCNC(=O)c1occc1NC(=O)OCc1ccncc1,Toxic,Toxic,-
+[Absorption/Human Oral Bioavailability 20%] Predictions,O=C(C=Cc1cnc2ccc3cc(C)ccc3c2c1)c1c(O)c[nH]c1O,O=C(C=Cc1cnc2ccc3cc(C)ccc3c2c1)c1c(O)c[nH]c1O,Non-Bioavailable,Non-Bioavailable,-
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1ccccc1-c1cc(C(C)N=c2[nH]cnc3c2CCN(C(=O)NC(C)(C)C)C3)sc1C,Cc1ccccc1-c1cc(C(C)N=c2[nH]cnc3c2CCN(C(=O)NC)C3)sc1C,-4.77,-5.05,down
+[Toxicity/hERG Blockers] Predictions,Cc1cc(C)nc(N2CC3CCN(c4ccn5nc(-c6ccncc6)nc5n4)C3C2)n1,Cc1cc(C)nc(N2CC3CCN(c4ccn5nc(-c6ccncc6)nc5n4)C3C2)n1,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,CCc1ccc(CN2CCc3c(cc(C(=O)N4CCOC5(CCNC5)C4)n3C)C2)cc1C,CCc1ccc(CN2CCc3c(cc(C(=O)N4CCOC5(CCNC5)C4)n3C)C2)cc1C,-5.14,-5.14,-
+[Absorption/Caco-2 (logPaap)] Predictions,CC1CNC(CC(=O)Nc2ccc(-c3ccccc3)cc2)c2c(nc3ccccn23)C1=O,CC1CNC(CC(=O)Nc2ccc(-C)cc2)c2c(nc3ccccn23)C1=O,-5.1,-4.93,up
+[Toxicity/AMES Mutagenesis] Predictions,NC(=O)c1[nH]c(=Nc2cccc3ccccc23)sc1C(=O)c1ccccc1F,NC(=O)c1[nH]c(=Nc2cccc3ccccc23)sc1C(=O)c1ccccc1F,Toxic,Toxic,-
+[Absorption/Caco-2 (logPaap)] Predictions,N#Cc1ccc(-c2ccc(CN(C(=O)Cc3cc(O)ccc3)c3ccc4c(c3)CCC4)cc2)cc1,N#Cc1ccc(-c2ccc(CN(C(=O)Cc3ccccc3)c3ccc4c(c3)CCC4)cc2)cc1,-5.25,-5.28,down
+[Absorption/Caco-2 (logPaap)] Predictions,Cc1c(CCC(C)(CO)C)c(=O)oc2cc(OS(=O)(=O)c3ccc(Cl)cc3)ccc12,Cc1c(CCC(C)(CO)C)c(=O)oc2cc(OCC)c(Cl)cc12,-5.32,-4.71,up

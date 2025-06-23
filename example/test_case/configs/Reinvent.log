@@ -1,0 +1,37 @@
+00:54:49 <INFO> Started REINVENT 4.5.11 (C) AstraZeneca 2017, 2023 on 2025-06-21
+00:54:49 <INFO> Command line: /home/hoon/anaconda3/envs/reinvent4/bin/reinvent -l configs/Reinvent.log configs/Reinvent.toml
+00:54:49 <INFO> Reading run configuration from /home/hoon/dd-agent/llm_dd/examples/testrun/configs/Reinvent.toml using format toml
+00:54:49 <INFO> User hoon on host hoon-Alienware-Aurora-R13
+00:54:49 <INFO> Python version 3.10.18
+00:54:49 <INFO> PyTorch version 2.6.0+cu124, git 2236df1770800ffea5697b11b0bb0d910b2e59e1
+00:54:49 <INFO> PyTorch compiled with CUDA version 12.4
+00:54:49 <INFO> RDKit version 2024.09.6
+00:54:49 <INFO> Platform Linux-6.8.0-60-generic-x86_64-with-glibc2.35
+00:54:49 <INFO> CUDA driver version 560.35.03
+00:54:49 <INFO> Number of PyTorch CUDA devices 1
+00:54:49 <INFO> Using CUDA device:0 NVIDIA GeForce RTX 3060
+00:54:49 <INFO> GPU memory: 11671 MiB free, 11931 MiB total
+00:54:49 <INFO> Writing JSON config file to /home/hoon/dd-agent/llm_dd/examples/testrun/_sampling.json
+00:54:49 <INFO> Starting Sampling
+00:54:49 <INFO> /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior has valid hash:
+{ 'comments': [],
+  'creation_date': 0,
+  'date_format': 'UNIX epoch',
+  'hash_id': '173568c36e1fc3d95cab289c7d31ce0b',
+  'hash_id_format': 'xxhash.xxh3_128_hex 3.4.1',
+  'model_id': '55d68f8a81c04f5a86304ebe1723a0ea',
+  'model_id_format': 'uuid.uuid4 3.10.12',
+  'origina_data_source': 'ChEMBL 25',
+  'updates': []}
+00:54:49 <INFO> Number of network parameters: 5,805,602
+00:54:49 <INFO> Network architecture:
+RNN(
+  (_embedding): Embedding(34, 256)
+  (_rnn): LSTM(256, 512, num_layers=3, batch_first=True)
+  (_linear): Linear(in_features=512, out_features=34, bias=True)
+)
+00:54:49 <INFO> Using generator Reinvent
+00:54:49 <INFO> Writing sampled SMILES to CSV file pool/Reinvent_sampling.csv
+00:54:49 <INFO> Sampling 157 SMILES from model /home/hoon/dd-agent/REINVENT4/priors/reinvent.prior
+00:54:50 <INFO> Peak main memory usage: 1171.863 MiB
+00:54:50 <INFO> Finished REINVENT on 2025-06-21

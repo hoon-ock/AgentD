@@ -1,70 +1,15 @@
 from langchain.tools import tool
 import torch
 from rdkit import Chem
-from rdkit.Chem import QED
-import re, json, requests, time, sys, os, tqdm, random
+import re, json, requests, time, os, tqdm, random
 import pandas as pd
-
-cwd = os.getcwd()
-home_dir = os.path.dirname(os.path.dirname(cwd))
-sys.path.append(home_dir)
 from agentD.tools.BAPULM import BAPULM, EmbeddingExtractor, set_seed
-from agentD.tools import sascorer
+from configs.tool_globals import ADMET_WAIT_INTERVAL, ADMET_MAX_WAIT_TIME, PROPERTY_DIR
 
-import warnings
-warnings.filterwarnings('ignore')
-
-CHECKPOINT_PATH = "agentD/tools/BAPULM_results_molformer_reproduce_json.pth"
-ADMET_WAIT_INTERVAL=30
-ADMET_MAX_WAIT_TIME=500
-# set random seed
 random.seed(2102)
 
-# @tool
-# def combine_smiles_files(directory: str):
-#     """
-#     Combines SMILES from all CSV files in a directory into a single CSV file.
-#     Adds an index based on the first letter of the file name and row number.
-
-#     Args:
-#         directory (str): Path to the directory containing the CSV files.
-
-#     """
-#     combined_data = []
-
-#     # Iterate through all files in the directory
-#     for file_name in os.listdir(directory):
-#         if file_name.endswith(".csv"):
-#             file_path = os.path.join(directory, file_name)
-#             try:
-#                 # Read the CSV file
-#                 df = pd.read_csv(file_path)
-
-#                 # Normalize column names to uppercase
-#                 df.columns = df.columns.str.upper()
-#                 #print(df.columns)
-
-#                 # Ensure the 'SMILES' column exists
-#                 if "SMILES" not in df.columns:
-#                     print(f"Skipping {file_name}: No 'SMILES' column found.")
-#                     continue
-
-#                 combined_data.append(df[["SMILES"]])
-#             except Exception as e:
-#                 print(f"Error processing {file_name}: {e}")
-
-#     # Combine all dataframes and save to the output file
-#     if combined_data:
-#         combined_df = pd.concat(combined_data, ignore_index=True)
-#         output_file = os.path.join(directory, "combined_smiles.csv")
-#         combined_df.to_csv(output_file, index=False)
-#         print(f"Combined CSV saved to {output_file}")
-#         return output_file  
-#     else:
-#         print("No valid CSV files found in the directory.")
-#         return None
-
-# from https://github.com/mehradans92/dZiner/blob/main/dziner/tools.py
+# Adapted with modifications from the original implementation at:
+# https://github.com/mehradans92/dZiner/blob/main/dziner/tools.py
 @tool
 def check_smiles_validity(smiles: str):
     '''
@@ -75,87 +20,12 @@ def check_smiles_validity(smiles: str):
         smiles = smiles.replace("\n", "")
         mol = Chem.MolFromSmiles(smiles)
         if mol is None:
-            return "Invalid SMILES" #, 0 ,0
-
-        # # Calculate SA score
-        # sa_score = sascorer.calculateScore(mol)
-
-        # # Optionally calculate QED score
-        # # molecular_weight = Descriptors.MolWt(mol)
-        # qed_score = QED.qed(mol)
-        return "Valid SMILES" #, sa_score, qed_score
+            return "Invalid SMILES" 
+        return "Valid SMILES" 
     except Exception as e:
         return f"Error checking SMILES validity: {str(e)}"
 
-# @tool
-# def predict_affinity(data: str):
-#     """
-#     Predicts the binding affinity given a protein sequence and ligand SMILES string.
-#     To run this tool, you need to provide a dictionary with "sequence" and "smiles" keys.
-#     The sequence should be a string representing the protein sequence, and smiles should be a string
-#     representing the ligand SMILES string. The function will return the predicted binding affinity.
 
-#     Args:
-#         data: valid JSON Dictionary with "sequence" (str) and "smiles" (str).
-
-#     Returns:
-#         float: Predicted binding affinity.
-#     """
-#     set_seed(2102) # seed used in the original BAPULM paper
-
-#     # Convert JSON string to dictionary if needed
-#     if isinstance(data, str):
-#         try:
-#             data = json.loads(data)
-#         except json.JSONDecodeError:
-#             return "Error: Invalid input format. Expected JSON with 'sequence' and 'smiles'."
-
-#     sequence = data.get("sequence")
-#     smiles = data.get("smiles")
-
-#     if not sequence or not smiles:
-#         return "Error: Missing required inputs. Provide both 'sequence' and 'smiles'."
-
-#     # checkpoint path
-#     model_checkpoint = os.path.join(home_dir, CHECKPOINT_PATH)#"agentD/tools/BAPULM_results_molformer_reproduce_json.pth")
-#     # "agentD/tools/BAPULM_results_molformer_reproduce_json.pth"
-#     #"/home/hoon/dd-agent/dd-agent/tools/BAPULM_results_molformer_reproduce_json.pth"
-#     # Ensure correct device
-#     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-#     # print(device)
-#     # Load Model
-#     model = BAPULM().to(device)
-#     checkpoint = torch.load(model_checkpoint, map_location=device)
-#     model.load_state_dict(checkpoint)
-#     model.eval()
-
-#     # Initialize Embedding Extractor
-#     extractor = EmbeddingExtractor(device)
-
-#     # Preprocess the sequence (replace uncommon amino acids)
-#     sequence = " ".join(re.sub(r"[UZOB]", "X", sequence))
-
-#     # Extract embeddings
-#     with torch.no_grad():
-#         prot_embedding, mol_embedding = extractor.get_combined_embedding(sequence, smiles)
-
-#     # Move embeddings to device
-#     prot_embedding = prot_embedding.to(device)
-#     mol_embedding = mol_embedding.to(device)
-
-#     # Run inference
-#     with torch.no_grad():
-#         affinity = model(prot_embedding, mol_embedding)
-
-#     # Resacle the output affinity
-#     mean = 6.51286529169358
-#     scale = 1.5614094578916633
-#     affinity = (affinity * scale) + mean
-
-#     # Return binding affinity score
-#     return affinity.item()
-
-#       e.g. {"sequence": "YOUR_SEQUENCE_HERE", "smiles_path": "pool/combined_smiles.csv"}
 @tool
 def predict_affinity_batch(data: str):
     """
@@ -183,12 +53,12 @@ def predict_affinity_batch(data: str):
     try:
         df_smiles = pd.read_csv(smiles_file_path)
         smiles_list = df_smiles["SMILES"].tolist()
-        # index_list = df_smiles["Index"].tolist()
     except Exception as e:
         return f"Error loading SMILES file: {str(e)}"
     
     # checkpoint path
-    model_checkpoint = os.path.join(home_dir, CHECKPOINT_PATH)
+    model_checkpoint = os.path.join(os.path.dirname(__file__),
+                                    "BAPULM_results_molformer_reproduce_json.pth")
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     # Load Model
@@ -222,8 +92,8 @@ def predict_affinity_batch(data: str):
             with torch.no_grad():
                 affinity = model(prot_embedding, mol_embedding)
 
-            # Rescale the output affinity
-            mean = 6.51286529169358
+            # Rescale the output affinity (from the reference model)
+            mean = 6.51286529169358 
             scale = 1.5614094578916633
             affinity = (affinity * scale) + mean
 
@@ -232,17 +102,16 @@ def predict_affinity_batch(data: str):
             results.append({"SMILES": smiles, "Affinity [pKd]": affinity.item()})
         except Exception as e:
             # Handle any exception and log as an error entry
-            #results.append({"Index": idx, "SMILES": smiles, "Affinity": f"Error: {str(e)}"})
             results.append({"SMILES": smiles, "Affinity [pKd]": f"Error: {str(e)}"})
     # Convert results to DataFrame and save as CSV
-    output_path = os.path.join("property", "affinity_"+smiles_file_path.split("/")[-1])
-    #output_path = os.path.join("property", "affinity.csv")
+    os.makedirs(PROPERTY_DIR, exist_ok=True)
+    output_path = os.path.join(PROPERTY_DIR, "affinity_"+smiles_file_path.split("/")[-1])
     
     df = pd.DataFrame(results)
     df.to_csv(output_path, index=False)
-    # print("Affinity predictions saved to ", output_path)
+
     return "Affinity predictions saved to ", output_path
-    # return df
+
 
 @tool
 def get_admet_predictions(csv_file_path):
@@ -254,7 +123,6 @@ def get_admet_predictions(csv_file_path):
     - csv_file_path (str): Path to a CSV file. e.g. "pool/combined_smiles.csv"
 
    """
-    
     
     submit_url = "https://biosig.lab.uq.edu.au/deeppk/api/predict"
 
@@ -294,62 +162,11 @@ def get_admet_predictions(csv_file_path):
             # If it's a string, decode again
             if isinstance(result_json, str):
                 result_json = json.loads(result_json)
-                # save json
-                # with open('property/admet.json', 'w') as f:
-                #     json.dump(result_json, f)
                 df = pd.DataFrame(result_json).T
-                output_path = os.path.join("property", "admet_"+csv_file_path.split("/")[-1])
+                os.makedirs(PROPERTY_DIR, exist_ok=True)
+                output_path = os.path.join(PROPERTY_DIR, "admet_"+csv_file_path.split("/")[-1])
                 df.to_csv(output_path, index=False)
-                #df.to_csv('property/admet.csv', index=False)
-                # df = pd.DataFrame.from_dict(result_json['0'], orient='index')
-                # df = df.transpose()
-                # df.to_csv('property/admet.csv', index=False)
 
             return f"ADMET predictions saved to {output_path}"
         except Exception as e:
             return {"error": f"Polling failed: {e}"}
-
-
-
-# @tool
-# def read_dataset_columns(csv_path: str):
-#     """
-#     Reads the property columns of the dataset in CSV format.
-
-#     Args:
-#         csv_path: Path to the input CSV file.
-
-#     Returns:
-#         list: List of column names in the dataset.
-#     """
-#     try:
-#         # Read only the column names
-#         df = pd.read_csv(csv_path, nrows=0)
-#         columns = df.columns.tolist()
-#         return columns
-
-#     except Exception as e:
-#         print(f"Error reading the dataset columns: {str(e)}")
-#         return []
-    
-
-# @tool
-# def read_dataset(proerty_file_path: str):
-#     """
-#     Get the dictionary of the first row of the dataframe to understand the dataset.
-#     Make sure the file path format is valid.
-#     Args:
-#         proerty_file_path: Path to the input CSV file.
-
-#     Returns:
-#         dict: Dictionary representation of the random row in the dataset.
-#     """
-#     try:
-        
-#         df = pd.read_csv(proerty_file_path)
-#         idx = random.randint(0, len(df)-1)
-#         ex_dict = df.iloc[idx].to_dict()
-#         return ex_dict
-#     except Exception as e:
-#         print(f"Error getting the dictionary: {str(e)}")
-#         return {}

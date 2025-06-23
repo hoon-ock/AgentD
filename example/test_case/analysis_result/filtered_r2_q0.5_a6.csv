@@ -1,0 +1,3 @@
+Method,SMILES,lipinski_rule_of_5,veber_rule,ghose_filter,rule_of_3,oprea_lead_like,fda_criteria,fda_approval_category,num_passed_rules,QED,Affinity,smiles,summary
+Mol2Mol_sampling,O=C(NS(=O)(=O)c1ccc(N2CCN(C3CCCCC3)CC2=O)cc1)c1ccc(NCC2CC2)c(Cl)c1,True,True,False,False,True,False,Low (Requires Optimization),3.0,0.5149866282953975,6.048074722290039,,
+Mol2Mol_sampling,O=C(NS(=O)(=O)c1ccc(N2CCNCC2)c(O)c1)c1ccc(N2CCOCC2)c(Cl)c1,True,True,False,False,True,False,Low (Requires Optimization),3.0,0.5887834225887166,6.1941752433776855,,

@@ -1,0 +1,2 @@
+Method,SMILES,lipinski_rule_of_5,veber_rule,ghose_filter,rule_of_3,oprea_lead_like,fda_criteria,fda_approval_category,num_passed_rules,QED,Affinity
+database,CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1,False,False,False,False,False,False,Low (Requires Optimization),0,0.07640809714093555,6.340292930603027

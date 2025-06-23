@@ -7,10 +7,11 @@ from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.memory import VectorStoreRetrieverMemory
 from langchain.docstore.in_memory import InMemoryDocstore
 from langchain.callbacks import get_openai_callback
-from .prompts import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
+from agentD.prompts.base_template import PREFIX, FORMAT_INSTRUCTIONS, SUFFIX
 import faiss
 import os
-from .secret_keys import serper_api_key, openai_api_key
+#from .secret_keys import serper_api_key, openai_api_key
+from configs.secret_keys import serper_api_key, openai_api_key
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -29,16 +30,13 @@ class agentD:
         temp=0.1,
         agent_type=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
         max_iterations=100,
-        # n_design_iterations=1,
         **kwargs
     ):
         self.tools = tools
-        # self.n_design_iterations = n_design_iterations
         self.suffix = kwargs.get('suffix',
                                  SUFFIX.format(tool_desc="{tool_desc}",
                                         input="{input}",
                                         agent_scratchpad="{agent_scratchpad}"))
-                                        # n_design_iterations=self.n_design_iterations))
         self.prefix = kwargs.get('prefix')
         self.format_instructions = kwargs.get('format_instructions',
                                               FORMAT_INSTRUCTIONS.format(tool_names="{tool_names}"))

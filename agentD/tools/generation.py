@@ -4,10 +4,14 @@ from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI  # or your preferred provider (e.g., Ollama, HuggingFaceHub)
 from langchain.chains import LLMChain
 import torch
+from configs.tool_globals import POOL_PATH, REINVENT_PATH
 os.environ["PATH"] += os.pathsep + "/home/hoon/dd-agent/alphafold/localcolabfold/colabfold-conda/bin"
+# file_dir = os.path.dirname(__file__)
+# project_root = os.path.abspath(os.path.join(file_dir, "..", "..", ".."))  # Adjust this path as needed
 
-REINVENT_PATH = "/home/hoon/dd-agent/REINVENT4"
-BOLTZ_YAML_PATH = "configs/boltz.yaml"
+# REINVENT_PATH = os.path.join(project_root, "REINVENT4")  #"/home/hoon/dd-agent/reinvent" #"/home/hoon/dd-agent/REINVENT4" #"/home/hoon/dd-agent/reinvent" #"/home/hoon/dd-agent/reinvent"
+#"/home/hoon/dd-agent/REINVENT4"
+
 
 @tool
 def update_reinvent_config(model_type: str = "Reinvent"): # 
@@ -16,26 +20,28 @@ def update_reinvent_config(model_type: str = "Reinvent"): #
 
     Args:
         model_type (str): The model type to use for updating paths. Default is "Reinvent". This can be "Reinvent", "LibInvent", "LinkInvent", "Mol2Mol", or "Pepinvent".
-                       Currently, only "Reinvent" and "Mol2Mol" are supported in the agentD framework.
+        Currently, only "Reinvent" and "Mol2Mol" are supported in the agentD framework.
     """
     # Fixed input TOML path
     prefix = REINVENT_PATH
-    #input_path = "/home/hoon/dd-agent/REINVENT4/configs/toml/staged_learning.toml" #"configs/staged_learning.toml"
+    pool_path = POOL_PATH
     input_path = os.path.join(prefix, "configs", "toml", "sampling.toml")
     # Read original TOML content
     with open(input_path, "r") as f:
         toml_text = f.read()
-
+    # create directories
+    os.makedirs("configs", exist_ok=True)
+    os.makedirs(POOL_PATH, exist_ok=True)
     # Create prompt template
     prompt_template = PromptTemplate(
-    input_variables=["toml", "prefix", "model_type"],
+    input_variables=["toml", "prefix", "model_type", "pool_path"],
     template="""
 Your task is to update the provided TOML content as follows:
 
 1. Uncomment the paths in the specified {model_type} section.
 2. Comment out paths in all other model types, "Reinvent", "LibInvent", "LinkInvent", "Mol2Mol", and "Pepinvent".
 3. Prepend the path "{prefix}" to model file paths in the TOML file.
-4. Change the output_file path to "pool/{model_type}_sampling.csv".
+4. Change the output_file path to "{pool_path}/{model_type}_sampling.csv".
 5. If there is smiles_file, prepend the path "configs" to the smiles_file path.
 6. Do NOT modify any other commented lines or sections.
 7. Return ONLY the modified TOML content — no additional text, explanations, or formatting.
@@ -49,14 +55,13 @@ TOML:
 
     # Initialize LLM (swap this if you're using Ollama, HuggingFace, etc.)
     llm = ChatOpenAI(model_name='gpt-4o', temperature=0.0)
-    # llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.0)
     chain = LLMChain(prompt=prompt_template, llm=llm)
 
     # Get updated TOML content
-    updated_toml = chain.run(toml=toml_text, prefix=prefix, model_type=model_type)
+    updated_toml = chain.run(toml=toml_text, prefix=prefix, model_type=model_type, pool_path=pool_path)
     
     # Save to output file
-    output_path = f'configs/{model_type}.toml'#input_path.split("/")[-1]
+    output_path = f'configs/{model_type}.toml'
     with open(output_path, "w") as f:
         f.write(updated_toml)
 
@@ -87,8 +92,7 @@ def run_reinvent(config_file: str):
     Args:
         config_file (str): The path to the configuration .toml file.
     """
-    #log_file="staged_learning.log", 
-    #config_file=os.path.join(REINVENT_PATH, "configs/toml/staged_learning.toml")
+
     log_file = config_file.replace(".toml", ".log")
     command = [
         "reinvent",
@@ -105,15 +109,7 @@ def run_reinvent(config_file: str):
     except FileNotFoundError:
         return "Error: 'reinvent' command not found. Make sure REINVENT is installed and accessible in your PATH."
 
-# @tool
-# def save_boltz_config(config_content: str):
-#     """
-#     Save the provided Boltz configuration content to a YAML file.
-#     Args:
-#         config_content (str): The YAML configuration content to save.
-#     """
 
-#     return
 
 @tool
 def generate_complex_structure(data: str):
