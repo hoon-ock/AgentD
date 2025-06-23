@@ -1,6 +1,6 @@
 # agentD
 
-![Test Status](https://img.shields.io/github/actions/workflow/status/hoon-ock/llm-dd/python-app.yml?branch=release)
+![Test Status](https://github.com/hoon-ock/llm-dd/actions/workflows/python-app.yml/badge.svg?branch=release)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **agentD** is an open-source Python package designed to accelerate drug discovery workflows using Large Language Models (LLMs) and AI-driven tools. It provides modular agents and utilities for tasks such as literature extraction, molecular property prediction, molecule generation, and more. agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics libraries, enabling both automated and interactive research pipelines.
@@ -42,7 +42,7 @@
 ## Configuration
 
 - **API Keys:**  
-  After installation, copy `configs/secret_keys.py.example` to [secret_keys.py](http://_vscodecontentref_/0) and fill in your Serper API key and OpenAI API key:
+  After installation, fill in your Serper API key and OpenAI API key in `configs/secret_keys.py`:
     ```python
     # configs/secret_keys.py
     serper_api_key = "YOUR_SERPER_API_KEY"
@@ -50,7 +50,7 @@
     ```
 
 - **Global Variables:**  
-  The file [tool_globals.py](http://_vscodecontentref_/1) contains global variables used by the tools. You can edit this file to adjust default behaviors and settings.
+  The file `configs/tool_globals.py` contains global variables used by the tools. You can edit this file to adjust default behaviors and settings.
 
 ---
 
