@@ -42,7 +42,7 @@
 ## Configuration
 
 - **API Keys:**  
-  After installation, fill in your Serper API key and OpenAI API key in `configs/secret_keys.py`:
+  After installation, fill in your Serper API key and OpenAI API key in [configs/secret_keys.py](./configs/secret_keys.py):
     ```python
     # configs/secret_keys.py
     serper_api_key = "YOUR_SERPER_API_KEY"
@@ -50,7 +50,7 @@
     ```
 
 - **Global Variables:**  
-  The file `configs/tool_globals.py` contains global variables used by the tools. You can edit this file to adjust default behaviors and settings.
+  The file [configs/tool_globals.py](./configs/tool_globals.py) contains global variables used by the tools. You can edit this file to adjust default behaviors and settings.
 
 ---
 
@@ -79,7 +79,24 @@ This project is licensed under the MIT License.
 
 - Make sure to set up your API keys before running any LLM agent notebooks.
 - For any additional dependencies (e.g., REINVENT4), follow the instructions above.
-- If you encounter missing package errors, check that all dependencies in [requirements.txt](http://_vscodecontentref_/3) are installed.
+- If you encounter missing package errors, check that all dependencies in [requirements.txt](./requirements.txt) are installed.
+
+---
+
+## Citation
+
+If you use **agentD** in your research or project, please cite:
+
+(soon to be updated)
+
+```bibtex
+@article{ock2025agentd,
+  title={Large Language Model Agent for Modular Task Execution in Drug Discovery},
+  author={Hoon Ock},
+  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  year={2025},
+  url={https://arxiv.org/abs/xxxx.xxxxx}
+}
 
 ---
 
