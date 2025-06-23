@@ -1,5 +1,8 @@
 # agentD
 
+![Test Status](https://img.shields.io/github/actions/workflow/status/yourusername/llm-dd/python-app.yml?label=tests)
+![License](https://img.shields.io/github/license/yourusername/llm-dd)
+
 A package for drug discovery AI agents and tools.
 
 ---

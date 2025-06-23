@@ -1,3 +1,4 @@
+# Requires Python 3.10
 boltz==2.0.3
 chembl-structure-pipeline==1.2.2
 chembl-webresource-client==0.10.9
