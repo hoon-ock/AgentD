@@ -1,12 +1,14 @@
 # agentD
 
 ![Test Status](https://img.shields.io/github/actions/workflow/status/hoon-ock/llm-dd/python-app.yml?branch=release)
-![License](https://img.shields.io/github/license/hoon-ock/llm-dd)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **agentD** is an open-source Python package designed to accelerate drug discovery workflows using Large Language Models (LLMs) and AI-driven tools. It provides modular agents and utilities for tasks such as literature extraction, molecular property prediction, molecule generation, and more. agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics libraries, enabling both automated and interactive research pipelines.
 
 
-<img src="./docs/overview.png" alt="agentD Overview" width="500"/>
+<p align="center">
+  <img src="./docs/overview.png" alt="agentD Overview" width="500"/>
+</p>
 
 ---
 
