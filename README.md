@@ -6,7 +6,7 @@
 **agentD** is an open-source Python package designed to accelerate drug discovery workflows using Large Language Models (LLMs) and AI-driven tools. It provides modular agents and utilities for tasks such as literature extraction, molecular property prediction, molecule generation, and more. agentD integrates with external APIs (e.g., OpenAI, Serper) and cheminformatics libraries, enabling both automated and interactive research pipelines.
 
 
-<img src="./assets/overview.png" alt="agentD Overview" width="500"/>
+<img src="./docs/overview.png" alt="agentD Overview" width="500"/>
 
 ---
 
