@@ -68,12 +68,12 @@
 
 Example Jupyter notebooks demonstrating the main workflows are provided in the [test_case](http://_vscodecontentref_/2) directory:
 
-- `1. extraction.ipynb` – Data extraction workflow
-- `2. qna.ipynb` – Question answering with LLM agent
-- `3. pooling.ipynb` – Pooling and data aggregation
-- `4. prediction.ipynb` – Affinity prediction
-- `5. refinement.ipynb` – Molecule refinement
-- `6. generation.ipynb` – Molecule generation
+- `1. extraction.ipynb` – Data extraction and retrieval
+- `2. qna.ipynb` – Domain-specific question answering
+- `3. pooling.ipynb` – Molecule pooling
+- `4. prediction.ipynb` – Molecular property prediction
+- `5. refinement.ipynb` – SMILES refinement
+- `6. generation.ipynb` – Protein-ligand 3D structure generation
 
 You can run these notebooks step-by-step to see how to use the package for various drug discovery tasks.
 
