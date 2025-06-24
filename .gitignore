@@ -1,14 +1,4 @@
-DrugNova/secret_keys.py
-_examples*
-_test_cases
-_playground
-_prompts
-__pycache__
 */__pycache__
 _tools.py
-agent/papers
-_dummy
 examples/*
-_si/*
-agentD/drug_likeness_analyzer copy.py
-*/_secret_keys.py
+*/secret_keys.py

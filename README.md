@@ -48,7 +48,11 @@
 ## Configuration
 
 - **API Keys:**  
-  After installation, fill in your Serper API key and OpenAI API key in [configs/secret_keys.py](./configs/secret_keys.py):
+  After installation, copy the template file and fill in your API keys:
+    ```sh
+    cp configs/secret_keys.py.example configs/secret_keys.py
+    ```
+  Then edit `configs/secret_keys.py` with your Serper API key and OpenAI API key:
     ```python
     # configs/secret_keys.py
     serper_api_key = "YOUR_SERPER_API_KEY"
