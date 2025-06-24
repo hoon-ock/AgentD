@@ -4,6 +4,7 @@ _test_cases
 _playground
 _prompts
 __pycache__
+*/__pycache__
 _tools.py
 agent/papers
 _dummy
