@@ -100,12 +100,14 @@ If you use **agentD** in your research or project, please cite:
 (soon to be updated)
 
 ```bibtex
-@article{ock2025agentd,
-  title={Large Language Model Agent for Modular Task Execution in Drug Discovery},
-  author={Hoon Ock},
-  journal={arXiv preprint arXiv:xxxx.xxxxx},
-  year={2025},
-  url={https://arxiv.org/abs/xxxx.xxxxx}
+@misc{ock2025agentD,
+      title={Large Language Model Agent for Modular Task Execution in Drug Discovery}, 
+      author={Janghoon Ock and Radheesh Sharma Meda and Srivathsan Badrinarayanan and Neha S. Aluru and Achuth Chandrasekhar and Amir Barati Farimani},
+      year={2025},
+      eprint={2507.02925},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2507.02925}, 
 }
 ```
 ---
