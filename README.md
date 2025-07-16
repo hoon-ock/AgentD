@@ -75,7 +75,7 @@ Example Jupyter notebooks demonstrating the main workflows are provided in the [
 - `5. refinement.ipynb` – SMILES refinement
 - `6. generation.ipynb` – Protein-ligand 3D structure generation
 
-You can run these notebooks step-by-step to see how to use the package for various drug discovery tasks.
+You can run these notebooks step-by-step to see how to use the agent for various drug discovery tasks.
 
 ---
 
