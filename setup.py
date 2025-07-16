@@ -25,7 +25,7 @@ setup(
         "requests==2.32.3",
         "torch==2.6.0",
     ],
-    python_requires="==3.10.*",
+    python_requires="==3.11.*",
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
