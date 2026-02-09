@@ -187,31 +187,81 @@ def download_relevant_papers(query: str):
     This function uses the Semantic Scholar API to search for papers and download them if they are open access.
     Query should be constructed in a way that it can be used to search for relevant papers.
     **Example Usage:**
-        download_relevant_papers("drug molecule for <<target protein>>")
+        download_relevant_papers("drug molecule for <<target protein>>", year: "2023-")
+        do not use year unless it is specified in instructions.
     """
+    import re
     
     print(f"Searching for papers on: {query}")
 
     papers_downloaded = []
+    print(f"Searching for papers on: {query}")
+
+    # Parse year from query string (e.g., year: "2023-")
+    year_match = re.search(r'year:\s*"([^"]+)"', query, re.IGNORECASE)
+    if year_match:
+        year = year_match.group(1)
+    else:
+        year = None
 
     # Step 1: Search Semantic Scholar
     SEMANTIC_SCHOLAR_API = "https://api.semanticscholar.org/graph/v1/paper/search"
     headers = {"x-api-key": "P5pZs85BTC4MGCCNIQaDPaO2ktEIVZI08JKKBTox"}  # Replace with a valid API key
 
+    # params = {
+    #     "query": query,
+    #     "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
+    #     "limit": MAX_PAPERS,
+    #     "sort": "citationCount:desc"
+    # }
+
     params = {
-        "query": query,
-        "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
-        "limit": MAX_PAPERS
+    "query": query,
+    "fields": "title,url,abstract,isOpenAccess,openAccessPdf",
+    "limit": MAX_PAPERS
     }
 
-    response = requests.get(SEMANTIC_SCHOLAR_API, headers=headers, params=params)
+    # Only add year if parsed from query
+    if year:
+        params["year"] = year
 
-    if response.status_code == 200:
-        results = response.json().get("data", [])
+    MAX_RETRIES = 3
+    RETRY_WAIT = 5  # seconds
+
+    response = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            response = requests.get(
+                SEMANTIC_SCHOLAR_API, headers=headers, params=params, timeout=30
+            )
+            if response.status_code == 200:
+                break
+
+            print(
+                f"Error fetching papers from Semantic Scholar. Status Code: {response.status_code}. "
+                f"Attempt {attempt}/{MAX_RETRIES}"
+            )
+            if attempt < MAX_RETRIES:
+                time.sleep(RETRY_WAIT)
+        except requests.exceptions.RequestException as e:
+            print(
+                f"Error fetching papers from Semantic Scholar. Error: {e}. "
+                f"Attempt {attempt}/{MAX_RETRIES}"
+            )
+            if attempt < MAX_RETRIES:
+                time.sleep(RETRY_WAIT)
+
+    if response is not None and response.status_code == 200:
+        try:
+            results = response.json().get("data", [])
+        except ValueError as e:
+            print(f"Error parsing Semantic Scholar response JSON: {e}")
+            return papers_downloaded
+
         for paper in results:
             title = paper.get("title", "Untitled")  # Default to 'Untitled' if title is missing
             open_access_pdf = paper.get("openAccessPdf")  # Get the dictionary (could be None)
-  
+
             if isinstance(open_access_pdf, dict):  # Ensure it's a dictionary
                 pdf_url = open_access_pdf.get("url")
                 if pdf_url:
@@ -219,8 +269,7 @@ def download_relevant_papers(query: str):
                     if file_path:
                         papers_downloaded.append(file_path)
                     time.sleep(2)
-                # papers_downloaded.append(file_path)
     else:
-        print("Error fetching papers from Semantic Scholar.")
+        print("Error fetching papers from Semantic Scholar after retries.")
 
     return papers_downloaded
