@@ -1,0 +1,14 @@
+# AgentD Pipeline Configuration
+# Usage: conda run -n agentd python run_pipeline_test.py --config pipeline_config.yaml
+
+# Target protein and disease - the LLM will discover the appropriate drug
+protein: "BCL-2"
+disease: "chronic lymphocytic leukemia"
+
+# Pipeline parameters
+iterations: 2
+num_smiles: 2        # Use 2-5 for testing, 20-50 for production
+run_boltz: false
+boltz_top_k: 2
+boltz_extra_args_json: '["--use_msa_server","--accelerator","gpu","--num_workers","4"]'
+model: "gpt-4o"
