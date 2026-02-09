@@ -1,0 +1,21 @@
+# AgentD Pipeline Configuration (with relaxed selection filters)
+# Usage: conda run -n agentd python run_agentd.py --config pipeline_config_selection.yaml
+
+run_id: "BCL2_selection"
+model: "gpt-4o"
+
+protein: "BCL-2"
+disease: "chronic lymphocytic leukemia"
+
+# Pipeline parameters
+iterations: 2
+num_smiles: 2        
+run_boltz: true
+boltz_top_k: 2
+boltz_extra_args_json: '["--use_msa_server","--accelerator","gpu","--num_workers","4"]'
+
+
+# Candidate selection filters (for Boltz)
+min_qed: 0.50        
+min_pkd: 5.0    
+
