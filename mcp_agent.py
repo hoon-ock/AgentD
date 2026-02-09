@@ -942,6 +942,8 @@ def _make_mcp():
         boltz_top_k: int = 10,
         boltz_extra_args_json: str = "[\"--use_msa_server\",\"--accelerator\",\"gpu\",\"--num_workers\",\"20\"]",
         model: str = "gpt-4o",
+        min_qed: float = 0.50,
+        min_pkd: float = 5.0,
         run_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
@@ -956,6 +958,8 @@ def _make_mcp():
         - boltz_top_k: Number of top candidates for Boltz (default 10)
         - boltz_extra_args_json: Extra args for Boltz as JSON string
         - model: LLM model for refinement (default "gpt-4o")
+        - min_qed: Minimum QED score for candidate selection (default 0.50)
+        - min_pkd: Minimum pKd value for candidate selection (default 5.0)
         - run_id: Custom run ID (optional, auto-generated if not provided)
 
         Note: REINVENT_PATH is read from configs/tool_globals.py
@@ -987,6 +991,8 @@ def _make_mcp():
                 "boltz_top_k": boltz_top_k,
                 "boltz_extra_args_json": boltz_extra_args_json,
                 "model": model,
+                "min_qed": min_qed,
+                "min_pkd": min_pkd,
                 "created_at": _now_utc_iso(),
             },
         )
@@ -1366,7 +1372,7 @@ def _make_mcp():
 
         # --- Boltz structure generation + execution ---
         # --- Boltz: Always generate configs, optionally run structure prediction ---
-        # Selection criteria: Oprea filter + 2/3 drug rules + pKd > 6.0
+        # Selection criteria: Oprea filter + 2/3 drug rules + pKd > min_pkd + QED >= min_qed
         boltz_jobs: List[Dict[str, Any]] = []
         boltz_yamls: List[str] = []
         smiles_for_boltz: List[str] = []
@@ -1410,17 +1416,17 @@ def _make_mcp():
                             # Score candidates (adds drug-likeness columns: oprea, lipinski, veber, ghose, QED)
                             _score_candidates(merged_csv, scored_csv)
                             
-                            # Select final candidates with strict filters:
+                            # Select final candidates with filters from config:
                             # - Oprea lead-like = True
                             # - At least 2 of 3 drug rules (Lipinski, Veber, Ghose)
-                            # - pKd > 6.0
-                            # - QED >= 0.55
+                            # - pKd > min_pkd (from config)
+                            # - QED >= min_qed (from config)
                             _select_final_candidates(
                                 scored_csv,
                                 final_candidates_csv,
                                 top_k=int(boltz_top_k),
-                                min_pkd=6.0,
-                                min_qed=0.55,
+                                min_pkd=float(min_pkd),
+                                min_qed=float(min_qed),
                             )
                             
                             # Read selected candidates
@@ -1430,6 +1436,8 @@ def _make_mcp():
                             progress.update("boltz", {
                                 "substep": "candidates_selected",
                                 "passed_filters": len(smiles_for_boltz),
+                                "filter_min_qed": min_qed,
+                                "filter_min_pkd": min_pkd,
                             })
                         
                     except Exception as e:
