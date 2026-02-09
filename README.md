@@ -64,9 +64,50 @@
 
 ---
 
-## Example Notebooks
+## Quick Start: MCP Server
 
-Example Jupyter notebooks demonstrating the main workflows are provided in the [test_case](http://_vscodecontentref_/2) directory:
+AgentD can be run as an MCP (Model Context Protocol) server for automated end-to-end drug discovery pipelines.
+
+### Running the Pipeline
+
+```bash
+# Run full pipeline with config
+conda run -n agentd python run_agentd.py --config pipeline_config.yaml
+
+# Run in Q&A mode (interactive RAG-based research Q&A)
+conda run -n agentd python run_agentd.py --qna --config pipeline_config.yaml
+```
+
+### Pipeline Configuration
+
+Edit `pipeline_config.yaml` to customize your run:
+
+```yaml
+protein: "BCL-2"
+disease: "chronic lymphocytic leukemia"
+iterations: 2
+num_smiles: 20       # Candidates per model (use 2-5 for testing)
+run_boltz: true      # Generate 3D structures
+boltz_top_k: 10
+model: "gpt-4o"
+```
+
+The pipeline will:
+1. **Extract** drug information using LLM (discovers drug name, UniProt ID, FASTA, SMILES)
+2. **Pool** candidate molecules using REINVENT (Mol2Mol + Reinvent models)
+3. **Iterate** through prediction (affinity + ADMET) and LLM-driven refinement
+4. **Select** final candidates based on drug-likeness filters (Oprea, Lipinski, Veber, Ghose, QED, pKd)
+5. **Generate** 3D protein-ligand structures with Boltz (if enabled)
+
+Results are saved in `runs/<run_id>/` with `boltz_candidates.csv` containing the final filtered candidates.
+
+---
+
+## Example Notebooks (v1.0 - Paper Reproduction)
+
+> **Note:** To reproduce results from the paper, use [release v1.0](https://github.com/hoon-ock/AgentD/releases/tag/V1)
+
+Example Jupyter notebooks demonstrating step-by-step workflows are in `example/test_case/`:
 
 - `1. extraction.ipynb` – Data extraction and retrieval
 - `2. qna.ipynb` – Domain-specific question answering
@@ -74,8 +115,6 @@ Example Jupyter notebooks demonstrating the main workflows are provided in the [
 - `4. prediction.ipynb` – Molecular property prediction
 - `5. refinement.ipynb` – SMILES refinement
 - `6. generation.ipynb` – Protein-ligand 3D structure generation
-
-You can run these notebooks step-by-step to see how to use the agent for various drug discovery tasks.
 
 ---
 
