@@ -154,4 +154,4 @@ If you use **agentD** in your research or project, please cite:
 ## Contact
 
 For questions, suggestions, or support, please contact:  
-Email: [jock@andrew.cmu.edu](mailto:jock@andrew.cmu.edu)
+Email: [jock@andrew.cmu.edu](mailto:jock@andrew.cmu.edu) & [radheeshsharma1@gmail.com](mailto:radheeshsharma1@gmail.com)
