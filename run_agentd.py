@@ -45,6 +45,8 @@ DEFAULT_CONFIG = {
     "boltz_top_k": 2,
     "boltz_extra_args_json": '["--use_msa_server","--accelerator","gpu","--num_workers","4"]',
     "model": "gpt-4o",
+    "min_qed": 0.50,   # Minimum QED score for candidate selection
+    "min_pkd": 5.0,    # Minimum pKd value for candidate selection
 }
 
 
@@ -285,6 +287,8 @@ async def run_pipeline_mode(config: dict):
 
         # Display configuration
         print("Configuration:")
+        if config.get("run_id"):
+            print(f"  Run ID: {config['run_id']}")
         print(f"  Protein: {config['protein']}")
         print(f"  Disease: {config['disease']}")
         print(f"  (Drug will be discovered via LLM extraction)")
@@ -292,6 +296,8 @@ async def run_pipeline_mode(config: dict):
         print(f"  Num SMILES: {config['num_smiles']} per model")
         print(f"  Run Boltz: {config['run_boltz']}")
         print(f"  Boltz Top K: {config['boltz_top_k']}")
+        print(f"  Min QED: {config.get('min_qed', 0.50)}")
+        print(f"  Min pKd: {config.get('min_pkd', 5.0)}")
         print(f"  Model: {config['model']}")
         print("-" * 70)
         print("\nProgress updates will appear below:")
@@ -302,19 +308,25 @@ async def run_pipeline_mode(config: dict):
         stop_monitor = asyncio.Event()
         monitor_task = asyncio.create_task(monitor_progress_background(stop_monitor))
     
-        result = await client.call_tool(
-            "agentd_run_pipeline",
-            {
-                "protein": config["protein"],
-                "disease": config["disease"],
-                "iterations": config["iterations"],
-                "num_smiles": config["num_smiles"],
-                "run_boltz": config["run_boltz"],
-                "boltz_top_k": config["boltz_top_k"],
-                "boltz_extra_args_json": config["boltz_extra_args_json"],
-                "model": config["model"],
-            },
-        )
+        # Build pipeline parameters
+        pipeline_params = {
+            "protein": config["protein"],
+            "disease": config["disease"],
+            "iterations": config["iterations"],
+            "num_smiles": config["num_smiles"],
+            "run_boltz": config["run_boltz"],
+            "boltz_top_k": config["boltz_top_k"],
+            "boltz_extra_args_json": config["boltz_extra_args_json"],
+            "model": config["model"],
+            "min_qed": config.get("min_qed", 0.50),
+            "min_pkd": config.get("min_pkd", 5.0),
+        }
+        
+        # Add run_id if specified in config
+        if config.get("run_id"):
+            pipeline_params["run_id"] = config["run_id"]
+        
+        result = await client.call_tool("agentd_run_pipeline", pipeline_params)
 
         # Stop the progress monitor
         stop_monitor.set()
