@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "configs": {
+    "Mol2Mol": "configs/Mol2Mol.toml",
+    "Reinvent": "configs/Reinvent.toml"
+  },
+  "results": {
+    "Mol2Mol": "REINVENT execution completed successfully.",
+    "Reinvent": "REINVENT execution completed successfully."
+  },
+  "pool_dir": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_pipeline/pool"
+}

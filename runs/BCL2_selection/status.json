@@ -1,0 +1,555 @@
+{
+  "run_dir": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+  "started_at": "2026-02-09T15:01:32.682162+00:00",
+  "current_step": "pipeline_complete",
+  "last_updated": "2026-02-09T15:19:30.220120+00:00",
+  "steps": [
+    {
+      "step": "initializing",
+      "timestamp": "2026-02-09T15:01:32.682186+00:00",
+      "details": {
+        "protein": "BCL-2",
+        "disease": "chronic lymphocytic leukemia"
+      }
+    },
+    {
+      "step": "extraction",
+      "timestamp": "2026-02-09T15:01:32.682756+00:00",
+      "details": {
+        "substep": "starting_llm_extraction"
+      }
+    },
+    {
+      "step": "extraction",
+      "timestamp": "2026-02-09T15:02:32.560776+00:00",
+      "details": {
+        "substep": "llm_extraction_completed"
+      }
+    },
+    {
+      "step": "extraction",
+      "timestamp": "2026-02-09T15:02:32.589127+00:00",
+      "details": {
+        "substep": "completed",
+        "uniprot_id": "P10415",
+        "drug_name": "Venetoclax",
+        "smiles": "CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CC..."
+      }
+    },
+    {
+      "step": "pooling",
+      "timestamp": "2026-02-09T15:02:32.589353+00:00",
+      "details": {
+        "substep": "running_reinvent",
+        "num_smiles": 2
+      }
+    },
+    {
+      "step": "pooling",
+      "timestamp": "2026-02-09T15:02:53.863461+00:00",
+      "details": {
+        "substep": "completed",
+        "ok": true
+      }
+    },
+    {
+      "step": "iteration_0",
+      "timestamp": "2026-02-09T15:02:53.872452+00:00",
+      "details": {
+        "substep": "starting",
+        "iteration": 0,
+        "total_iterations": 2,
+        "is_last": false
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:02:53.873453+00:00",
+      "details": {
+        "substep": "starting_affinity_and_admet",
+        "num_candidates": 4
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:03:23.903545+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 30,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:03:53.940528+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 60,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:04:23.970019+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 90,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:04:54.006793+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 120,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:05:24.039906+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 150,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:05:54.070001+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 180,
+        "statuses": {
+          "affinity_i00_9fe54763bbff": "finished",
+          "admet_i00_d8215b0ed6dc": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_0_prediction",
+      "timestamp": "2026-02-09T15:06:04.081587+00:00",
+      "details": {
+        "substep": "predictions_completed",
+        "affinity_status": "finished",
+        "admet_status": "finished"
+      }
+    },
+    {
+      "step": "iteration_0_scoring",
+      "timestamp": "2026-02-09T15:06:04.083084+00:00",
+      "details": {
+        "substep": "completed"
+      }
+    },
+    {
+      "step": "iteration_0_refinement",
+      "timestamp": "2026-02-09T15:06:04.084849+00:00",
+      "details": {
+        "substep": "starting_llm_refinement"
+      }
+    },
+    {
+      "step": "iteration_0_refinement",
+      "timestamp": "2026-02-09T15:06:53.815536+00:00",
+      "details": {
+        "substep": "completed"
+      }
+    },
+    {
+      "step": "iteration_1",
+      "timestamp": "2026-02-09T15:06:53.824459+00:00",
+      "details": {
+        "substep": "starting",
+        "iteration": 1,
+        "total_iterations": 2,
+        "is_last": true
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:06:53.826858+00:00",
+      "details": {
+        "substep": "starting_affinity_and_admet",
+        "num_candidates": 4
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:07:23.866135+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 30,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:07:53.895750+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 60,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:08:23.931893+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 90,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:08:53.965963+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 120,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:09:23.994012+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 150,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:09:54.029909+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 180,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:10:24.059825+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 210,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:10:54.095910+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 240,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:11:24.133421+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 270,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:11:54.163793+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 300,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:12:24.197341+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 330,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:12:54.231873+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 360,
+        "statuses": {
+          "affinity_i01_before_5a63758795fa": "finished",
+          "admet_i01_before_d5c94fb63a37": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_prediction",
+      "timestamp": "2026-02-09T15:13:09.249537+00:00",
+      "details": {
+        "substep": "predictions_completed",
+        "affinity_status": "finished",
+        "admet_status": "finished"
+      }
+    },
+    {
+      "step": "iteration_1_scoring",
+      "timestamp": "2026-02-09T15:13:09.251619+00:00",
+      "details": {
+        "substep": "completed"
+      }
+    },
+    {
+      "step": "iteration_1_refinement",
+      "timestamp": "2026-02-09T15:13:09.252925+00:00",
+      "details": {
+        "substep": "starting_llm_refinement"
+      }
+    },
+    {
+      "step": "iteration_1_refinement",
+      "timestamp": "2026-02-09T15:13:44.266839+00:00",
+      "details": {
+        "substep": "completed"
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:13:44.275777+00:00",
+      "details": {
+        "substep": "starting_after_predictions"
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:14:14.316469+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 30,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:14:44.349835+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 60,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:15:14.377942+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 90,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:15:44.410018+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 120,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:16:14.445644+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 150,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:16:44.481899+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 180,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:17:14.507913+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 210,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:17:44.537997+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 240,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:18:14.566034+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 270,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:18:44.603775+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 300,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:19:14.641384+00:00",
+      "details": {
+        "substep": "waiting",
+        "wait_seconds": 330,
+        "statuses": {
+          "affinity_i01_after_32b05ccf52de": "finished",
+          "admet_i01_after_589cfce7686c": "running"
+        }
+      }
+    },
+    {
+      "step": "iteration_1_after_prediction",
+      "timestamp": "2026-02-09T15:19:29.663464+00:00",
+      "details": {
+        "substep": "completed",
+        "affinity_after_exists": true,
+        "admet_after_exists": true
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:19:29.665862+00:00",
+      "details": {
+        "substep": "selecting_candidates"
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:19:30.215134+00:00",
+      "details": {
+        "substep": "candidates_selected",
+        "passed_filters": 0,
+        "filter_min_qed": 0.5,
+        "filter_min_pkd": 5.0
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:19:30.215829+00:00",
+      "details": {
+        "substep": "generating_yamls",
+        "num_candidates": 0
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:19:30.219575+00:00",
+      "details": {
+        "substep": "no_candidates_passed_filters"
+      }
+    },
+    {
+      "step": "pipeline_complete",
+      "timestamp": "2026-02-09T15:19:30.220112+00:00",
+      "details": {
+        "total_iterations": 2
+      }
+    }
+  ]
+}

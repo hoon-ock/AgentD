@@ -1,0 +1,124 @@
+{
+  "ok": true,
+  "run_id": "BCL2_selection",
+  "run_dir": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+  "extraction_json": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/extraction.json",
+  "iterations": [
+    {
+      "iter": 0,
+      "ok": true,
+      "is_last": false,
+      "input_smiles_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/pool/candidates.csv",
+      "affinity_job": {
+        "job_id": "affinity_i00_9fe54763bbff",
+        "pid": 3655173,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "affinity",
+          "--sequence",
+          "MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK",
+          "--smiles_csv",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/pool/candidates.csv",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i00_9fe54763bbff.log",
+        "started_at": "2026-02-09T15:02:53.874594+00:00"
+      },
+      "admet_job": {
+        "job_id": "admet_i00_d8215b0ed6dc",
+        "pid": 3655174,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "admet",
+          "--smiles_csv",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/pool/candidates.csv",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i00_d8215b0ed6dc.log",
+        "started_at": "2026-02-09T15:02:53.875559+00:00"
+      },
+      "refinement_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/refinement/refinement.csv",
+      "affinity_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/property/affinity.csv",
+      "admet_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/property/admet.csv"
+    },
+    {
+      "iter": 1,
+      "ok": true,
+      "is_last": true,
+      "input_smiles_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/pool/candidates.csv",
+      "affinity_job": {
+        "job_id": "affinity_i01_before_5a63758795fa",
+        "pid": 3656507,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "affinity",
+          "--sequence",
+          "MAHAGRTGYDNREIVMKYIHYKLSQRGYEWDAGDVGAAPPGAAPAPGIFSSQPGHTPHPAASRDPVARTSPLQTPAAPGAAAGPALSPVPPVVHLTLRQAGDDFSRRYRRDFAEMSSQLHLTPFTARGRFATVVEELFRDGVNWGRIVAFFEFGGVMCVESVNREMSPLVDNIALWMTEYLNRHLHTWIQDNGGWDAFVELYGPSMRPLFDFSWLSLKTLLSLALVGACITLGAYLGHK",
+          "--smiles_csv",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/pool/candidates.csv",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i01_before_5a63758795fa.log",
+        "started_at": "2026-02-09T15:06:53.829167+00:00"
+      },
+      "admet_job": {
+        "job_id": "admet_i01_before_d5c94fb63a37",
+        "pid": 3656508,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "admet",
+          "--smiles_csv",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/pool/candidates.csv",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i01_before_d5c94fb63a37.log",
+        "started_at": "2026-02-09T15:06:53.830772+00:00"
+      },
+      "refinement_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/refinement/refinement.csv",
+      "affinity_before_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/property/affinity_before.csv",
+      "admet_before_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/property/admet_before.csv",
+      "affinity_after_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/property/affinity_after.csv",
+      "admet_after_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/property/admet_after.csv"
+    }
+  ],
+  "boltz": {
+    "yamls": [],
+    "jobs": []
+  }
+}

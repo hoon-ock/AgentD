@@ -1,0 +1,2 @@
+SMILES,Affinity [pKd],QED,lipinski_rule_of_5,veber_rule,ghose_filter,oprea_lead_like
+O=C(NS(=O)(=O)c1ccccc1O)c1ccc(N2CCN(CC3CC3)CC2=O)c(O)c1,5.470109939575195,0.6110960364798322,True,True,True,True

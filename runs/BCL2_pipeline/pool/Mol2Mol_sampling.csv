@@ -1,0 +1,3 @@
+SMILES,SMILES_state,Input_SMILES,Tanimoto,NLL
+CC(C)(C)OC(=O)NCCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CCO)CC3)c([N+](=O)[O-])c2)cc1,1,CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1,0.2972972972972973,11.18
+O=C(NS(=O)(=O)c1ccccc1Cl)c1ccc(N2CCN(CC3CC3)CC2=O)c(Cl)c1,1,CC1(C)CCC(CN2CCN(c3ccc(C(=O)NS(=O)(=O)c4ccc(NCC5CCOCC5)c([N+](=O)[O-])c4)c(Oc4cnc5[nH]ccc5c4)c3)CC2)=C(c2ccc(Cl)cc2)C1,0.23696682464454977,10.06

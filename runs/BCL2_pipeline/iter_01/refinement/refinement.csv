@@ -1,0 +1,5 @@
+SMILES,Updated_SMILES,Property,Rationale
+O=C(Cc1ccc2ccccc2c1)NC1CCC(N=c2cc(NC3CC3)c3cc(O)ccc3[nH]2)C1,O=C(Cc1ccc2ccccc2c1)NC1CCC(N=c2cc(NC3CC3)c3cc(O)ccc3[nH]2)C1,Solubility,"Attempts to modify the SMILES to improve solubility by introducing a hydroxyl group resulted in invalid structures. Therefore, the original SMILES is retained."
+CCNCCCCCCCCCCCCCNCCCCCCN,CCNCCCCCCCCCCCCCNCCCCCCN,Invalid SMILES,"The original SMILES provided is invalid, and attempts to modify it have also resulted in invalid SMILES. Please verify the input or provide a correct SMILES string."
+CC(C)(C)OC(=O)NCCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CCO)CC3)c(C#N)c2)cc1,CCOC(=O)NCCNc1ccc(S(=O)(=O)NC(=O)c2ccc(N3CCN(CCO)CC3)c(C#N)c2)cc1,High molecular weight and complexity,Replaced the tert-butyl group with an ethyl group to reduce molecular weight and improve solubility and metabolic stability.
+O=C(NS(=O)(=O)c1ccccc1Cl)c1ccc(N2CCN(CC3CC3)CC2=O)c(O)c1,O=C(NS(=O)(=O)c1ccccc1O)c1ccc(N2CCN(CC3CC3)CC2=O)c(O)c1,Solubility,Replacing the chlorine atom with a hydroxyl group can improve solubility and reduce potential metabolic liabilities associated with halogenated aromatic rings.
