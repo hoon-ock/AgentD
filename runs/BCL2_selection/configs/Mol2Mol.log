@@ -1,20 +1,20 @@
-10:02:47 <INFO> Started REINVENT 4.7.15 (C) AstraZeneca 2017, 2023 on 2026-02-09
-10:02:47 <INFO> Command line: /home/abadagab/anaconda3/envs/agentd/bin/reinvent -l configs/Mol2Mol.log configs/Mol2Mol.toml
-10:02:47 <INFO> Reading run configuration from /home/abadagab/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/Mol2Mol.toml using format toml
-10:02:47 <INFO> User abadagab on host MAIL-20
-10:02:47 <INFO> Python version 3.10.18
-10:02:47 <INFO> PyTorch version 2.9.1+cu128, git 5811a8d7da873dd699ff6687092c225caffcf1bb
-10:02:47 <INFO> PyTorch compiled with CUDA version 12.8
-10:02:47 <INFO> RDKit version 2025.09.4
-10:02:47 <INFO> Platform Linux-5.15.0-139-generic-x86_64-with-glibc2.31
-10:02:47 <INFO> CUDA driver version 550.78
-10:02:47 <INFO> Number of PyTorch CUDA devices 2
-10:02:47 <WARN> 'use_cuda' is deprecated, use 'device' instead
-10:02:47 <INFO> Using GPU device:0 NVIDIA RTX A6000
-10:02:47 <INFO> GPU memory: 48393 MiB free, 48669 MiB total
-10:02:47 <INFO> Writing JSON config file to /home/abadagab/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/_sampling.json
-10:02:47 <INFO> Starting Sampling
-10:02:47 <ERRO> /home/abadagab/REINVENT4/priors/mol2mol_medium_similarity.prior has invalid hash:
+10:45:03 <INFO> Started REINVENT 4.7.15 (C) AstraZeneca 2017, 2023 on 2026-02-09
+10:45:03 <INFO> Command line: /home/abadagab/anaconda3/envs/agentd/bin/reinvent -l configs/Mol2Mol.log configs/Mol2Mol.toml
+10:45:03 <INFO> Reading run configuration from /home/abadagab/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/Mol2Mol.toml using format toml
+10:45:03 <INFO> User abadagab on host MAIL-20
+10:45:03 <INFO> Python version 3.10.18
+10:45:03 <INFO> PyTorch version 2.9.1+cu128, git 5811a8d7da873dd699ff6687092c225caffcf1bb
+10:45:03 <INFO> PyTorch compiled with CUDA version 12.8
+10:45:03 <INFO> RDKit version 2025.09.4
+10:45:03 <INFO> Platform Linux-5.15.0-139-generic-x86_64-with-glibc2.31
+10:45:03 <INFO> CUDA driver version 550.78
+10:45:03 <INFO> Number of PyTorch CUDA devices 2
+10:45:03 <WARN> 'use_cuda' is deprecated, use 'device' instead
+10:45:03 <INFO> Using GPU device:0 NVIDIA RTX A6000
+10:45:03 <INFO> GPU memory: 48393 MiB free, 48669 MiB total
+10:45:03 <INFO> Writing JSON config file to /home/abadagab/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/_sampling.json
+10:45:03 <INFO> Starting Sampling
+10:45:03 <ERRO> /home/abadagab/REINVENT4/priors/mol2mol_medium_similarity.prior has invalid hash:
 { 'comments': [],
   'creation_date': 0,
   'date_format': 'UNIX epoch',
@@ -24,8 +24,8 @@
   'model_id_format': 'uuid.uuid4 3.10.12',
   'origina_data_source': 'ChEMBL 28',
   'updates': []}
-10:02:47 <INFO> Number of network parameters: 17,462,400
-10:02:47 <INFO> Network architecture:
+10:45:03 <INFO> Number of network parameters: 17,462,400
+10:45:03 <INFO> Network architecture:
 EncoderDecoder(
   (encoder): Encoder(
     (layers): ModuleList(
@@ -101,10 +101,10 @@ EncoderDecoder(
     (proj): Linear(in_features=256, out_features=128, bias=True)
   )
 )
-10:02:47 <INFO> Using generator Mol2Mol
-10:02:47 <INFO> Writing sampled SMILES to CSV file pool/Mol2Mol_sampling.csv
-10:02:47 <WARN> randomize_smiles was set to True but the model was not trained with randomized SMILES.  Setting randomize_smiles to False.
-10:02:47 <INFO> Sampling 2 SMILES from model /home/abadagab/REINVENT4/priors/mol2mol_medium_similarity.prior
-10:02:48 <INFO> Removed 0 invalid SMILES
-10:02:48 <INFO> Peak main memory usage: 1598.113 MiB
-10:02:48 <INFO> Finished REINVENT on 2026-02-09
+10:45:03 <INFO> Using generator Mol2Mol
+10:45:03 <INFO> Writing sampled SMILES to CSV file pool/Mol2Mol_sampling.csv
+10:45:03 <WARN> randomize_smiles was set to True but the model was not trained with randomized SMILES.  Setting randomize_smiles to False.
+10:45:03 <INFO> Sampling 2 SMILES from model /home/abadagab/REINVENT4/priors/mol2mol_medium_similarity.prior
+10:45:04 <INFO> Removed 0 invalid SMILES
+10:45:04 <INFO> Peak main memory usage: 1598.215 MiB
+10:45:04 <INFO> Finished REINVENT on 2026-02-09

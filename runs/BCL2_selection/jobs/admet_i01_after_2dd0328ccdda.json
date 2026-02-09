@@ -1,0 +1,24 @@
+{
+  "status": "finished",
+  "job_id": "admet_i01_after_2dd0328ccdda",
+  "pid": 3668114,
+  "command": [
+    "conda",
+    "run",
+    "-n",
+    "agentd",
+    "python",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+    "_worker",
+    "--kind",
+    "admet",
+    "--smiles_csv",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/refinement/updated_smiles_temp.csv",
+    "--out_dir",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01"
+  ],
+  "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01",
+  "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i01_after_2dd0328ccdda.log",
+  "started_at": "2026-02-09T15:53:00.724253+00:00",
+  "finished_at": "2026-02-09T15:56:40.962714+00:00"
+}

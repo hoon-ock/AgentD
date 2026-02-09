@@ -10,8 +10,8 @@
       "is_last": false,
       "input_smiles_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/pool/candidates.csv",
       "affinity_job": {
-        "job_id": "affinity_i00_9fe54763bbff",
-        "pid": 3655173,
+        "job_id": "affinity_i00_4f030412bb62",
+        "pid": 3666057,
         "command": [
           "conda",
           "run",
@@ -30,12 +30,12 @@
           "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00"
         ],
         "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00",
-        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i00_9fe54763bbff.log",
-        "started_at": "2026-02-09T15:02:53.874594+00:00"
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i00_4f030412bb62.log",
+        "started_at": "2026-02-09T15:45:09.981306+00:00"
       },
       "admet_job": {
-        "job_id": "admet_i00_d8215b0ed6dc",
-        "pid": 3655174,
+        "job_id": "admet_i00_ad0e3b70de3a",
+        "pid": 3666058,
         "command": [
           "conda",
           "run",
@@ -52,8 +52,8 @@
           "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00"
         ],
         "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00",
-        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i00_d8215b0ed6dc.log",
-        "started_at": "2026-02-09T15:02:53.875559+00:00"
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i00_ad0e3b70de3a.log",
+        "started_at": "2026-02-09T15:45:09.982563+00:00"
       },
       "refinement_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/refinement/refinement.csv",
       "affinity_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_00/property/affinity.csv",
@@ -65,8 +65,8 @@
       "is_last": true,
       "input_smiles_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/pool/candidates.csv",
       "affinity_job": {
-        "job_id": "affinity_i01_before_5a63758795fa",
-        "pid": 3656507,
+        "job_id": "affinity_i01_before_db75044d678c",
+        "pid": 3667095,
         "command": [
           "conda",
           "run",
@@ -85,12 +85,12 @@
           "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01"
         ],
         "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01",
-        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i01_before_5a63758795fa.log",
-        "started_at": "2026-02-09T15:06:53.829167+00:00"
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/affinity_i01_before_db75044d678c.log",
+        "started_at": "2026-02-09T15:49:09.015841+00:00"
       },
       "admet_job": {
-        "job_id": "admet_i01_before_d5c94fb63a37",
-        "pid": 3656508,
+        "job_id": "admet_i01_before_ee38bbb0f67f",
+        "pid": 3667096,
         "command": [
           "conda",
           "run",
@@ -107,8 +107,8 @@
           "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01"
         ],
         "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01",
-        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i01_before_d5c94fb63a37.log",
-        "started_at": "2026-02-09T15:06:53.830772+00:00"
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/admet_i01_before_ee38bbb0f67f.log",
+        "started_at": "2026-02-09T15:49:09.017320+00:00"
       },
       "refinement_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/refinement/refinement.csv",
       "affinity_before_csv": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/iter_01/property/affinity_before.csv",
@@ -118,7 +118,59 @@
     }
   ],
   "boltz": {
-    "yamls": [],
-    "jobs": []
+    "yamls": [
+      "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml",
+      "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml"
+    ],
+    "jobs": [
+      {
+        "job_id": "boltz_8a3e40e027ae",
+        "pid": 3669093,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "boltz",
+          "--yaml_path",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+          "--extra_args_json",
+          "[\"--use_msa_server\", \"--accelerator\", \"gpu\", \"--num_workers\", \"4\"]"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/boltz_8a3e40e027ae.log",
+        "started_at": "2026-02-09T15:56:41.270741+00:00"
+      },
+      {
+        "job_id": "boltz_566f4614d667",
+        "pid": 3669343,
+        "command": [
+          "conda",
+          "run",
+          "-n",
+          "agentd",
+          "python",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+          "_worker",
+          "--kind",
+          "boltz",
+          "--yaml_path",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml",
+          "--out_dir",
+          "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+          "--extra_args_json",
+          "[\"--use_msa_server\", \"--accelerator\", \"gpu\", \"--num_workers\", \"4\"]"
+        ],
+        "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+        "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/boltz_566f4614d667.log",
+        "started_at": "2026-02-09T15:57:26.321718+00:00"
+      }
+    ]
   }
 }

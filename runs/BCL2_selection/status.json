@@ -1,12 +1,12 @@
 {
   "run_dir": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
-  "started_at": "2026-02-09T15:01:32.682162+00:00",
+  "started_at": "2026-02-09T15:44:02.120991+00:00",
   "current_step": "pipeline_complete",
-  "last_updated": "2026-02-09T15:19:30.220120+00:00",
+  "last_updated": "2026-02-09T15:57:36.334410+00:00",
   "steps": [
     {
       "step": "initializing",
-      "timestamp": "2026-02-09T15:01:32.682186+00:00",
+      "timestamp": "2026-02-09T15:44:02.121012+00:00",
       "details": {
         "protein": "BCL-2",
         "disease": "chronic lymphocytic leukemia"
@@ -14,21 +14,21 @@
     },
     {
       "step": "extraction",
-      "timestamp": "2026-02-09T15:01:32.682756+00:00",
+      "timestamp": "2026-02-09T15:44:02.121700+00:00",
       "details": {
         "substep": "starting_llm_extraction"
       }
     },
     {
       "step": "extraction",
-      "timestamp": "2026-02-09T15:02:32.560776+00:00",
+      "timestamp": "2026-02-09T15:44:49.931446+00:00",
       "details": {
         "substep": "llm_extraction_completed"
       }
     },
     {
       "step": "extraction",
-      "timestamp": "2026-02-09T15:02:32.589127+00:00",
+      "timestamp": "2026-02-09T15:44:49.955967+00:00",
       "details": {
         "substep": "completed",
         "uniprot_id": "P10415",
@@ -38,7 +38,7 @@
     },
     {
       "step": "pooling",
-      "timestamp": "2026-02-09T15:02:32.589353+00:00",
+      "timestamp": "2026-02-09T15:44:49.956191+00:00",
       "details": {
         "substep": "running_reinvent",
         "num_smiles": 2
@@ -46,7 +46,7 @@
     },
     {
       "step": "pooling",
-      "timestamp": "2026-02-09T15:02:53.863461+00:00",
+      "timestamp": "2026-02-09T15:45:09.968206+00:00",
       "details": {
         "substep": "completed",
         "ok": true
@@ -54,7 +54,7 @@
     },
     {
       "step": "iteration_0",
-      "timestamp": "2026-02-09T15:02:53.872452+00:00",
+      "timestamp": "2026-02-09T15:45:09.978417+00:00",
       "details": {
         "substep": "starting",
         "iteration": 0,
@@ -64,7 +64,7 @@
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:02:53.873453+00:00",
+      "timestamp": "2026-02-09T15:45:09.979950+00:00",
       "details": {
         "substep": "starting_affinity_and_admet",
         "num_candidates": 4
@@ -72,79 +72,79 @@
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:03:23.903545+00:00",
+      "timestamp": "2026-02-09T15:45:40.018687+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 30,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:03:53.940528+00:00",
+      "timestamp": "2026-02-09T15:46:10.054006+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 60,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:04:23.970019+00:00",
+      "timestamp": "2026-02-09T15:46:40.087937+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 90,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:04:54.006793+00:00",
+      "timestamp": "2026-02-09T15:47:10.122053+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 120,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:05:24.039906+00:00",
+      "timestamp": "2026-02-09T15:47:40.151989+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 150,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:05:54.070001+00:00",
+      "timestamp": "2026-02-09T15:48:10.188811+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 180,
         "statuses": {
-          "affinity_i00_9fe54763bbff": "finished",
-          "admet_i00_d8215b0ed6dc": "running"
+          "affinity_i00_4f030412bb62": "finished",
+          "admet_i00_ad0e3b70de3a": "running"
         }
       }
     },
     {
       "step": "iteration_0_prediction",
-      "timestamp": "2026-02-09T15:06:04.081587+00:00",
+      "timestamp": "2026-02-09T15:48:25.205599+00:00",
       "details": {
         "substep": "predictions_completed",
         "affinity_status": "finished",
@@ -153,28 +153,28 @@
     },
     {
       "step": "iteration_0_scoring",
-      "timestamp": "2026-02-09T15:06:04.083084+00:00",
+      "timestamp": "2026-02-09T15:48:25.207187+00:00",
       "details": {
         "substep": "completed"
       }
     },
     {
       "step": "iteration_0_refinement",
-      "timestamp": "2026-02-09T15:06:04.084849+00:00",
+      "timestamp": "2026-02-09T15:48:25.208824+00:00",
       "details": {
         "substep": "starting_llm_refinement"
       }
     },
     {
       "step": "iteration_0_refinement",
-      "timestamp": "2026-02-09T15:06:53.815536+00:00",
+      "timestamp": "2026-02-09T15:49:09.003722+00:00",
       "details": {
         "substep": "completed"
       }
     },
     {
       "step": "iteration_1",
-      "timestamp": "2026-02-09T15:06:53.824459+00:00",
+      "timestamp": "2026-02-09T15:49:09.011072+00:00",
       "details": {
         "substep": "starting",
         "iteration": 1,
@@ -184,7 +184,7 @@
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:06:53.826858+00:00",
+      "timestamp": "2026-02-09T15:49:09.013717+00:00",
       "details": {
         "substep": "starting_affinity_and_admet",
         "num_candidates": 4
@@ -192,151 +192,79 @@
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:07:23.866135+00:00",
+      "timestamp": "2026-02-09T15:49:39.048819+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 30,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:07:53.895750+00:00",
+      "timestamp": "2026-02-09T15:50:09.082017+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 60,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:08:23.931893+00:00",
+      "timestamp": "2026-02-09T15:50:39.117978+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 90,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:08:53.965963+00:00",
+      "timestamp": "2026-02-09T15:51:09.155055+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 120,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:09:23.994012+00:00",
+      "timestamp": "2026-02-09T15:51:39.191942+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 150,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:09:54.029909+00:00",
+      "timestamp": "2026-02-09T15:52:09.229581+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 180,
         "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
+          "affinity_i01_before_db75044d678c": "finished",
+          "admet_i01_before_ee38bbb0f67f": "running"
         }
       }
     },
     {
       "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:10:24.059825+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 210,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:10:54.095910+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 240,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:11:24.133421+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 270,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:11:54.163793+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 300,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:12:24.197341+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 330,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:12:54.231873+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 360,
-        "statuses": {
-          "affinity_i01_before_5a63758795fa": "finished",
-          "admet_i01_before_d5c94fb63a37": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_prediction",
-      "timestamp": "2026-02-09T15:13:09.249537+00:00",
+      "timestamp": "2026-02-09T15:52:24.249672+00:00",
       "details": {
         "substep": "predictions_completed",
         "affinity_status": "finished",
@@ -345,167 +273,119 @@
     },
     {
       "step": "iteration_1_scoring",
-      "timestamp": "2026-02-09T15:13:09.251619+00:00",
+      "timestamp": "2026-02-09T15:52:24.251622+00:00",
       "details": {
         "substep": "completed"
       }
     },
     {
       "step": "iteration_1_refinement",
-      "timestamp": "2026-02-09T15:13:09.252925+00:00",
+      "timestamp": "2026-02-09T15:52:24.252883+00:00",
       "details": {
         "substep": "starting_llm_refinement"
       }
     },
     {
       "step": "iteration_1_refinement",
-      "timestamp": "2026-02-09T15:13:44.266839+00:00",
+      "timestamp": "2026-02-09T15:53:00.712441+00:00",
       "details": {
         "substep": "completed"
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:13:44.275777+00:00",
+      "timestamp": "2026-02-09T15:53:00.719853+00:00",
       "details": {
         "substep": "starting_after_predictions"
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:14:14.316469+00:00",
+      "timestamp": "2026-02-09T15:53:30.754014+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 30,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:14:44.349835+00:00",
+      "timestamp": "2026-02-09T15:54:00.783930+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 60,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:15:14.377942+00:00",
+      "timestamp": "2026-02-09T15:54:30.810015+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 90,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:15:44.410018+00:00",
+      "timestamp": "2026-02-09T15:55:00.847384+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 120,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:16:14.445644+00:00",
+      "timestamp": "2026-02-09T15:55:30.882014+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 150,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:16:44.481899+00:00",
+      "timestamp": "2026-02-09T15:56:00.912623+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 180,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:17:14.507913+00:00",
+      "timestamp": "2026-02-09T15:56:30.949932+00:00",
       "details": {
         "substep": "waiting",
         "wait_seconds": 210,
         "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
+          "affinity_i01_after_5eeb03fb9f65": "finished",
+          "admet_i01_after_2dd0328ccdda": "running"
         }
       }
     },
     {
       "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:17:44.537997+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 240,
-        "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:18:14.566034+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 270,
-        "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:18:44.603775+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 300,
-        "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:19:14.641384+00:00",
-      "details": {
-        "substep": "waiting",
-        "wait_seconds": 330,
-        "statuses": {
-          "affinity_i01_after_32b05ccf52de": "finished",
-          "admet_i01_after_589cfce7686c": "running"
-        }
-      }
-    },
-    {
-      "step": "iteration_1_after_prediction",
-      "timestamp": "2026-02-09T15:19:29.663464+00:00",
+      "timestamp": "2026-02-09T15:56:40.964340+00:00",
       "details": {
         "substep": "completed",
         "affinity_after_exists": true,
@@ -514,39 +394,73 @@
     },
     {
       "step": "boltz",
-      "timestamp": "2026-02-09T15:19:29.665862+00:00",
+      "timestamp": "2026-02-09T15:56:40.966291+00:00",
       "details": {
         "substep": "selecting_candidates"
       }
     },
     {
       "step": "boltz",
-      "timestamp": "2026-02-09T15:19:30.215134+00:00",
+      "timestamp": "2026-02-09T15:56:41.263062+00:00",
       "details": {
         "substep": "candidates_selected",
-        "passed_filters": 0,
+        "passed_filters": 2,
         "filter_min_qed": 0.5,
         "filter_min_pkd": 5.0
       }
     },
     {
       "step": "boltz",
-      "timestamp": "2026-02-09T15:19:30.215829+00:00",
+      "timestamp": "2026-02-09T15:56:41.263667+00:00",
       "details": {
         "substep": "generating_yamls",
-        "num_candidates": 0
+        "num_candidates": 2
       }
     },
     {
       "step": "boltz",
-      "timestamp": "2026-02-09T15:19:30.219575+00:00",
+      "timestamp": "2026-02-09T15:56:41.268296+00:00",
       "details": {
-        "substep": "no_candidates_passed_filters"
+        "substep": "yamls_generated",
+        "num_yamls": 2,
+        "run_boltz": true
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:56:41.268729+00:00",
+      "details": {
+        "substep": "running_boltz_jobs",
+        "num_yamls": 2
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:56:41.269163+00:00",
+      "details": {
+        "substep": "running_boltz_1_of_2",
+        "yaml": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml"
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:57:26.318240+00:00",
+      "details": {
+        "substep": "running_boltz_2_of_2",
+        "yaml": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml"
+      }
+    },
+    {
+      "step": "boltz",
+      "timestamp": "2026-02-09T15:57:36.332580+00:00",
+      "details": {
+        "substep": "completed",
+        "num_jobs": 2
       }
     },
     {
       "step": "pipeline_complete",
-      "timestamp": "2026-02-09T15:19:30.220112+00:00",
+      "timestamp": "2026-02-09T15:57:36.334374+00:00",
       "details": {
         "total_iterations": 2
       }

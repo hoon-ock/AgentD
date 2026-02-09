@@ -1,4 +1,3 @@
-
 run_type = "sampling"
 device = "cuda:0"  # set torch device e.g. "cpu"
 json_out_config = "_sampling.json"  # write this TOML to JSON

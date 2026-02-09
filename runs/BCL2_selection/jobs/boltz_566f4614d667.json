@@ -1,0 +1,26 @@
+{
+  "status": "finished",
+  "job_id": "boltz_566f4614d667",
+  "pid": 3669343,
+  "command": [
+    "conda",
+    "run",
+    "-n",
+    "agentd",
+    "python",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/mcp_agent.py",
+    "_worker",
+    "--kind",
+    "boltz",
+    "--yaml_path",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/configs/MAHAG_O=C(N.yaml",
+    "--out_dir",
+    "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+    "--extra_args_json",
+    "[\"--use_msa_server\", \"--accelerator\", \"gpu\", \"--num_workers\", \"4\"]"
+  ],
+  "cwd": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection",
+  "log_path": "/home/radheesh/DrugDiscoveryAgent/AgentD/runs/BCL2_selection/logs/boltz_566f4614d667.log",
+  "started_at": "2026-02-09T15:57:26.321718+00:00",
+  "finished_at": "2026-02-09T15:57:36.332097+00:00"
+}

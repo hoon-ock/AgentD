@@ -1,3 +1,3 @@
 SMILES,SMILES_state,NLL
-COC(=O)c1sc(Cc2c(OC)cccc2OC(=O)c2ccc(Cl)cc2)nc1-c1ccc(Cl)cc1,1,36.53
-CCCC1(CCC)CC2=NC(=O)NC(c3cccc(Cl)c3)C2C(=N)O1,1,33.23
+CC(C)(Cc1ccccc1)NCC(O)c1ccc(F)cc1F,1,24.48
+O=C(N=c1cc2c(c[nH]1)N(c1c(F)cccc1Cl)C(=O)NC2)c1ccc(C(F)(F)F)cc1,1,30.42
