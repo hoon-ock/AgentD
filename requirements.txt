@@ -16,3 +16,4 @@ rdkit==2024.9.6
 requests==2.32.3
 torch==2.6.0
 transformers==4.41.0
+fastmcp>=2.14.5,<4
