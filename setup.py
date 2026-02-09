@@ -13,6 +13,7 @@ setup(
         "chembl-webresource-client==0.10.9",
         "faiss-cpu==1.10.0",
         "faiss-gpu==1.7.2",
+        "fastmcp>=2.14.5,<4",
         "langchain==0.3.23",
         "langchain-anthropic==0.3.13",
         "langchain-community==0.3.21",
