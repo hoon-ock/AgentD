@@ -90,16 +90,28 @@ num_smiles: 20       # Candidates per model (use 2-5 for testing)
 run_boltz: true      # Generate 3D structures
 boltz_top_k: 10
 model: "gpt-4o"
+
+# Candidate selection filters for Boltz
+min_qed: 0.50        # Minimum QED score (0-1)
+min_pkd: 5.0         # Minimum predicted pKd value
+
+# Optional: custom run ID (default: auto-generated timestamp)
+run_id: "my_experiment"
 ```
 
 The pipeline will:
 1. **Extract** drug information using LLM (discovers drug name, UniProt ID, FASTA, SMILES)
 2. **Pool** candidate molecules using REINVENT (Mol2Mol + Reinvent models)
 3. **Iterate** through prediction (affinity + ADMET) and LLM-driven refinement
-4. **Select** final candidates based on drug-likeness filters (Oprea, Lipinski, Veber, Ghose, QED, pKd)
+4. **Select** final candidates based on drug-likeness filters:
+   - Oprea lead-likeness filter
+   - At least 2 of 3 rules: Lipinski, Veber, Ghose
+   - QED score >= `min_qed` (configurable)
+   - Predicted pKd > `min_pkd` (configurable)
 5. **Generate** 3D protein-ligand structures with Boltz (if enabled)
 
 Results are saved in `runs/<run_id>/` with `boltz_candidates.csv` containing the final filtered candidates.
+
 
 ---
 
