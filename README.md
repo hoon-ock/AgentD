@@ -151,14 +151,22 @@ If you use **agentD** in your research or project, please cite:
 (soon to be updated)
 
 ```bibtex
-@misc{ock2025agentD,
-      title={Large Language Model Agent for Modular Task Execution in Drug Discovery}, 
-      author={Janghoon Ock and Radheesh Sharma Meda and Srivathsan Badrinarayanan and Neha S. Aluru and Achuth Chandrasekhar and Amir Barati Farimani},
-      year={2025},
-      eprint={2507.02925},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2507.02925}, 
+@article{ock2026agentd,
+author = {Ock, Janghoon and Meda, Radheesh Sharma and Badrinarayanan, Srivathsan and Aluru, Neha S. and Chandrasekhar, Achuth and Barati Farimani, Amir},
+title = {Large Language Model Agent for Modular Task Execution in Drug Discovery},
+journal = {Journal of Chemical Information and Modeling},
+volume = {66},
+number = {4},
+pages = {2055-2068},
+year = {2026},
+doi = {10.1021/acs.jcim.5c02454},
+    note ={PMID: 41662220},
+URL = { 
+        https://doi.org/10.1021/acs.jcim.5c02454
+},
+eprint = { 
+        https://doi.org/10.1021/acs.jcim.5c02454
+}
 }
 ```
 ---
